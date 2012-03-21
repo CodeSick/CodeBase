@@ -1,0 +1,9 @@
+bin/
+debug/
+packages/
+
+*.user
+*.cache
+*.suo
+*.obj
+*.lib
