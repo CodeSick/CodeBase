@@ -6,25 +6,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CodeBase.Models
 {
-    public class Article
+    public class Question
     {
         [Key]
         public int Id { get; set; }
-
-        public int UserId { get; set; }
-        public virtual User Author { get; set; }
-
         [Required]
-        public string Title { get; set; }
-
+        public User Author { get; set; }
         [Required]
         public string Content { get; set; }
-
-        [Required]
-        public Category Category { get; set; }
-
         public DateTime Date { get; set; }
-        public List<string> Tags { get; set; }
-        public List<Rating> Ratings { get; set; }
+        public List<Answer> Answers { get; set; }
     }
 }

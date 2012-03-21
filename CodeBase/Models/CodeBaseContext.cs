@@ -10,9 +10,10 @@ namespace CodeBase.Models
         // automatically whenever you change your model schema, add the following
         // code to the Application_Start method in your Global.asax file.
         // Note: this will destroy and re-create your database with every model change.
-        // 
-        // System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<CodeBase.Models.CodeBaseContext>());
+        //  System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<CodeBase.Models.CodeBaseContext>());
 
         public DbSet<Article> Articles { get; set; }
+
+        public DbSet<User> Users { get; set; }
     }
 }
