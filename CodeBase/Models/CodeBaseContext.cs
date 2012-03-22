@@ -15,5 +15,7 @@ namespace CodeBase.Models
         public DbSet<Article> Articles { get; set; }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<CodeBase.Models.Category> Categories { get; set; }
     }
 }

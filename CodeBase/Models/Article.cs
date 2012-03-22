@@ -23,8 +23,7 @@ namespace CodeBase.Models
         [Required]
         public Category Category { get; set; }
 
-        public DateTime Date { get; set; }
-        public List<string> Tags { get; set; }
+        public DateTime? Date { get; set; }
         public List<Rating> Ratings { get; set; }
     }
 }

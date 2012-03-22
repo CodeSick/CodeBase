@@ -1,6 +1,8 @@
 bin/
 debug/
 packages/
+_UpgradeReport_Files/
+_Backup/
 
 *.user
 *.cache

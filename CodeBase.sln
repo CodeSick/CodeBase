@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 11
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeBase", "CodeBase\CodeBase.csproj", "{5A8D17F0-1E08-4BC2-83AF-628A4D97CA0B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeBase.Tests", "CodeBase.Tests\CodeBase.Tests.csproj", "{8125E195-88B3-426C-B54E-F2902551C55D}"
