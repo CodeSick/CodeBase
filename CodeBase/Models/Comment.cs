@@ -9,13 +9,16 @@ namespace CodeBase.Models
     public class Comment
     {
         [Key]
-        public int Id { get; set; }
-        [Required]
-        public User Author { get; set; }
-        [Required]
-        public Article Article { get; set; }
+        public int CommentId { get; set; }
         [Required]
         public string Content { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
+
+        [ForeignKey("Author")]
+        public int UserId { get; set; }
+        public virtual User Author { get; set; }
+        [ForeignKey("Article")]
+        public int ArticleId { get; set; }
+        public virtual Article Article { get; set; }
     }
 }

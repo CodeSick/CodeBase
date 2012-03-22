@@ -9,13 +9,14 @@ namespace CodeBase.Models
     public class File
     {
         [Key]
-        public int Id { get; set; }
-        [Required]
-        public Article Article { get; set; }
+        public int FileId { get; set; }
         [Required]
         public string Filename { get; set; }
         public int Size { get; set; }
-        [Required]
         public Byte[] Raw { get; set; }
+
+        [ForeignKey("Article")]
+        public int ArticleId { get; set; }
+        public virtual Article Article { get; set; }
     }
 }

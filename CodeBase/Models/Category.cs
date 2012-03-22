@@ -9,8 +9,10 @@ namespace CodeBase.Models
     public class Category
     {
         [Key]
-        public int Id { get; set; }
+        public int CategoryId { get; set; }
         [Required]
         public string Title { get; set; }
+
+        public virtual ICollection<Article> Articles { get; set; }
     }
 }

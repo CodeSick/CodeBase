@@ -9,21 +9,21 @@ namespace CodeBase.Models
     public class Article
     {
         [Key]
-        public int Id { get; set; }
-
-        public int UserId { get; set; }
-        public virtual User Author { get; set; }
-
+        public int ArticleId { get; set; }
         [Required]
         public string Title { get; set; }
-
         [Required]
         public string Content { get; set; }
-
-        [Required]
-        public Category Category { get; set; }
-
         public DateTime? Date { get; set; }
-        public List<Rating> Ratings { get; set; }
+
+        [ForeignKey("Author")]
+        public int UserId { get; set; }
+        public virtual User Author { get; set; }
+        [ForeignKey("Category")]
+        public int CategoryId { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<File> Files { get; set; }
     }
 }

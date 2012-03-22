@@ -9,12 +9,14 @@ namespace CodeBase.Models
     public class Question
     {
         [Key]
-        public int Id { get; set; }
-        [Required]
-        public User Author { get; set; }
+        public int QuestionId { get; set; }
         [Required]
         public string Content { get; set; }
-        public DateTime Date { get; set; }
-        public List<Answer> Answers { get; set; }
+        public DateTime? Date { get; set; }
+
+        [ForeignKey("Author")]
+        public int UserId { get; set; }
+        public virtual User Author { get; set; }
+        public virtual ICollection<Answer> Answers { get; set; }
     }
 }

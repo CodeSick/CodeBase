@@ -9,11 +9,16 @@ namespace CodeBase.Models
     public class Rating
     {
         [Key]
-        public int Id { get; set; }
-        [Required]
-        public User Author { get; set; }
+        public int RatingId { get; set; }
         [Required]
         public int Value { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
+
+        [ForeignKey("Author")]
+        public int UserId { get; set; }
+        public virtual User Author { get; set; }
+        [ForeignKey("Article")]
+        public int ArticleId { get; set; }
+        public virtual Article Article { get; set; }
     }
 }
