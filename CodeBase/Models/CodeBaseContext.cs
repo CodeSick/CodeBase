@@ -29,11 +29,13 @@ namespace CodeBase.Models
 
         public DbSet<Rating> Ratings { get; set; }
 
-        /*
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            base.OnModelCreating(modelBuilder);
+           // modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
         }
-        */
+        
     }
 }
