@@ -1,0 +1,77 @@
+@model IEnumerable<CodeBase.Models.Article>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            Title
+        </th>
+        <th>
+            Content
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Author
+        </th>
+        <th>
+            Category
+        </th>
+        <th>
+            Ratings
+        </th>
+        <th>
+            Comments
+        </th>
+        <th>
+            Files
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ArticleId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ArticleId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ArticleId })
+        </td>
+        <td>
+			@item.Title
+        </td>
+        <td>
+			@item.Content
+        </td>
+        <td>
+			@String.Format("{0:g}", item.Date)
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.Author.Username).ToString()
+        </td>
+        <td>
+			@(item.Category == null ? "None" : item.Category.Title)
+        </td>
+        <td>
+			@(item.Ratings == null ? "None" : item.Ratings.Count.ToString())
+        </td>
+        <td>
+			@(item.Comments == null ? "None" : item.Comments.Count.ToString())
+        </td>
+        <td>
+			@(item.Files == null ? "None" : item.Files.Count.ToString())
+        </td>
+    </tr>
+}
+
+</table>
+
+
