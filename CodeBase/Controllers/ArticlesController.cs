@@ -46,6 +46,7 @@ namespace CodeBase.Controllers
         [HttpPost]
         public ActionResult Create(Article article)
         {
+            article.Date = DateTime.Now;
             if (ModelState.IsValid)
             {
                 context.Articles.Add(article);

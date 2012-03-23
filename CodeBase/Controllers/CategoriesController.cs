@@ -44,6 +44,7 @@ namespace CodeBase.Controllers
         [HttpPost]
         public ActionResult Create(Category category)
         {
+
             if (ModelState.IsValid)
             {
                 context.Categories.Add(category);
