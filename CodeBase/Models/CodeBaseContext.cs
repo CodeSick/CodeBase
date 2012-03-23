@@ -1,9 +1,10 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Linq;
 
 namespace CodeBase.Models
 {
-    public class CodeBaseContext : DbContext
+    public class CodeBaseContext : DbContext, CodeBase.Models.ICodeBaseRepository
     {
         // You can add custom code to this file. Changes will not be overwritten.
         // 
@@ -35,6 +36,11 @@ namespace CodeBase.Models
             base.OnModelCreating(modelBuilder);
            // modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+        }
+
+        public void SaveChanges()
+        {
+            base.SaveChanges();
         }
         
     }

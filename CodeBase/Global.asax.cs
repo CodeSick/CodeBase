@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using CodeBase.Models;
+using Ninject;
 
 namespace CodeBase
 {
@@ -33,6 +34,7 @@ namespace CodeBase
 
         protected void Application_Start()
         {
+            SetupDependencyInjection();
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
@@ -41,6 +43,13 @@ namespace CodeBase
             // System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseAlways<CodeBase.Models.CodeBaseContext>());
             //System.Data.Entity.Database.SetInitializer(new System.Data.Entity.CreateDatabaseIfNotExists<CodeBase.Models.CodeBaseContext>());
 
+        }
+
+        public void SetupDependencyInjection()
+        {
+            IKernel kernel = new StandardKernel();
+            kernel.Bind<ICodeBaseRepository>().To<CodeBaseContext>();
+            DependencyResolver.SetResolver(new NinjectDependencyReslover(kernel));
         }
     }
 }
