@@ -3,6 +3,7 @@ debug/
 packages/
 _UpgradeReport_Files/
 _Backup/
+App_Data/
 
 *.user
 *.cache

@@ -1,0 +1,28 @@
+@model CodeBase.Models.User
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Username)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Username)
+    @Html.ValidationMessageFor(model => model.Username)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Gravatar)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Gravatar)
+    @Html.ValidationMessageFor(model => model.Gravatar)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.JoinDate)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.JoinDate)
+    @Html.ValidationMessageFor(model => model.JoinDate)
+</div>
+
