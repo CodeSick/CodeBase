@@ -1,10 +1,12 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model CodeBase.ViewModel.IndexViewModel
+
+@{
+    ViewBag.Title = "Prva stran";
 }
 
-<h2>@ViewBag.Message</h2>
+<h2>@Model.Message</h2>
 <p>
     To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
 </p>
-<fieldset>
-</fieldset>
+
+@Html.Partial("~/Views/Articles/Index.cshtml", Model.Articles)

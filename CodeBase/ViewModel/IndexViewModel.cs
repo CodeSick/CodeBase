@@ -8,6 +8,7 @@ namespace CodeBase.ViewModel
 {
     public class IndexViewModel
     {
+        public String Message { get; set; }
         public IEnumerable<Article> Articles { get; set; }
     }
 }

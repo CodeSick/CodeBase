@@ -38,8 +38,8 @@ namespace CodeBase
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
             //System7.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<CodeBase.Models.CodeBaseContext>());
-           // System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseAlways<CodeBase.Models.CodeBaseContext>());
-            System.Data.Entity.Database.SetInitializer(new System.Data.Entity.CreateDatabaseIfNotExists<CodeBase.Models.CodeBaseContext>());
+            // System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseAlways<CodeBase.Models.CodeBaseContext>());
+            //System.Data.Entity.Database.SetInitializer(new System.Data.Entity.CreateDatabaseIfNotExists<CodeBase.Models.CodeBaseContext>());
 
         }
     }
