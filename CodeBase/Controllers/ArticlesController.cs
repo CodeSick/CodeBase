@@ -86,6 +86,7 @@ namespace CodeBase.Controllers
             return View(article);
         }
 
+
         //
         // GET: /Articles/Delete/5
  
