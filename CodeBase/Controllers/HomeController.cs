@@ -20,7 +20,7 @@ namespace CodeBase.Controllers
         {
             IndexViewModel model = new IndexViewModel { Message = "Hello to this beautiful site", Articles = context.Articles.Take(5).ToList() };
 
-            return View(model);
+            return View("Index",model);
         }
 
         public ActionResult About()

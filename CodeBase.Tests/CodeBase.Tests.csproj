@@ -72,6 +72,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\NinjectMVC3.cs" />
+    <Compile Include="HomeControllerTest.cs" />
+    <Compile Include="Models\FakeCodeBaseContext.cs" />
+    <Compile Include="Models\FakeRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
