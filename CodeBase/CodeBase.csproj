@@ -114,6 +114,15 @@
     <Compile Include="ViewModel\IndexViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\img\connect_facebook.png" />
+    <Content Include="Content\img\connect_rss.png" />
+    <Content Include="Content\img\connect_twitter.png" />
+    <Content Include="Content\img\favicon.ico" />
+    <Content Include="Content\img\footer_logo.png" />
+    <Content Include="Content\img\header_logo.png" />
+    <Content Include="Content\img\header_logo_hover.png" />
+    <Content Include="Content\img\icon_search.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -188,7 +197,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout_old_.cshtml" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +259,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Articles\_CreateOrEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
