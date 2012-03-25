@@ -1,1 +1,18 @@
-Bu
+Za delovanje se rabi:
+Asp net mvc 3
+Nuget package manager
+
+Baza je trenutno kr tista od appharbora.
+Če bo kdo kaj spreminjo modele, od zdaj naprej uporabljamo EF Migrations tak da lahko tabele v bazi posodobimo z ukazom 
+Update-Database v nuget consolo(isto ko syncdb za django)
+
+MVCScafolding:
+Scaffold Controller <ime modela> -force
+
+Testi grejo v tests project. Zaj je tolko da je en test not, to bomo še dodali sproti.
+
+Zaj pa še seznam nuget packagov ko mamo:
+-ef
+-moq -> package za izdelovanje fake razredov, uporabno za testiranje
+-ninject -> dependency injetion package
+-mvcscaffolding -> avtomatsko generiranje pogledov, controlorev pa tega stranja
