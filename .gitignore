@@ -10,3 +10,5 @@ App_Data/
 *.suo
 *.obj
 *.lib
+*.mdf
+*.ldf

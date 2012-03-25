@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using CodeBase.Models;
 
 namespace CodeBase.Controllers
@@ -18,7 +19,10 @@ namespace CodeBase.Controllers
 
         public ViewResult Index()
         {
-            return View(context.Users.Include(user => user.Articles).Include(user => user.Ratings).Include(user => user.Comments).Include(user => user.Answers).Include(user => user.Questions).ToList());
+            var i = context.Users.Include(user => user.Articles).Include(user => user.Ratings).Include(user => user.Comments).Include(user => user.Answers).Include(user => user.Questions).ToList();
+            //i.ForEach(x => x.MembershipUser = Membership.GetUser(x.Username));
+            //i.ForEach(x => x.Roles = Roles.GetRolesForUser(x.Username).ToList());
+            return View(i);
         }
 
         //
