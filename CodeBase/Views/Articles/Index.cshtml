@@ -16,9 +16,6 @@
             Title
         </th>
         <th>
-            Content
-        </th>
-        <th>
             Date
         </th>
         <th>
@@ -37,7 +34,6 @@
             Files
         </th>
     </tr>
-
 @foreach (var item in Model) {
     <tr>
         <td>
@@ -49,16 +45,13 @@
 			@item.Title
         </td>
         <td>
-			@item.Content
-        </td>
-        <td>
 			@String.Format("{0:g}", item.Date)
         </td>
         <td>
-			@Html.DisplayTextFor(_ => item.Author.Username).ToString()
+            @Html.RouteLink(item.Author.Username, new {controller="Users", action="Details", id = item.Author.UserId })
         </td>
         <td>
-			@(item.Category == null ? "None" : item.Category.Title)
+			@(item.Category.Title)
         </td>
         <td>
 			@(item.Ratings == null ? "None" : item.Ratings.Count.ToString())

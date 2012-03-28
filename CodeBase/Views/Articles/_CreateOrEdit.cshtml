@@ -18,17 +18,6 @@
 </div>
 
 
-<div class="editor-label">
-    User
-</div>
-<div class="editor-field">
-    @Html.DropDownListFor(model => model.UserId, ((IEnumerable<CodeBase.Models.User>)ViewBag.PossibleUsers).Select(option => new SelectListItem {
-        Text = option.Username, 
-        Value = option.UserId.ToString(),
-        Selected = (Model != null) && (option.UserId == Model.UserId)
-    }), "Choose...")
-    @Html.ValidationMessageFor(model => model.UserId)
-</div>
 <div class="editor-label"
     Category
 </div>

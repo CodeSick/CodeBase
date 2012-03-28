@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using CodeBase.Models;
 using System.Linq;
+using System.Web.Security;
 
 namespace CodeBase.Controllers
 {   
@@ -63,6 +64,8 @@ namespace CodeBase.Controllers
         public ActionResult Create(Article article)
         {
             article.Date = DateTime.Now;
+            MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
+            article.UserId = context.Users.FirstOrDefault(x => x.Username == currentUser.UserName).UserId;
             if (ModelState.IsValid)
             {
                 context.Articles.Add(article);
