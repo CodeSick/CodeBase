@@ -11,7 +11,7 @@ namespace CodeBase.Controllers
 {
     public class AccountController : Controller
     {
-
+        CodeBaseContext context = new CodeBaseContext();
         //
         // GET: /Account/LogOn
 
@@ -83,6 +83,13 @@ namespace CodeBase.Controllers
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
+                    
+                    User user = context.Users.Create();
+                    user.JoinDate = DateTime.Now;
+                    user.Username = model.UserName;
+                    context.Users.Add(user);
+                    context.SaveChanges();
+                    Roles.AddUserToRole(user.Username, "Normal");
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
                     return RedirectToAction("Index", "Home");
                 }

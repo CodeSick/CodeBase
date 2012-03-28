@@ -1,79 +1,56 @@
 @model IEnumerable<CodeBase.Models.User>
-
 @{
     ViewBag.Title = "Index";
 }
-
 <h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table>
     <tr>
         <th></th>
-        <th>
-            Username
-        </th>
-        <th>
-            Gravatar
-        </th>
-        <th>
-            JoinDate
-        </th>
-        <th>
-            Articles
-        </th>
-        <th>
-            Ratings
-        </th>
-        <th>
-            Comments
-        </th>
-        <th>
-            Answers
-        </th>
-        <th>
-            Questions
-        </th>
+        <th>Username </th>
+        <th>Gravatar </th>
+        <th>JoinDate </th>
+        <th>Articles </th>
+        <th>Ratings </th>
+        <th>Comments </th>
+        <th>Answers </th>
+        <th>Questions </th>
         <th>Roles</th>
     </tr>
-
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
-        </td>
-        <td>
-			@item.Username
-        </td>
-        <td>
-			@item.Gravatar
-        </td>
-        <td>
-			@String.Format("{0:g}", item.JoinDate)
-        </td>
-        <td>
-			@(item.Articles == null ? "None" : item.Articles.Count.ToString())
-        </td>
-        <td>
-			@(item.Ratings == null ? "None" : item.Ratings.Count.ToString())
-        </td>
-        <td>
-			@(item.Comments == null ? "None" : item.Comments.Count.ToString())
-        </td>
-        <td>
-			@(item.Answers == null ? "None" : item.Answers.Count.ToString())
-        </td>
-        <td>
-			@(item.Questions == null ? "None" : item.Questions.Count.ToString())
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+            </td>
+            <td>
+                @item.Username
+            </td>
+            <td>
+                @item.Gravatar
+            </td>
+            <td>
+                @String.Format("{0:g}", item.JoinDate)
+            </td>
+            <td>
+                @(item.Articles == null ? "None" : item.Articles.Count.ToString())
+            </td>
+            <td>
+                @(item.Ratings == null ? "None" : item.Ratings.Count.ToString())
+            </td>
+            <td>
+                @(item.Comments == null ? "None" : item.Comments.Count.ToString())
+            </td>
+            <td>
+                @(item.Answers == null ? "None" : item.Answers.Count.ToString())
+            </td>
+            <td>
+                @(item.Questions == null ? "None" : item.Questions.Count.ToString())
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+    }
 </table>
-
-

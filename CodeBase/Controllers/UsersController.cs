@@ -9,7 +9,7 @@ using System.Web.Security;
 using CodeBase.Models;
 
 namespace CodeBase.Controllers
-{   
+{
     public class UsersController : Controller
     {
         private CodeBaseContext context = new CodeBaseContext();
@@ -40,7 +40,7 @@ namespace CodeBase.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
+        }
 
         //
         // POST: /Users/Create
@@ -52,15 +52,15 @@ namespace CodeBase.Controllers
             {
                 context.Users.Add(user);
                 context.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index");
             }
 
             return View(user);
         }
-        
+
         //
         // GET: /Users/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
             User user = context.Users.Single(x => x.UserId == id);
@@ -71,12 +71,21 @@ namespace CodeBase.Controllers
         // POST: /Users/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(User user)
+        public ActionResult Edit(User user, String role)
         {
             if (ModelState.IsValid)
             {
                 context.Entry(user).State = EntityState.Modified;
                 context.SaveChanges();
+                var roles = Roles.GetRolesForUser(user.Username);
+                if (role != "-1")
+                {
+                    if (roles.Length != 0)
+                    {
+                        Roles.RemoveUserFromRoles(user.Username, roles);
+                    }
+                    Roles.AddUserToRole(user.Username, role);
+                }
                 return RedirectToAction("Index");
             }
             return View(user);
@@ -84,7 +93,7 @@ namespace CodeBase.Controllers
 
         //
         // GET: /Users/Delete/5
- 
+
         public ActionResult Delete(int id)
         {
             User user = context.Users.Single(x => x.UserId == id);
