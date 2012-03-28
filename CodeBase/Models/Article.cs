@@ -14,6 +14,9 @@ namespace CodeBase.Models
         public string Title { get; set; }
         [Required]
         public string Content { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true,
+               DataFormatString = "{0:yyyy/dd/MM}")]
         public DateTime? Date { get; set; }
 
         [ForeignKey("Author")]
@@ -25,5 +28,6 @@ namespace CodeBase.Models
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<File> Files { get; set; }
+
     }
 }
