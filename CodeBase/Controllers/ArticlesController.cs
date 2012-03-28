@@ -27,6 +27,7 @@ namespace CodeBase.Controllers
         public ViewResult Details(int id)
         {
             Article article = context.Articles.Single(x => x.ArticleId == id);
+            
             return View(article);
         }
 
