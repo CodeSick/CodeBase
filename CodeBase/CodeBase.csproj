@@ -54,12 +54,16 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject">
-      <HintPath>..\packages\Ninject.2.2.1.4\lib\net40-Full\Ninject.dll</HintPath>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.3.0.0.15\lib\net40\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Web.Mvc">
-      <HintPath>..\packages\Ninject.MVC3.2.2.2.0\lib\net40-Full\Ninject.Web.Mvc.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Ninject.Web.Common">
+      <HintPath>..\packages\Ninject.Web.Common.3.0.0.7\lib\net40-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.MVC3.3.0.0.6\lib\net40-full\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -89,7 +93,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\NinjectMVC3.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
@@ -98,10 +102,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\BBDisplayHelper.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\BBCode.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CodeBaseContext.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -124,6 +130,77 @@
     <Content Include="Content\img\header_logo.png" />
     <Content Include="Content\img\header_logo_hover.png" />
     <Content Include="Content\img\icon_search.png" />
+    <Content Include="Content\markitup\jquery.markitup.js" />
+    <Content Include="Content\markitup\sets\bbcode\images\bold.png" />
+    <Content Include="Content\markitup\sets\bbcode\images\clean.png" />
+    <Content Include="Content\markitup\sets\bbcode\images\code.png" />
+    <Content Include="Content\markitup\sets\bbcode\images\fonts.png" />
+    <Content Include="Content\markitup\sets\bbcode\images\italic.png" />
+    <Content Include="Content\markitup\sets\bbcode\images\link.png" />
+    <Content Include="Content\markitup\sets\bbcode\images\list-bullet.png" />
+    <Content Include="Content\markitup\sets\bbcode\images\list-item.png" />
+    <Content Include="Content\markitup\sets\bbcode\images\list-numeric.png" />
+    <Content Include="Content\markitup\sets\bbcode\images\picture.png" />
+    <Content Include="Content\markitup\sets\bbcode\images\preview.png" />
+    <Content Include="Content\markitup\sets\bbcode\images\quotes.png" />
+    <Content Include="Content\markitup\sets\bbcode\images\stroke.png" />
+    <Content Include="Content\markitup\sets\bbcode\images\underline.png" />
+    <Content Include="Content\markitup\sets\bbcode\readme.txt" />
+    <Content Include="Content\markitup\sets\bbcode\set.js" />
+    <Content Include="Content\markitup\sets\bbcode\style.css" />
+    <Content Include="Content\markitup\sets\default\images\bold.png" />
+    <Content Include="Content\markitup\sets\default\images\clean.png" />
+    <Content Include="Content\markitup\sets\default\images\image.png" />
+    <Content Include="Content\markitup\sets\default\images\italic.png" />
+    <Content Include="Content\markitup\sets\default\images\link.png" />
+    <Content Include="Content\markitup\sets\default\images\list-bullet.png" />
+    <Content Include="Content\markitup\sets\default\images\list-numeric.png" />
+    <Content Include="Content\markitup\sets\default\images\picture.png" />
+    <Content Include="Content\markitup\sets\default\images\preview.png" />
+    <Content Include="Content\markitup\sets\default\images\stroke.png" />
+    <Content Include="Content\markitup\sets\default\set.js" />
+    <Content Include="Content\markitup\sets\default\style.css" />
+    <Content Include="Content\markitup\sets\xbbcode\images\bold.png" />
+    <Content Include="Content\markitup\sets\xbbcode\images\clean.png" />
+    <Content Include="Content\markitup\sets\xbbcode\images\h1.png" />
+    <Content Include="Content\markitup\sets\xbbcode\images\h2.png" />
+    <Content Include="Content\markitup\sets\xbbcode\images\h3.png" />
+    <Content Include="Content\markitup\sets\xbbcode\images\h4.png" />
+    <Content Include="Content\markitup\sets\xbbcode\images\h5.png" />
+    <Content Include="Content\markitup\sets\xbbcode\images\h6.png" />
+    <Content Include="Content\markitup\sets\xbbcode\images\image.png" />
+    <Content Include="Content\markitup\sets\xbbcode\images\italic.png" />
+    <Content Include="Content\markitup\sets\xbbcode\images\link.png" />
+    <Content Include="Content\markitup\sets\xbbcode\images\list-bullet.png" />
+    <Content Include="Content\markitup\sets\xbbcode\images\list-item.png" />
+    <Content Include="Content\markitup\sets\xbbcode\images\list-numeric.png" />
+    <Content Include="Content\markitup\sets\xbbcode\images\paragraph.png" />
+    <Content Include="Content\markitup\sets\xbbcode\images\picture.png" />
+    <Content Include="Content\markitup\sets\xbbcode\images\preview.png" />
+    <Content Include="Content\markitup\sets\xbbcode\images\stroke.png" />
+    <Content Include="Content\markitup\sets\xbbcode\readme.txt" />
+    <Content Include="Content\markitup\sets\xbbcode\set.js" />
+    <Content Include="Content\markitup\sets\xbbcode\style.css" />
+    <Content Include="Content\markitup\skins\markitup\images\bg-container.png" />
+    <Content Include="Content\markitup\skins\markitup\images\bg-editor-bbcode.png" />
+    <Content Include="Content\markitup\skins\markitup\images\bg-editor-dotclear.png" />
+    <Content Include="Content\markitup\skins\markitup\images\bg-editor-html.png" />
+    <Content Include="Content\markitup\skins\markitup\images\bg-editor-json.png" />
+    <Content Include="Content\markitup\skins\markitup\images\bg-editor-markdown.png" />
+    <Content Include="Content\markitup\skins\markitup\images\bg-editor-textile.png" />
+    <Content Include="Content\markitup\skins\markitup\images\bg-editor-wiki.png" />
+    <Content Include="Content\markitup\skins\markitup\images\bg-editor-xml.png" />
+    <Content Include="Content\markitup\skins\markitup\images\bg-editor.png" />
+    <Content Include="Content\markitup\skins\markitup\images\handle.png" />
+    <Content Include="Content\markitup\skins\markitup\images\menu.png" />
+    <Content Include="Content\markitup\skins\markitup\images\submenu.png" />
+    <Content Include="Content\markitup\skins\markitup\style.css" />
+    <Content Include="Content\markitup\skins\simple\images\handle.png" />
+    <Content Include="Content\markitup\skins\simple\images\menu.png" />
+    <Content Include="Content\markitup\skins\simple\images\submenu.png" />
+    <Content Include="Content\markitup\skins\simple\style.css" />
+    <Content Include="Content\markitup\templates\preview.css" />
+    <Content Include="Content\markitup\templates\preview.html" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -163,12 +240,15 @@
     <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.18.js" />
     <Content Include="Scripts\jquery-ui-1.8.18.min.js" />
+    <Content Include="Scripts\jquery.markitup.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\templates\preview.css" />
+    <Content Include="Scripts\templates\preview.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

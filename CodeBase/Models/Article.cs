@@ -15,6 +15,7 @@ namespace CodeBase.Models
         [Required]
         public string Content { get; set; }
 
+
         [DisplayFormat(ApplyFormatInEditMode = true,
                DataFormatString = "{0:yyyy/dd/MM}")]
         public DateTime? Date { get; set; }
