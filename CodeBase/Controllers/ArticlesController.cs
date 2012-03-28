@@ -27,9 +27,9 @@ namespace CodeBase.Controllers
             return View(context.Articles.Include(article => article.Category).Include(article => article.Ratings).Include(article => article.Comments).Include(article => article.Files).ToList());
         }
 
-        public String Preview(String data)
+        public ActionResult Preview(String data)
         {
-            return BBCodeHelper.Format(data);
+            return Content(BBCodeHelper.Format(data));
         }
 
         //
@@ -63,6 +63,7 @@ namespace CodeBase.Controllers
         [Authorize]
         public ActionResult Create(Article article)
         {
+            
             article.Date = DateTime.Now;
             MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
             article.UserId = context.Users.FirstOrDefault(x => x.Username == currentUser.UserName).UserId;
