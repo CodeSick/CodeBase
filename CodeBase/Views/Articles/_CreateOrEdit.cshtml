@@ -1,5 +1,4 @@
 @model CodeBase.Models.Article
-
 @* This partial view defines form fields that will appear when creating and editing entities *@
 
 <div class="editor-label">
@@ -42,7 +41,8 @@
     @Html.ValidationMessageFor(model => model.CategoryId)
 </div>
 <script type="text/javascript" >
-   $(document).ready(function() {
+    $(document).ready(function () {
+        mySettings.previewParserPath = "/Articles/Preview/";
       $("textarea").markItUp(mySettings);
    });
 </script>

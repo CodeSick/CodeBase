@@ -52,6 +52,8 @@ namespace CodeBase
         {
             IKernel kernel = new StandardKernel();
             kernel.Bind<ICodeBaseRepository>().To<CodeBaseContext>();
+
+            kernel.Bind<CodeBaseContext>().To<CodeBaseContext>();
             DependencyResolver.SetResolver(new NinjectDependencyReslover(kernel));
         }
     }
