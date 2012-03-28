@@ -33,6 +33,7 @@ namespace CodeBase.Controllers
         //
         // GET: /Articles/Create
 
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.PossibleUsers = context.Users;
@@ -44,6 +45,7 @@ namespace CodeBase.Controllers
         // POST: /Articles/Create
 
         [HttpPost]
+        [Authorize]
         public ActionResult Create(Article article)
         {
             article.Date = DateTime.Now;
@@ -62,6 +64,7 @@ namespace CodeBase.Controllers
         //
         // GET: /Articles/Edit/5
  
+        [Authorize]
         public ActionResult Edit(int id)
         {
             Article article = context.Articles.Single(x => x.ArticleId == id);
@@ -74,6 +77,7 @@ namespace CodeBase.Controllers
         // POST: /Articles/Edit/5
 
         [HttpPost]
+        [Authorize]
         public ActionResult Edit(Article article)
         {
             if (ModelState.IsValid)
@@ -90,7 +94,7 @@ namespace CodeBase.Controllers
 
         //
         // GET: /Articles/Delete/5
- 
+        [Authorize]
         public ActionResult Delete(int id)
         {
             Article article = context.Articles.Single(x => x.ArticleId == id);
@@ -101,6 +105,7 @@ namespace CodeBase.Controllers
         // POST: /Articles/Delete/5
 
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Article article = context.Articles.Single(x => x.ArticleId == id);

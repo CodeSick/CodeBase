@@ -17,9 +17,9 @@ namespace CodeBase.Models
         public DateTime? JoinDate { get; set; }
 
         [NotMapped]
-        public MembershipUser MembershipUser { get; set; }
+        public MembershipUser MembershipUser { get { return Membership.GetUser(Username); } }
         [NotMapped]
-        public IEnumerable<String> Roles {get;set;}
+        public IEnumerable<String> Roles { get { return System.Web.Security.Roles.GetRolesForUser(Username); } }
 
 
 
