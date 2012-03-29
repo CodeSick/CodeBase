@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using CodeBase.Models;
 using System.Linq;
 using System.Web.Security;
+using CodeBase.Helper;
 
 namespace CodeBase.Controllers
 {   
@@ -35,9 +36,17 @@ namespace CodeBase.Controllers
         //
         // GET: /Articles/Details/5
 
-        public ViewResult Details(int id)
+        public ActionResult Details(int id, String title)
         {
             Article article = context.Articles.Single(x => x.ArticleId == id);
+
+            string realTitle = UrlEncoder.ToFriendlyUrl(article.Title);
+            string urlTitle = (title ?? "").Trim().ToLower();
+            if (realTitle != urlTitle)
+            {
+                string url = "/Articles/" + article.ArticleId + "/" + realTitle;
+                return Redirect(url);
+            } 
 
             return View(article);
         }

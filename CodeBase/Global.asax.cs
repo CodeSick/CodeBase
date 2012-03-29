@@ -25,6 +25,12 @@ namespace CodeBase
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+            "ViewProduct",
+            "Articles/{id}/{title}",
+            new { controller = "Articles", action = "Details", title = "" }, new {id =  @"\d+" }
+        );
+
+            routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults

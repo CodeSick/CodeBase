@@ -13,9 +13,10 @@ namespace CodeBase.Controllers
         //
         // GET: /Search/
 
-        public ActionResult SearchArticlesJson(String data)
+        public ActionResult SearchArticlesJson(String data, String format="json", int max=5)
         {
-            return Json(context.Articles.Where(x => x.Title.ToLower().Contains(data)).Take(5).Select(x => new { name = x.Title, id = x.ArticleId }), JsonRequestBehavior.AllowGet);
+            var articles = context.Articles.Where(x => x.Title.ToLower().Contains(data)).Take(max);
+            return Json(articles.Select(x => new { name = x.Title, id = x.ArticleId }), JsonRequestBehavior.AllowGet);
         }
 
     }
