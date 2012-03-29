@@ -16,6 +16,8 @@
 <script type="text/javascript" src="@Url.Content("~/Content/markitup/sets/bbcode/set.js")"></script>
 <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/markitup/skins/markitup/style.css")" />
 <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/markitup/sets/bbcode/style.css")" />
+<script type="text/javascript" language="javascript" src="@Url.Content("~/Scripts/jquery-ui-1.8.18.js")"></script>
+
 
 <link rel="shortcut icon" href="http://dl.dropbox.com/u/56567183/favicon.ico" />
 
@@ -33,7 +35,7 @@
 
             <div id="search">
 
-                <input type="text" />
+                <input id="searchBox" type="text" />
 
             </div>
 
@@ -62,7 +64,10 @@
 
     <div id="content-container">
 
+
+
         <div id="content">
+
         @RenderBody()
         </div>
 
@@ -135,7 +140,28 @@
     </div>
 
 </div>
+<script type="text/javascript">
 
+
+    $("#searchBox").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: '@Url.Action("SearchArticlesJson","Search")',
+                type: "GET", dataType: "json",
+                data: { data: request.term, maxResults: 10 },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return { label: item.name, value: item.name, id: item.id }
+                    }))
+                }
+            })
+        },
+        select: function (event, ui) {
+            window.location.href = '@Url.Action("Details","Articles")'+"/"+ui.item.id;
+        }
+    });
+        
+    </script>
 </body>
 
 </html>
