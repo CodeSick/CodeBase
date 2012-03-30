@@ -54,6 +54,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Mvc">
+      <HintPath>..\packages\Mvc3Futures.3.0.20105.0\lib\Microsoft.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="MvcContrib.TestHelper">
       <HintPath>..\packages\MvcContrib.Mvc3.TestHelper-ci.3.0.100.0\lib\MvcContrib.TestHelper.dll</HintPath>
     </Reference>

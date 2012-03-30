@@ -42,6 +42,8 @@ namespace CodeBase.App_Start
             var kernel = new StandardKernel();
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+            kernel.Bind<CodeBase.Models.CodeBaseContext>().To<CodeBase.Models.CodeBaseContext>();
+            kernel.Bind<CodeBase.Models.ICodeBaseRepository>().To<CodeBase.Models.CodeBaseContext>();
             
             RegisterServices(kernel);
             return kernel;
