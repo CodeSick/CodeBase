@@ -112,6 +112,10 @@ namespace CodeBase.Controllers
         {
             if (ModelState.IsValid)
             {
+                var a = context.Articles.Find(article.ArticleId);
+                article.UserId = a.UserId;
+                article.Date = a.Date;
+
                 context.Entry(article).State = EntityState.Modified;
                 context.SaveChanges();
                 return RedirectToAction("Index");
