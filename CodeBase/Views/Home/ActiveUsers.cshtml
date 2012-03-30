@@ -1,0 +1,28 @@
+﻿@model IEnumerable<CodeBase.ViewModel.UserWithCount>
+<p>
+Most active users
+</p>
+<table>
+    <tr>
+        <th>
+            Uporabnik
+        </th>
+        <th>
+           # of Articles
+        </th>
+        <th></th>
+    </tr>
+
+@using CodeBase.Controllers
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @(Html.ActionLink<UsersController>(x => x.Details(item.User.UserId), item.User.Username))
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Count)
+        </td>
+    </tr>
+}
+
+</table>

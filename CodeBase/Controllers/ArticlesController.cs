@@ -115,6 +115,7 @@ namespace CodeBase.Controllers
                 var a = context.Articles.Find(article.ArticleId);
                 article.UserId = a.UserId;
                 article.Date = a.Date;
+                context.Entry(a).State = EntityState.Detached;
 
                 context.Entry(article).State = EntityState.Modified;
                 context.SaveChanges();

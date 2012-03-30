@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CodeBase.Models;
 using CodeBase.ViewModel;
+using System.Data.Entity;
 
 namespace CodeBase.Controllers
 {
@@ -18,7 +19,11 @@ namespace CodeBase.Controllers
 
         public ActionResult Index()
         {
-            IndexViewModel model = new IndexViewModel { Message = "Hello to this beautiful site", Articles = context.Articles.Take(5).ToList() };
+            IndexViewModel model = new IndexViewModel 
+            { Message = "Hello to this beautiful site",
+                Articles = context.Articles.Take(5).ToList(),
+                Users= context.Users.OrderByDescending(x => x.Articles.Count).Take(5).Select(x => new UserWithCount{ User=x, Count=x.Articles.Count})
+            };
 
             return View("Index",model);
         }

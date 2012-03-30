@@ -10,5 +10,12 @@ namespace CodeBase.ViewModel
     {
         public String Message { get; set; }
         public IEnumerable<Article> Articles { get; set; }
+        public IEnumerable<UserWithCount> Users { get; set; }
+    }
+
+    public class UserWithCount
+    {
+        public User User { get; set; }
+        public int Count { get; set; }
     }
 }
