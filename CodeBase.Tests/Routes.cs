@@ -26,7 +26,7 @@ namespace CodeBase.Tests
             // Initialize the application's routing
             MvcApplication.RegisterRoutes(RouteTable.Routes);
             "~/".ShouldMapTo<HomeController>(controller => controller.Index());
-            "~/Index".ShouldMapTo<HomeController>(controler => controler.Index());
+            "~/Home/Index".ShouldMapTo<HomeController>(controler => controler.Index());
         }
 
         [TestMethod]
@@ -37,7 +37,6 @@ namespace CodeBase.Tests
             MvcApplication.RegisterRoutes(RouteTable.Routes);
             "~/Articles".ShouldMapTo<ArticlesController>(controller => controller.Index());
             "~/Articles/Edit/5".ShouldMapTo<ArticlesController>(controler => controler.Edit(5));
-            "~/Articles/Preview/testString".ShouldMapTo<ArticlesController>(c => c.Preview("testString"));
         }
 
 

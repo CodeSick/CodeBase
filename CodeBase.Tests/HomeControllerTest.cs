@@ -19,7 +19,8 @@ namespace CodeBase.Tests
         {
             ICodeBaseRepository repo = new FakeCodeBaseContext();
         	// Arrange
-        	var controller = new HomeController(repo);
+        	var controller = new HomeController();
+            controller.context = repo;
         
         	// Act
         	var actionResult = controller.Index() as ViewResult;

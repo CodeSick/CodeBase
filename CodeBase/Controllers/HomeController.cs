@@ -11,11 +11,7 @@ namespace CodeBase.Controllers
 {
     public class HomeController : Controller
     {
-        ICodeBaseRepository context;
-        public HomeController(ICodeBaseRepository repo)
-        {
-            context = repo;
-        }
+        public ICodeBaseRepository context = new CodeBaseContext();
 
         public ActionResult Index()
         {

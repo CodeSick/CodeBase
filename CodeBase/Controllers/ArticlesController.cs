@@ -13,12 +13,7 @@ namespace CodeBase.Controllers
 {   
     public class ArticlesController : Controller
     {
-        private CodeBaseContext context;
-
-        public ArticlesController(CodeBaseContext context)
-        {
-            this.context = context;
-        }
+        private CodeBaseContext context = new CodeBaseContext();
 
         //
         // GET: /Articles/

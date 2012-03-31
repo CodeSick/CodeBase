@@ -39,6 +39,7 @@ namespace CodeBase.Tests.Models
         public FakeCodeBaseContext()
         {
             Articles = new FakeDbSet<Article>();
+            Users = new FakeDbSet<User>();
 
         }
 
