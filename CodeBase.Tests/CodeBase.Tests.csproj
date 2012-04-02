@@ -68,7 +68,7 @@
     <Compile Include="Models\FakeCodeBaseContext.cs" />
     <Compile Include="Models\FakeRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Routes.cs" />
+    <Compile Include="RoutesTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
