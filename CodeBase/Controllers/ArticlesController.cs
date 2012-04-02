@@ -8,12 +8,32 @@ using CodeBase.Models;
 using System.Linq;
 using System.Web.Security;
 using CodeBase.Helper;
+using System.Net;
+using System.Globalization;
 
 namespace CodeBase.Controllers
 {   
     public class ArticlesController : Controller
     {
         private CodeBaseContext context = new CodeBaseContext();
+
+        [HttpPost, ActionName("Rate")]
+        [Authorize]
+        public ActionResult Rate(int id, float value)
+        {
+            MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
+            User u = context.Users.Where(x => x.Username == currentUser.UserName).First();
+            Rating r = context.Ratings.Where(x => x.ArticleId == id && x.UserId == u.UserId).FirstOrDefault();
+            if (r == null)
+                context.Ratings.Add(new Rating { ArticleId = id, UserId = u.UserId, Date = DateTime.Now, Value = (int)value });
+            else
+            {
+                r.Value = (int)value;
+            }
+            context.SaveChanges();
+
+            return  Json(new { data = AverageRating(id) });
+        }
 
         //
         // GET: /Articles/
@@ -28,10 +48,18 @@ namespace CodeBase.Controllers
             return Content(BBCodeHelper.Format(data));
         }
 
+        private float AverageRating(int id)
+        {
+            IEnumerable<Rating> ratings = context.Ratings.Where(x => x.ArticleId == id);
+            float average = (float)ratings.Sum(x => x.Value) / ratings.Count();
+            return average;
+        }
+
         //
         // GET: /Articles/Details/5
 
         public ActionResult Details(int id, String title)
+        
         {
             Article article = context.Articles.Single(x => x.ArticleId == id);
 
@@ -41,7 +69,8 @@ namespace CodeBase.Controllers
             {
                 string url = "/Articles/" + article.ArticleId + "/" + realTitle;
                 return Redirect(url);
-            } 
+            }
+            ViewBag.Rating = AverageRating(article.ArticleId);
 
             return View(article);
         }
@@ -49,7 +78,7 @@ namespace CodeBase.Controllers
         //
         // GET: /Articles/Create
 
-        [ValidateInput(false)]
+
         [Authorize]
         public ActionResult Create()
         {
@@ -62,7 +91,7 @@ namespace CodeBase.Controllers
         // POST: /Articles/Create
 
 
-        [ValidateInput(false)]
+
         [HttpPost]
         [Authorize]
         public ActionResult Create(Article article)
@@ -86,7 +115,7 @@ namespace CodeBase.Controllers
         //
         // GET: /Articles/Edit/5
 
-        [ValidateInput(false)]
+
         [Authorize]
         public ActionResult Edit(int id)
         {
@@ -100,7 +129,7 @@ namespace CodeBase.Controllers
         // POST: /Articles/Edit/5
 
 
-        [ValidateInput(false)]
+
         [HttpPost]
         [Authorize]
         public ActionResult Edit(Article article)

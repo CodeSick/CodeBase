@@ -7,8 +7,41 @@
 
 <h2>Details</h2>
 
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateit.min.js")"></script>
+
+
 <fieldset>
     <legend>Article</legend>
+
+
+    <div data-rateit-resetable="false" class="rateit" data-rateit-value="@ViewBag.Rating.ToString("F", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))" id="rateit5">
+</div>
+<div>
+    <span id="value5"></span>
+    <span id="hover5"></span>
+</div>
+<strong>Server response:</strong>
+<ul id="response">
+      
+</ul>
+ 
+<script type="text/javascript">
+    $(function () { $('#rateit5').rateit({ max: 5, step: 1}); });
+    $("#rateit5").bind('rated', function (event, value) {
+        var rateIt = $(this);
+        $.post("/Articles/Rate/", { id: "@Model.ArticleId", value: value },
+        function (data) {
+            $('#rateit5').rateit('value', data.data);
+            $('#response').append('<li>Uspeno ste oddali svoj glas.'+data.data+'</li>');
+        }
+);
+        rateIt.rateit('readonly', true);
+});
+</script>    
+
+
+
+
 
     <div class="display-label">Title</div>
     <div class="display-field">@Model.Title</div>
