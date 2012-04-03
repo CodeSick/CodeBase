@@ -4,6 +4,7 @@ packages/
 _UpgradeReport_Files/
 _Backup/
 App_Data/
+TestResults/
 
 *.user
 *.cache

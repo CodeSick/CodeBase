@@ -16,16 +16,22 @@ namespace CodeBase.Tests
 
 
     [TestClass]
-    class RoutesTest
+    public class RoutesTest
     {
+
+        [ClassInitialize]
+        public static void SetUp(TestContext context)
+        {
+            // Initialize the application's routing
+            MvcApplication.RegisterRoutes(RouteTable.Routes);
+        }
 
 
         [TestMethod]
         [Description("Home controllers route test")]
         public void TestRootUrlMatchesHomeIndexUsingMvcContrib()
         {
-            // Initialize the application's routing
-            MvcApplication.RegisterRoutes(RouteTable.Routes);
+           
             "~/".ShouldMapTo<HomeController>(controller => controller.Index());
             "~/Home/Index".ShouldMapTo<HomeController>(controler => controler.Index());
         }
@@ -34,8 +40,6 @@ namespace CodeBase.Tests
         [Description("Article controller route tests")]
         public void ArticleControlerRouteTest()
         {
-            // Initialize the application's routing
-            MvcApplication.RegisterRoutes(RouteTable.Routes);
             "~/Articles".ShouldMapTo<ArticlesController>(controller => controller.Index());
             "~/Articles/Edit/5".ShouldMapTo<ArticlesController>(controler => controler.Edit(5));
         }
@@ -43,7 +47,6 @@ namespace CodeBase.Tests
         [TestMethod]
         public void AjaxRatingTest()
         {
-            MvcApplication.RegisterRoutes(RouteTable.Routes);
             var route = "~/Articles/Rate/".WithMethod(HttpVerbs.Post);
             route.Values["id"] = 1;
             route.Values["value"] = 2;
