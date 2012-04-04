@@ -21,7 +21,7 @@ namespace CodeBase.Controllers
         [Authorize]
         public ActionResult Rate(int id, float value)
         {
-            MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
+            MembershipUser currentUser = Membership.GetUser();
             User u = context.Users.Where(x => x.Username == currentUser.UserName).First();
             Rating r = context.Ratings.Where(x => x.ArticleId == id && x.UserId == u.UserId).FirstOrDefault();
             if (r == null)
