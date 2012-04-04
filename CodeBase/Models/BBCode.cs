@@ -126,7 +126,7 @@ namespace CodeBase.Models
 
             //code
 
-            _formatters.Add(new RegexFormatter(@"\[code(?:\s*)\]((.|\n)*?)\[/code(?:\s*)\]", "<code class='prettyprint'>$1</code>"));
+            _formatters.Add(new RegexFormatter(@"\[code(?:\s*)\]((.|\n)*?)\[/code(?:\s*)\]", "<code>$1</code>"));
         }
         #endregion
 
