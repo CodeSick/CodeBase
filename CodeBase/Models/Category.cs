@@ -10,7 +10,7 @@ namespace CodeBase.Models
     {
         [Key]
         public int CategoryId { get; set; }
-        [Required]
+        [Required, MinLength(2)]
         public string Title { get; set; }
 
         public virtual ICollection<Article> Articles { get; set; }
