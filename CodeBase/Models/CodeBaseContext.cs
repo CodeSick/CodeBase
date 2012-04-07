@@ -14,21 +14,21 @@ namespace CodeBase.Models
         // Note: this will destroy and re-create your database with every model change.
         // 
         // System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<CodeBase.Models.CodeBaseContext>());
-        public IDbSet<Article> Articles { get; set; }
+        public virtual IDbSet<Article> Articles { get; set; }
 
-        public IDbSet<User> Users { get; set; }
+        public virtual IDbSet<User> Users { get; set; }
 
-        public IDbSet<Category> Categories { get; set; }
+        public virtual IDbSet<Category> Categories { get; set; }
 
-        public IDbSet<Answer> Answers { get; set; }
+        public virtual IDbSet<Answer> Answers { get; set; }
 
-        public IDbSet<Question> Questions { get; set; }
+        public virtual IDbSet<Question> Questions { get; set; }
 
-        public IDbSet<Comment> Comments { get; set; }
+        public virtual IDbSet<Comment> Comments { get; set; }
 
-        public IDbSet<File> Files { get; set; }
+        public virtual IDbSet<File> Files { get; set; }
 
-        public IDbSet<Rating> Ratings { get; set; }
+        public virtual IDbSet<Rating> Ratings { get; set; }
 
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -36,11 +36,6 @@ namespace CodeBase.Models
             base.OnModelCreating(modelBuilder);
            // modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-        }
-
-        public void SaveChanges()
-        {
-            base.SaveChanges();
         }
         
     }

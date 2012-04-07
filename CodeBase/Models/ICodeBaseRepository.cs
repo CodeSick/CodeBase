@@ -11,6 +11,5 @@ namespace CodeBase.Models
         System.Data.Entity.IDbSet<Question> Questions { get; set; }
         System.Data.Entity.IDbSet<Rating> Ratings { get; set; }
         System.Data.Entity.IDbSet<User> Users { get; set; }
-        void SaveChanges();
     }
 }
