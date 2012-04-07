@@ -1,0 +1,53 @@
+@model IEnumerable<CodeBase.Models.Answer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            Author
+        </th>
+        <th>
+            Content
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Question
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AnswerId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AnswerId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AnswerId })
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.Author).ToString()
+        </td>
+        <td>
+			@item.Content
+        </td>
+        <td>
+			@String.Format("{0:g}", item.Date)
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.Question).ToString()
+        </td>
+    </tr>
+}
+
+</table>
+
+

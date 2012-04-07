@@ -26,6 +26,9 @@ namespace CodeBase.Tests
             controller.Create(new Article{ CategoryId=1, Content="blabla", Title="mock"});
 
             Assert.AreEqual(repo.Users.First().UserId, repo.Articles.First().UserId);
+            var d = repo.Articles.First().Date;
+            var d1 = DateTime.Now;
+            Assert.IsTrue(d.Value.Second == d1.Second || d.Value.Second == d1.Second - 1);
 
 
         }
