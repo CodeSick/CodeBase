@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace CodeBase.Models
@@ -13,6 +14,25 @@ namespace CodeBase.Models
         interface IHtmlFormatter
         {
             string Format(string data);
+        }
+
+        protected class CodeFormatter : IHtmlFormatter
+        {
+
+            public string Format(string data)
+            {
+                Regex r = new Regex("[code](.*)[/code]", RegexOptions.IgnoreCase);
+                StringBuilder sb = new StringBuilder();
+
+                MatchCollection reg = r.Matches(data);
+                foreach (Match m in reg)
+                {
+                    sb.Append("<code><ol><li>");
+                    sb.Append(m.Captures[0].Value.Replace("<br />", "</li><li>"));
+                    sb.Append("</li></ol></code>");
+                }
+                return sb.ToString();
+            }
         }
 
         protected class RegexFormatter : IHtmlFormatter
@@ -123,6 +143,11 @@ namespace CodeBase.Models
             _formatters.Add(new RegexFormatter(@"\[list=I(?:\s*)\]((.|\n)*?)\[/list(?:\s*)\]", string.Format(sListFormat, "upper-roman"), false));
             _formatters.Add(new RegexFormatter(@"\[list=a(?:\s*)\]((.|\n)*?)\[/list(?:\s*)\]", string.Format(sListFormat, "lower-alpha"), false));
             _formatters.Add(new RegexFormatter(@"\[list=A(?:\s*)\]((.|\n)*?)\[/list(?:\s*)\]", string.Format(sListFormat, "upper-alpha"), false));
+
+            //code
+
+            _formatters.Add(new RegexFormatter(@"\[code(?:\s*)\]((.|\n)*?)\[/code(?:\s*)\]", "<code>$1</code>"));
+            _formatters.Add(new CodeFormatter());
         }
         #endregion
 

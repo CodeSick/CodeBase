@@ -33,7 +33,11 @@ mySettings = {
 		{ name: 'List item', openWith: '[*] ' },
 		{ separator: '---------------' },
 		{ name: 'Quotes', openWith: '[quote]', closeWith: '[/quote]' },
-		{ name: 'Code', openWith: '[code]', closeWith: '[/code]' },
+		{
+		    name: 'Code', openWith: '[code]', closeWith: '[/code]', afterInsert: function () {
+		        prettyPrint();
+		    }
+		},
 		{ separator: '---------------' },
 		{ name: 'Clean', className: "clean", replaceWith: function (markitup) { return markitup.selection.replace(/\[(.*?)\]/g, "") } },
 		{ name: 'Preview', className: "preview", call: 'preview' }
