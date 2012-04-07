@@ -69,6 +69,7 @@
     <Compile Include="Models\FakeRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoutesTest.cs" />
+    <Compile Include="ArticlesControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

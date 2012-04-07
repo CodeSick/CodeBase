@@ -15,14 +15,15 @@ namespace CodeBase.Controllers
 {   
     public class ArticlesController : Controller
     {
-        private CodeBaseContext context = new CodeBaseContext();
+        public CodeBaseContext context = new CodeBaseContext();
+        public ICodeBaseMembership membership = new CodeBaseMembership();
 
         [HttpPost, ActionName("Rate")]
         [Authorize]
         public ActionResult Rate(int id, float value)
         {
-            MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
-            User u = context.Users.Where(x => x.Username == currentUser.UserName).First();
+            String currentUser = membership.LoggedInUser();
+            User u = context.Users.Where(x => x.Username == currentUser).First();
             Rating r = context.Ratings.Where(x => x.ArticleId == id && x.UserId == u.UserId).FirstOrDefault();
             if (r == null)
                 context.Ratings.Add(new Rating { ArticleId = id, UserId = u.UserId, Date = DateTime.Now, Value = (int)value });
@@ -98,8 +99,8 @@ namespace CodeBase.Controllers
         {
             
             article.Date = DateTime.Now;
-            MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
-            article.UserId = context.Users.FirstOrDefault(x => x.Username == currentUser.UserName).UserId;
+            String currentUser = membership.LoggedInUser();
+            article.UserId = context.Users.FirstOrDefault(x => x.Username == currentUser).UserId;
             if (ModelState.IsValid)
             {
                 context.Articles.Add(article);

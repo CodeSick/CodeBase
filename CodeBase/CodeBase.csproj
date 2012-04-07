@@ -100,8 +100,10 @@
     <Compile Include="Models\BBCode.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CodeBaseContext.cs" />
+    <Compile Include="Models\CodeBaseMembership.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\File.cs" />
+    <Compile Include="Models\ICodeBaseMembership.cs" />
     <Compile Include="Models\ICodeBaseRepository.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Rating.cs" />
