@@ -55,7 +55,7 @@ namespace CodeBase.Tests
             Assert.IsTrue((result as ViewResult).ViewData.ModelState.Count > 0, "Expected errors");
         }
 
-        [TestMethod]
+        
         public void ComtrollerEditCategory()
         {
 
