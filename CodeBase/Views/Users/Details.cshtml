@@ -3,11 +3,10 @@
 @{
     ViewBag.Title = "Details";
 }
-
 <h2>Details</h2>
-
 <fieldset>
     <legend>User</legend>
+    @Html.Gravatar(Model.MembershipUser.Email, 80, new { Title = "My Gravatar", Alt = "Gravatar" })
 
     <div class="display-label">Username</div>
     <div class="display-field">@Model.Username</div>
