@@ -1,150 +1,92 @@
-﻿
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-<title>code.base</title>
-
-
-<link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet" type="text/css" />
-<script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.markitup.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Content/markitup/sets/bbcode/set.js")"></script>
-<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/markitup/skins/markitup/style.css")" />
-<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/markitup/sets/bbcode/style.css")" />
-<script type="text/javascript" language="javascript" src="@Url.Content("~/Scripts/jquery-ui-1.8.18.js")"></script>
-<link href="@Url.Content("~/Content/themes/base//jquery.ui.all.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Content/rateit.css")" rel="Stylesheet" type="text/css"/>
-<link href="@Url.Content("~/Content/pretty/prettify.css")" rel="Stylesheet" type="text/css"/>
-<script type="text/javascript" language="javascript" src="@Url.Content("~/Content/pretty/prettify.js")"></script>
-
-<link rel="shortcut icon" href="http://dl.dropbox.com/u/56567183/favicon.ico" />
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>code.base</title>
+    <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.markitup.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/markitup/sets/bbcode/set.js")"></script>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/markitup/skins/markitup/style.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/markitup/sets/bbcode/style.css")" />
+    <script type="text/javascript" language="javascript" src="@Url.Content("~/Scripts/jquery-ui-1.8.18.js")"></script>
+    <link href="@Url.Content("~/Content/themes/base//jquery.ui.all.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/rateit.css")" rel="Stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/Content/pretty/prettify.css")" rel="Stylesheet" type="text/css"/>
+    <script type="text/javascript" language="javascript" src="@Url.Content("~/Content/pretty/prettify.js")"></script>
+    <link rel="shortcut icon" href="http://dl.dropbox.com/u/56567183/favicon.ico" />
 </head>
-
 <body onload="prettyPrint()">
-
-<div id="main-container">
-
-    <div id="header-container">
-
-        <div id="header">
-
-            <a href="#" id="logo"></a>
-
-            <div id="search">
-
-                <input id="searchBox" type="text" />
-
+    <div id="main-container">
+        <div id="header-container">
+            <div id="header">
+                <a href="#" id="logo"></a>
+                <div id="search">
+                    <input id="searchBox" type="text" />
+                </div>
+                <div id="nav-top">
+                    <ul>
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                        <li>@Html.ActionLink("Categories", "Index", "Categories")</li>
+                        <li>@Html.ActionLink("Articles", "Index", "Articles")</li>
+                        @if (Request.IsAuthenticated)
+                        {
+                            @Html.ActionLink("Log Off", "LogOff", "Account")
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Log On", "LogOn", "Account")
+                        }
+                        </li>
+                    </ul>
+                </div>
             </div>
-
-            <div id="nav-top">
-
-                <ul>
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Users", "Index","Users")</li>
-                    <li>@Html.ActionLink("Categories","Index","Categories")</li>
-                    <li>@Html.ActionLink("Articles","Index","Articles")</li>
-                    @if(Request.IsAuthenticated) {
-                         @Html.ActionLink("Log Off", "LogOff", "Account")
-                    }
-                    else {
-                        @Html.ActionLink("Log On", "LogOn", "Account")
-                    }
-                    </li>
-                </ul>
-                
-
+        </div>
+        <div id="content-container">
+            <div id="content">
+                <div id="message">
+                    @TempData["Message"]
+                </div>
+                @RenderBody()
             </div>
-
         </div>
-
     </div>
-
-    <div id="content-container">
-
-
-
-        <div id="content">
-
-        @RenderBody()
+    <div id="footer-container">
+        <div id="footer">
+            <dl>
+                <dt>About</dt>
+                <dd><a href="#">Contact us</a></dd>
+                <dd><a href="#">About us</a></dd>
+                <dd><a href="#">Team</a></dd>
+                <dd><a href="#">Terms</a></dd>
+            </dl>
+            <dl>
+                <dt>Navigation</dt>
+                <dd><a href="#">Home</a></dd>
+                <dd><a href="#">Code</a></dd>
+                <dd><a href="#">Articles</a></dd>
+                <dd><a href="#">Forums</a></dd>
+                <dd><a href="#">Support</a></dd>
+            </dl>
+            <dl>
+                <dt>Extra</dt>
+                <dd><a href="#">API</a></dd>
+                <dd><a href="#">Media Kit</a></dd>
+                <dd><a href="#">Android App</a></dd>
+                <dd><a href="#">iPhone App</a></dd>
+            </dl>
+            <dl id="connect">
+                <dt>Connect</dt>
+                <dd><a href="#" id="connect-twitter">Twitter</a></dd>
+                <dd><a href="#" id="connect-facebook">Facebook</a></dd>
+                <dd><a href="#" id="connect-rss">RSS</a></dd>
+            </dl>
+            <div id="footer-copy"><span>&copy; 2012 code.base</span></div>
         </div>
-
     </div>
-
-</div>
-
-<div id="footer-container">
-
-    <div id="footer">
-
-        <dl>
-
-            <dt>About</dt>
-
-            <dd><a href="#">Contact us</a></dd>
-
-            <dd><a href="#">About us</a></dd>
-
-            <dd><a href="#">Team</a></dd>
-
-            <dd><a href="#">Terms</a></dd>
-
-        </dl>
-
-        <dl>
-
-            <dt>Navigation</dt>
-
-            <dd><a href="#">Home</a></dd>
-
-            <dd><a href="#">Code</a></dd>
-
-            <dd><a href="#">Articles</a></dd>
-
-            <dd><a href="#">Forums</a></dd>
-
-            <dd><a href="#">Support</a></dd>
-
-        </dl>
-
-        <dl>
-
-            <dt>Extra</dt>
-
-            <dd><a href="#">API</a></dd>
-
-            <dd><a href="#">Media Kit</a></dd>
-
-            <dd><a href="#">Android App</a></dd>
-
-            <dd><a href="#">iPhone App</a></dd>
-
-        </dl>
-
-        <dl id="connect">
-
-            <dt>Connect</dt>
-
-            <dd><a href="#" id="connect-twitter">Twitter</a></dd>
-
-            <dd><a href="#" id="connect-facebook">Facebook</a></dd>
-
-            <dd><a href="#" id="connect-rss">RSS</a></dd>
-
-        </dl>
-
-        <div id="footer-copy"><span>&copy; 2012 code.base</span></div>
-
-    </div>
-
-</div>
-<script type="text/javascript">
+    <script type="text/javascript">
 
 
 
@@ -157,8 +99,8 @@
         var a = false;
 
         $("code").each(function () {
-            if (!$(this).hasClass("prettyprint")) {
-                $(this).addClass("prettyprint");
+            if (!$(this).hasClass("prettyprint prettyprinted")) {
+                $(this).addClass("prettyprint prettyprinted");
                 a = true
             }
         });
@@ -189,9 +131,7 @@
             window.location.href = "/Articles/" + ui.item.id;
         }
     });
-        
+
     </script>
 </body>
-
 </html>
-

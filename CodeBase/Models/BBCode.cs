@@ -19,18 +19,28 @@ namespace CodeBase.Models
         protected class CodeFormatter : IHtmlFormatter
         {
 
-            public string Format(string data)
+            public string Format(string a)
             {
-                Regex r = new Regex("[code](.*)[/code]", RegexOptions.IgnoreCase);
+                string code = "<code>";
+                string close = "</code>";
+                string br = "<br />";
                 StringBuilder sb = new StringBuilder();
-
-                MatchCollection reg = r.Matches(data);
-                foreach (Match m in reg)
+                while (a.IndexOf("<code>") >= 0)
                 {
-                    sb.Append("<code><ol><li>");
-                    sb.Append(m.Captures[0].Value.Replace("<br />", "</li><li>"));
-                    sb.Append("</li></ol></code>");
+                    var index = a.IndexOf("<code>");
+                    sb.Append(a.Substring(0, index + code.Length));
+                    a = a.Substring(index + code.Length);
+                    index = a.IndexOf(close);
+                    var d = a.Substring(0, index);
+                    a = a.Substring(index);
+
+                    //data here
+                    d = d.Replace(br, "</li><li>");
+                    sb.Append("<ol><li>");
+                    sb.Append(d);
+                    sb.Append("</li></ol>");
                 }
+                sb.Append(a);
                 return sb.ToString();
             }
         }
@@ -146,8 +156,8 @@ namespace CodeBase.Models
 
             //code
 
-            _formatters.Add(new RegexFormatter(@"\[code(?:\s*)\]((.|\n)*?)\[/code(?:\s*)\]", "<code>$1</code>"));
-            _formatters.Add(new CodeFormatter());
+            _formatters.Add(new RegexFormatter(@"\[code(?:\s*)\]((.|\n)*?)\[/code(?:\s*)\]", "<div style='width: 40em; display: inline-block'><code>$1</code></div>"));
+           // _formatters.Add(new CodeFormatter());
         }
         #endregion
 
