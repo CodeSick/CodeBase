@@ -11,6 +11,7 @@ using CodeBase.Helper;
 using System.Net;
 using System.Globalization;
 using System.ServiceModel.Syndication;
+using CodeBase.Helper;
 
 namespace CodeBase.Controllers
 {
@@ -39,9 +40,9 @@ namespace CodeBase.Controllers
 
         public ActionResult Feed()
         {
-            var articles = context.Articles.OrderBy(pub => pub.Date).Take(15).ToList().Select(p => new SyndicationItem(p.Title, p.Title, new Uri(Url.Action("Details","Articles", new { id = p.ArticleId }, "http"))));
+            var articles = context.Articles.OrderBy(pub => pub.Date).Take(15).ToList().Select(p => new SyndicationItem(p.Title, p.Title, new Uri(Url.Action("Details","Articles", new { id = p.ArticleId }, "http")).SetPort(80)));
 
-            var feed = new SyndicationFeed("CodeBase", "Your source to knowledge", new Uri(Url.Action("Index", "Home", new { },"http")), articles);
+            var feed = new SyndicationFeed("CodeBase", "Your source to knowledge", new Uri(Url.Action("Index", "Home", new { }, "http")).SetPort(80), articles);
 
             return new FeedResult(new Rss20FeedFormatter(feed));
         }

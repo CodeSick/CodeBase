@@ -7,8 +7,19 @@ using System.Text;
 
 namespace CodeBase.Helper
 {
+
+    public static class UriExtensions
+    {
+        public static Uri SetPort(this Uri uri, int newPort)
+        {
+            var builder = new UriBuilder(uri);
+            builder.Port = newPort;
+            return builder.Uri;
+        }
+    }
     public static class MCVExtentions
     {
+
         public static List<SelectListItem> ToSelectList<T>(
             this IEnumerable<T> enumerable,
             Func<T, string> text,
