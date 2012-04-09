@@ -101,6 +101,7 @@ namespace CodeBase.Controllers
             article.Date = DateTime.Now;
             String currentUser = membership.LoggedInUser();
             article.UserId = context.Users.FirstOrDefault(x => x.Username == currentUser).UserId;
+
             if (ModelState.IsValid)
             {
                 context.Articles.Add(article);

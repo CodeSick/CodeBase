@@ -6,12 +6,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CodeBase.Models;
+using CodeBase.ViewModel;
 
 namespace CodeBase.Controllers
 {   
     public class QuestionsController : Controller
     {
         private CodeBaseContext context = new CodeBaseContext();
+        public ICodeBaseMembership membership = new CodeBaseMembership();
 
         //
         // GET: /Questions/
@@ -26,16 +28,28 @@ namespace CodeBase.Controllers
 
         public ViewResult Details(int id)
         {
+            QAViewModel vm = new QAViewModel();
             Question question = context.Questions.Single(x => x.QuestionId == id);
-            return View(question);
+            ViewData["username"] = "-1";
+
+            try
+            {
+                ViewData["username"] = membership.LoggedInUser();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+            vm.question = question;
+            return View(vm);
         }
 
         //
         // GET: /Questions/Create
-
+        [Authorize]
         public ActionResult Create()
         {
-            ViewBag.PossibleUsers = context.Users;
             return View();
         } 
 
@@ -43,8 +57,13 @@ namespace CodeBase.Controllers
         // POST: /Questions/Create
 
         [HttpPost]
+        [Authorize]
         public ActionResult Create(Question question)
         {
+            question.Date = DateTime.Now;
+            String u = membership.LoggedInUser();
+            question.UserId = context.Users.Single(x => x.Username == u).UserId;
+
             if (ModelState.IsValid)
             {
                 context.Questions.Add(question);
@@ -52,17 +71,15 @@ namespace CodeBase.Controllers
                 return RedirectToAction("Index");  
             }
 
-            ViewBag.PossibleUsers = context.Users;
             return View(question);
         }
         
         //
         // GET: /Questions/Edit/5
- 
+        [Authorize]
         public ActionResult Edit(int id)
         {
             Question question = context.Questions.Single(x => x.QuestionId == id);
-            ViewBag.PossibleUsers = context.Users;
             return View(question);
         }
 
@@ -70,11 +87,16 @@ namespace CodeBase.Controllers
         // POST: /Questions/Edit/5
 
         [HttpPost]
+        [Authorize]
         public ActionResult Edit(Question question)
         {
+            Question q = context.Questions.Single(x => x.QuestionId == question.QuestionId);
+            question.UserId = q.UserId;
+            question.Date = q.Date;
+
             if (ModelState.IsValid)
             {
-                context.Entry(question).State = EntityState.Modified;
+                context.Entry(q).CurrentValues.SetValues(question);
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -84,7 +106,7 @@ namespace CodeBase.Controllers
 
         //
         // GET: /Questions/Delete/5
- 
+        [Authorize]
         public ActionResult Delete(int id)
         {
             Question question = context.Questions.Single(x => x.QuestionId == id);
@@ -95,6 +117,7 @@ namespace CodeBase.Controllers
         // POST: /Questions/Delete/5
 
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Question question = context.Questions.Single(x => x.QuestionId == id);

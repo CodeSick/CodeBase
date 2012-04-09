@@ -1,0 +1,68 @@
+﻿@model CodeBase.ViewModel.QAViewModel
+
+<table>
+    <tr>
+        <th></th>
+        <th>
+            Author
+        </th>
+        <th>
+            Content
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Question
+        </th>
+    </tr>
+
+@foreach (var item in Model.question.Answers) {
+    <tr>
+        <td>
+            
+            @Html.ActionLink("Edit", "Edit/" + item.AnswerId, "Answers") |
+            @Html.ActionLink("Details", "Details/" + item.AnswerId, "Answers") |
+            @Html.ActionLink("Delete", "Delete/" + item.AnswerId, "Answers")
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.Author.Username).ToString()
+        </td>
+        <td>
+			@item.Content
+        </td>
+        <td>
+			@String.Format("{0:g}", item.Date)
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.Question.Content).ToString()
+        </td>
+    </tr>
+}
+
+</table>
+
+<br /><h2>Answer this question</h2> <br />
+@if (!ViewData["username"].Equals("-1"))
+{
+
+using (Html.BeginForm("Create","Answers")) {
+    @Html.ValidationSummary(true)
+<div class="editor-label">
+    @Html.LabelFor(model => model.answer.Content)
+</div>
+<div class="editor-field">
+    @Html.TextAreaFor(model => model.answer.Content)
+    @Html.ValidationMessageFor(model => model.answer.Content)
+    @Html.Hidden("answer_QuestionId", Model.question.QuestionId)
+</div>
+
+<input type="submit" value="Create" />
+    }
+}
+<script type="text/javascript" >
+    $(document).ready(function () {
+        mySettings.previewParserPath = "/Articles/Preview/";
+      $("textarea").markItUp(mySettings);
+   });
+</script>
