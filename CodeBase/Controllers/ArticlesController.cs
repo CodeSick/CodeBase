@@ -40,7 +40,7 @@ namespace CodeBase.Controllers
 
         public ActionResult Feed()
         {
-            var articles = context.Articles.OrderBy(pub => pub.Date).Take(15).ToList().Select(p => new SyndicationItem(p.Title, p.Title, new Uri(Url.Action("Details","Articles", new { id = p.ArticleId }, "http")).SetPort(80)));
+            var articles = context.Articles.OrderBy(pub => pub.Date).Take(15).ToList().Select(p => new SyndicationItem(p.Title, BBCodeHelper.Format(p.Content), new Uri(Url.Action("Details","Articles", new { id = p.ArticleId }, "http")).SetPort(80)));
 
             var feed = new SyndicationFeed("CodeBase", "Your source to knowledge", new Uri(Url.Action("Index", "Home", new { }, "http")).SetPort(80), articles);
 
