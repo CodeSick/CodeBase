@@ -11,7 +11,7 @@
     <legend>Answer</legend>
 
     <div class="display-label">Author</div>
-    <div class="display-field">@Html.DisplayTextFor(_ => Model.Author).ToString()</div>
+    <div class="display-field">@Html.DisplayTextFor(_ => Model.Author.Username).ToString()</div>
 
     <div class="display-label">Content</div>
     <div class="display-field">@Model.Content</div>
@@ -20,7 +20,7 @@
     <div class="display-field">@Model.Date</div>
 
     <div class="display-label">Question</div>
-    <div class="display-field">@Html.DisplayTextFor(_ => Model.Question).ToString()</div>
+    <div class="display-field">@Html.DisplayTextFor(_ => Model.Question.Content).ToString()</div>
 </fieldset>
 @using (Html.BeginForm()) {
     <p>

@@ -1,29 +1,28 @@
-@model CodeBase.Models.Question
-
+@model CodeBase.ViewModel.QAViewModel
 @{
     ViewBag.Title = "Details";
 }
 
 <h2>Details</h2>
-
 <fieldset>
     <legend>Question</legend>
 
     <div class="display-label">Content</div>
-    <div class="display-field">@Model.Content</div>
+    <div class="display-field">@Model.question.Content</div>
 
     <div class="display-label">Date</div>
-    <div class="display-field">@String.Format("{0:d/M/yyyy}", Model.Date)</div>
+    <div class="display-field">@String.Format("{0:g}", Model.question.Date)</div>
 
     <div class="display-label">Author</div>
-    <div class="display-field">@Html.DisplayTextFor(_ => Model.Author).ToString()</div>
+    <div class="display-field">@Model.question.Author.Username.ToString()</div>
 
     <div class="display-label">Answers</div>
-    <div class="display-field">@(Model.Answers == null ? "None" : Model.Answers.Count.ToString())</div>
+    <div class="display-field">@(Model.question.Answers == null ? "None" : Model.question.Answers.Count.ToString())</div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.QuestionId }) |
+    @Html.ActionLink("Edit", "Edit", new { id=Model.question.QuestionId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 
 
+@Html.Partial("_AnswerQuestion")

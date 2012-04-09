@@ -34,7 +34,7 @@
             @Html.ActionLink("Delete", "Delete", new { id=item.AnswerId })
         </td>
         <td>
-			@Html.DisplayTextFor(_ => item.Author).ToString()
+			@Html.DisplayTextFor(_ => item.Author.Username).ToString()
         </td>
         <td>
 			@item.Content
@@ -43,7 +43,7 @@
 			@item.Date
         </td>
         <td>
-			@Html.DisplayTextFor(_ => item.Question).ToString()
+			@Html.DisplayTextFor(_ => item.Question.Content).ToString()
         </td>
     </tr>
 }
