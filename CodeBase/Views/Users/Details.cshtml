@@ -15,7 +15,7 @@
     <div class="display-field">@Model.Gravatar</div>
 
     <div class="display-label">JoinDate</div>
-    <div class="display-field">@String.Format("{0:g}", Model.JoinDate)</div>
+    <div class="display-field">@String.Format("{0:d/M/yyyy}", Model.JoinDate)</div>
 
     <div class="display-label">Articles</div>
     <div class="display-field">@(Model.Articles == null ? "None" : Model.Articles.Count.ToString())</div>

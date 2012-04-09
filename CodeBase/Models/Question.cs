@@ -12,6 +12,8 @@ namespace CodeBase.Models
         public int QuestionId { get; set; }
         [Required]
         public string Content { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true,
+       DataFormatString = "{0:d/M/yyyy}")]
         public DateTime? Date { get; set; }
 
         [ForeignKey("Author")]

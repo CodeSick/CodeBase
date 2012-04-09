@@ -10,6 +10,7 @@ using System.Web.Security;
 using CodeBase.Helper;
 using System.Net;
 using System.Globalization;
+using System.ServiceModel.Syndication;
 
 namespace CodeBase.Controllers
 {
@@ -36,11 +37,20 @@ namespace CodeBase.Controllers
             return Json(new { data = AverageRating(id) });
         }
 
+        public ActionResult Feed()
+        {
+            var articles = context.Articles.OrderBy(pub => pub.Date).Take(15).ToList().Select(p => new SyndicationItem(p.Title, p.Title, new Uri(Url.Action("Details","Articles", new { id = p.ArticleId }, "http"))));
+
+            var feed = new SyndicationFeed("CodeBase", "Your source to knowledge", new Uri(Url.Action("Index", "Home", new { },"http")), articles);
+
+            return new FeedResult(new Rss20FeedFormatter(feed));
+        }
+
         //
         // GET: /Articles/
 
         public ViewResult Index()
-        {
+        {   
             return View(context.Articles.Include(article => article.Category).Include(article => article.Ratings).Include(article => article.Comments).Include(article => article.Files).ToList());
         }
 

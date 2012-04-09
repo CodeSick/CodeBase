@@ -37,7 +37,7 @@
 			@item.Content
         </td>
         <td>
-			@String.Format("{0:g}", item.Date)
+			@String.Format("{0:d/M/yyyy}", item.Date)
         </td>
         <td>
 			@Html.DisplayTextFor(_ => item.Author).ToString()

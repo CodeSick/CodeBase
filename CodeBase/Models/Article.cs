@@ -17,7 +17,7 @@ namespace CodeBase.Models
 
 
         [DisplayFormat(ApplyFormatInEditMode = true,
-               DataFormatString = "{0:yyyy/dd/MM}")]
+               DataFormatString = "{0:d/M/yyyy}")]
         public DateTime? Date { get; set; }
 
         [ForeignKey("Author")]

@@ -43,7 +43,7 @@
 			@item.Title
         </td>
         <td>
-			@String.Format("{0:g}", item.Date)
+			@item.Date
         </td>
         <td>
             @Html.RouteLink(item.Author.Username, new {controller="Users", action="Details", id = item.Author.UserId })
