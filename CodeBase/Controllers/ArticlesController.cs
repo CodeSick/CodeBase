@@ -56,6 +56,7 @@ namespace CodeBase.Controllers
         }
 
         [Authorize]
+        [ValidateInput(false)]
         public ActionResult Preview(String data)
         {
             return Content(BBCodeHelper.Format(data));
@@ -104,11 +105,10 @@ namespace CodeBase.Controllers
 
 
 
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         [Authorize]
         public ActionResult Create(Article article)
         {
-
             article.Date = DateTime.Now;
             String currentUser = membership.LoggedInUser();
             article.UserId = context.Users.FirstOrDefault(x => x.Username == currentUser).UserId;
@@ -148,16 +148,16 @@ namespace CodeBase.Controllers
 
 
 
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         [Authorize]
         public ActionResult Edit(Article article)
         {
-            if (Roles.IsUserInRole("Admin") || membership.LoggedInUser() == article.Author.Username)
+            var a = context.Articles.Find(article.ArticleId);
+            if (Roles.IsUserInRole("Admin") || Membership.GetUser().UserName == a.Author.Username)
             {
                 if (ModelState.IsValid)
                 {
 
-                    var a = context.Articles.Find(article.ArticleId);
                     article.UserId = a.UserId;
                     article.Date = a.Date;
                     context.Entry(a).State = EntityState.Detached;
