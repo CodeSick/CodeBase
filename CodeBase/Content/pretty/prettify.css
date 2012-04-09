@@ -90,9 +90,7 @@
     }
 }
 
-pre.prettyprint {
-    padding: 2px;
-    border: 1px solid #888;
+code.prettyprint {
 }
 
 ol.linenums {

@@ -14,6 +14,8 @@ namespace CodeBase.Models
         [Required]
         public string Username { get; set; }
         public string Gravatar { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true,
+       DataFormatString = "{0:d/M/yyyy}")]
         public DateTime? JoinDate { get; set; }
 
         [NotMapped]

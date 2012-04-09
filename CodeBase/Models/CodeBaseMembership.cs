@@ -6,6 +6,11 @@ using System.Web.Security;
 
 namespace CodeBase.Models
 {
+    public interface ICodeBaseMembership
+    {
+        String LoggedInUser();
+    }
+
     public class CodeBaseMembership : ICodeBaseMembership
     {
         public String LoggedInUser()

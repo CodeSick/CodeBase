@@ -10,9 +10,10 @@ using System.Web.Security;
 using CodeBase.Helper;
 using System.Net;
 using System.Globalization;
+using System.ServiceModel.Syndication;
 
 namespace CodeBase.Controllers
-{   
+{
     public class ArticlesController : Controller
     {
         public CodeBaseContext context = new CodeBaseContext();
@@ -33,17 +34,27 @@ namespace CodeBase.Controllers
             }
             context.SaveChanges();
 
-            return  Json(new { data = AverageRating(id) });
+            return Json(new { data = AverageRating(id) });
+        }
+
+        public ActionResult Feed()
+        {
+            var articles = context.Articles.OrderBy(pub => pub.Date).Take(15).ToList().Select(p => new SyndicationItem(p.Title, p.Title, new Uri(Url.Action("Details","Articles", new { id = p.ArticleId }, "http"))));
+
+            var feed = new SyndicationFeed("CodeBase", "Your source to knowledge", new Uri(Url.Action("Index", "Home", new { },"http")), articles);
+
+            return new FeedResult(new Rss20FeedFormatter(feed));
         }
 
         //
         // GET: /Articles/
 
         public ViewResult Index()
-        {
+        {   
             return View(context.Articles.Include(article => article.Category).Include(article => article.Ratings).Include(article => article.Comments).Include(article => article.Files).ToList());
         }
 
+        [Authorize]
         public ActionResult Preview(String data)
         {
             return Content(BBCodeHelper.Format(data));
@@ -60,7 +71,6 @@ namespace CodeBase.Controllers
         // GET: /Articles/Details/5
 
         public ActionResult Details(int id, String title)
-        
         {
             Article article = context.Articles.Single(x => x.ArticleId == id);
 
@@ -86,7 +96,7 @@ namespace CodeBase.Controllers
             ViewBag.PossibleUsers = context.Users;
             ViewBag.PossibleCategories = context.Categories;
             return View();
-        } 
+        }
 
         //
         // POST: /Articles/Create
@@ -97,7 +107,7 @@ namespace CodeBase.Controllers
         [Authorize]
         public ActionResult Create(Article article)
         {
-            
+
             article.Date = DateTime.Now;
             String currentUser = membership.LoggedInUser();
             article.UserId = context.Users.FirstOrDefault(x => x.Username == currentUser).UserId;
@@ -106,14 +116,14 @@ namespace CodeBase.Controllers
             {
                 context.Articles.Add(article);
                 context.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index");
             }
 
             ViewBag.PossibleUsers = context.Users;
             ViewBag.PossibleCategories = context.Categories;
             return View(article);
         }
-        
+
         //
         // GET: /Articles/Edit/5
 
@@ -122,9 +132,13 @@ namespace CodeBase.Controllers
         public ActionResult Edit(int id)
         {
             Article article = context.Articles.Single(x => x.ArticleId == id);
-            ViewBag.PossibleUsers = context.Users;
-            ViewBag.PossibleCategories = context.Categories;
-            return View(article);
+            if (Roles.IsUserInRole("Admin") || membership.LoggedInUser() == article.Author.Username)
+            {
+                ViewBag.PossibleCategories = context.Categories;
+                return View(article);
+            }
+            TempData["Message"] = "Not authorized";
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         //
@@ -132,24 +146,32 @@ namespace CodeBase.Controllers
 
 
 
+
         [HttpPost]
         [Authorize]
         public ActionResult Edit(Article article)
         {
-            if (ModelState.IsValid)
+            if (Roles.IsUserInRole("Admin") || membership.LoggedInUser() == article.Author.Username)
             {
-                var a = context.Articles.Find(article.ArticleId);
-                article.UserId = a.UserId;
-                article.Date = a.Date;
-                context.Entry(a).State = EntityState.Detached;
+                if (ModelState.IsValid)
+                {
 
-                context.Entry(article).State = EntityState.Modified;
-                context.SaveChanges();
-                return RedirectToAction("Index");
+                    var a = context.Articles.Find(article.ArticleId);
+                    article.UserId = a.UserId;
+                    article.Date = a.Date;
+                    context.Entry(a).State = EntityState.Detached;
+
+                    context.Entry(article).State = EntityState.Modified;
+                    context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.PossibleUsers = context.Users;
+                ViewBag.PossibleCategories = context.Categories;
+                return View(article);
             }
-            ViewBag.PossibleUsers = context.Users;
-            ViewBag.PossibleCategories = context.Categories;
-            return View(article);
+
+            TempData["Message"] = "Not authorized";
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
 
@@ -158,8 +180,15 @@ namespace CodeBase.Controllers
         [Authorize]
         public ActionResult Delete(int id)
         {
+
             Article article = context.Articles.Single(x => x.ArticleId == id);
-            return View(article);
+            if (Roles.IsUserInRole("Admin") || membership.LoggedInUser() == article.Author.Username)
+            {
+                return View(article);
+            }
+
+            TempData["Message"] = "Not authorized";
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         //
@@ -169,10 +198,25 @@ namespace CodeBase.Controllers
         [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
+
             Article article = context.Articles.Single(x => x.ArticleId == id);
-            context.Articles.Remove(article);
-            context.SaveChanges();
-            return RedirectToAction("Index");
+            if (Roles.IsUserInRole("Admin") || membership.LoggedInUser() == article.Author.Username)
+            {
+                foreach(Rating r in context.Ratings.Where(x => x.ArticleId==article.ArticleId)){
+                    context.Ratings.Remove(r);
+                }
+                foreach(File f in context.Files.Where(x => x.ArticleId==article.ArticleId)){
+                    context.Files.Remove(f);
+                }
+                foreach(Comment c in context.Comments.Where(x=> x.ArticleId==article.ArticleId)){
+                    context.Comments.Remove(c);
+                }
+                context.Articles.Remove(article);
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            TempData["Message"] = "Not authorized";
+            return Redirect(Request.UrlReferrer.ToString());
         }
     }
 }

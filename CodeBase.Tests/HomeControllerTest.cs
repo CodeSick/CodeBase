@@ -43,6 +43,19 @@ namespace CodeBase.Tests
         }
 
         [TestMethod]
+        public void ContrololerAddShouRedispayIfCategoryInvalid()
+        {
+            CodeBaseContext repo = new FakeCodeBaseContext();
+            CategoriesController controller = new CategoriesController { context = repo };
+            controller.ModelState.AddModelError("eror", "model error");
+            var c = new Category { CategoryId = 1, Title = "1", Articles = null };
+            var result = controller.Create();
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue((result as ViewResult).ViewData.ModelState.Count > 0, "Expected errors");
+        }
+
+        
         public void ComtrollerEditCategory()
         {
 

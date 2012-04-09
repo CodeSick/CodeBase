@@ -31,7 +31,7 @@
                 @item.Gravatar
             </td>
             <td>
-                @String.Format("{0:g}", item.JoinDate)
+                @String.Format("{0:d/M/yyyy}", item.JoinDate)
             </td>
             <td>
                 @(item.Articles == null ? "None" : item.Articles.Count.ToString())

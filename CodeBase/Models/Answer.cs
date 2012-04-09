@@ -15,6 +15,8 @@ namespace CodeBase.Models
         public virtual User Author { get; set; }
         [Required]
         public string Content { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true,
+       DataFormatString = "{0:d/M/yyyy}")]
         public DateTime? Date { get; set; }
 
         [ForeignKey("Question")]
