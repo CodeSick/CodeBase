@@ -24,7 +24,7 @@ h1 {
 	font-size: 20px;
 	font-weight: bold;
 	padding: 0;
-	margin: 0 0 5px 0;
+	margin: 0 0 10px 0;
 }
 h1 a {
 	color:#3db8e8;
@@ -61,9 +61,9 @@ a:hover {
 	background-color: #f5f5f5;
 	border-bottom: 1px solid #bfbfbf;
 	background-image: -webkit-linear-gradient(top, #fafafa, #f0f0f0);
-	background-image: -moz-linear-gradient(top, #fafafa, #f2f2f2);
-	background-image: -ms-linear-gradient(top, #fafafa, #f2f2f2);
-	background-image: -o-linear-gradient(top, #fafafa, #f2f2f2);
+	background-image: -moz-linear-gradient(top, #fafafa, #f0f0f0);
+	background-image: -ms-linear-gradient(top, #fafafa, #f0f0f0);
+	background-image: -o-linear-gradient(top, #fafafa, #f0f0f0);
 }
 #header {
 	height: 100%;
@@ -293,7 +293,7 @@ a:hover {
 	display:table-cell;
 	width:103px;
 	height:30px;
-	background-color:transperent;
+	background-color:transparent;
 	padding:2px 40px 3px 40px;
 	vertical-align:middle;
 	border-radius: 4px;
@@ -462,6 +462,62 @@ a:hover {
 	margin: 0 15px 0 0;
 }
 
+.login-box {
+    margin: 0 auto 50px auto;
+    width: 214px;
+    padding: 15px 25px;
+    background-color:#f2f8fa;
+    border: 1px solid #c6cacc;
+    border-top: none;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.login-box-title {
+    margin: 50px auto 0 auto;
+    border: 1px solid #367d99;
+    border-radius: 5px 5px 0px 0px;
+    width: 214px;
+    padding: 10px 25px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-image: -webkit-linear-gradient(top, #47a6cc, #367d99);
+	background-image: -moz-linear-gradient(top, #fafafa, #f0f0f0);
+	background-image: -ms-linear-gradient(top, #fafafa, #f0f0f0);
+	background-image: -o-linear-gradient(top, #fafafa, #f0f0f0);
+}
+
+.login-box .label-remember {
+    margin: 7px 0px;
+    line-height: normal;
+    font-size: 12px;
+}
+
+.login-box .buttons a  {
+    font-size: 12px;
+    margin: 0px 5px;
+}
+
+.message-error {
+    width: 400px;
+    margin: 0 auto 0 auto;
+    background-color:#ffeeee; 
+    padding: 10px;
+    border: 1px solid #dfbaba;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.message-error ul {
+        font-weight: normal;
+        position: relative;
+        left: 16px;
+}
+
+.push {
+    height: 50px;
+}
+
 
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
@@ -499,28 +555,34 @@ select {
 }
 
 input[type="submit"] {
+    /*
     font-size: 1.2em;
     padding: 5px;
+        */
 }
 
 /* TABLE
 ----------------------------------------------------------*/
 
 table {
-    border: solid 1px #e8eef4;
+    margin: 10px 0px;
+    font-size: 13px;
     border-collapse: collapse;
+    border-spacing: 0;
+    
 }
 
 table td {
-    padding: 5px;
-    border: solid 1px #e8eef4;
+    padding:6px 10px;
+    border: 1px solid #f0f0f0;
 }
 
 table th {
-    padding: 6px 5px;
+    border: 1px solid #f0f0f0;
+    font-weight: bold;
+    padding:6px 10px;
+    background-color: #fafafa;
     text-align: left;
-    background-color: #e8eef4;
-    border: solid 1px #e8eef4;
 }
 
 /* MISC  
@@ -570,6 +632,9 @@ div#title {
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error {
+    font-size: 12px;
+    display: block;
+    margin-bottom: 10px;
     color: #ff0000;
 }
 
