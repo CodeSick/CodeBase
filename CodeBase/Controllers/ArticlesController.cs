@@ -11,6 +11,7 @@ using CodeBase.Helper;
 using System.Net;
 using System.Globalization;
 using System.ServiceModel.Syndication;
+using Rotativa;
 
 namespace CodeBase.Controllers
 {
@@ -58,6 +59,11 @@ namespace CodeBase.Controllers
         public ActionResult Preview(String data)
         {
             return Content(BBCodeHelper.Format(data));
+        }
+
+        public ActionResult Pdf(int id)
+        {
+            return new ActionAsPdf("Details", new { id = id });
         }
 
         private float AverageRating(int id)

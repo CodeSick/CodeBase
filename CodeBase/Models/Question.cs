@@ -10,6 +10,8 @@ namespace CodeBase.Models
     {
         [Key]
         public int QuestionId { get; set; }
+        [Required, MaxLength(30)]
+        public String Title { get; set; }
         [Required]
         public string Content { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true,
