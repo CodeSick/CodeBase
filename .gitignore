@@ -13,3 +13,10 @@ TestResults/
 *.lib
 *.mdf
 *.ldf
+
+//Exclude
+!lebeay32.dll
+!libgcc_s_dw2-1.dll
+!mingwm10.dll
+!ssleay32.dll
+!wkhtmltopdf.exe
