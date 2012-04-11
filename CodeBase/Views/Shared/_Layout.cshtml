@@ -15,6 +15,7 @@
     <link href="@Url.Content("~/Content/rateit.css")" rel="Stylesheet" type="text/css"/>
     <link href="@Url.Content("~/Content/pretty/prettify.css")" rel="Stylesheet" type="text/css"/>
     <script type="text/javascript" language="javascript" src="@Url.Content("~/Content/pretty/prettify.js")"></script>
+    <script type="text/javascript" language="javascript" src="@Url.Content("~/Content/js/jquery.js")"></script>
     <link rel="shortcut icon" href="http://dl.dropbox.com/u/56567183/favicon.ico" />
 </head>
 <body onload="prettyPrint()">
@@ -34,15 +35,27 @@
                         <li>@Html.ActionLink("Q&A","Index","Questions")</li>
                         @if (Request.IsAuthenticated)
                         {
-                            @Html.ActionLink("Log Off", "LogOff", "Account")
+                            <li class="user-name">@User.Identity.Name</li>
                         }
                         else
                         {
-                            @Html.ActionLink("Log On", "LogOn", "Account")
+                           <li class="login">@Html.ActionLink("Login", "LogOn", "Account")</li>
                         }
-                        </li>
                     </ul>
                 </div>
+                @if (Request.IsAuthenticated)
+                {
+                    <div class="user-menu">
+                        <ul>
+                            <li class="first">User options</li>
+                            <li>My Profile</li>
+                            <li>My Articles</li>
+                            <li>Settings</li>
+                            @{string LogOffUrl=Html.BuildUrlFromExpression<AccountController>(c => c.LogOff());}
+                            <li class="last" onclick="location.href='@LogOffUrl'">Sign out</li>
+                        </ul>
+                    </div>
+                }
             </div>
         </div>
         <div id="content-container">

@@ -62,6 +62,7 @@ namespace CodeBase.Controllers
             return Content(BBCodeHelper.Format(data));
         }
 
+
         private float AverageRating(int id)
         {
             IEnumerable<Rating> ratings = context.Ratings.Where(x => x.ArticleId == id);

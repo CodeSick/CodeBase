@@ -65,6 +65,9 @@
     <Reference Include="Rhino.Mocks">
       <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
     </Reference>
+    <Reference Include="Rotativa">
+      <HintPath>..\packages\Rotativa.1.2.2\lib\net40\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -103,6 +106,10 @@
     </Compile>
     <Compile Include="Helper\FeedResult.cs" />
     <Compile Include="Helper\MVCExtensions.cs" />
+    <Compile Include="Migrations\201204111413411_QuestionTitle.cs" />
+    <Compile Include="Migrations\201204111413411_QuestionTitle.Designer.cs">
+      <DependentUpon>201204111413411_QuestionTitle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -311,6 +318,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\js\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -418,6 +426,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_AnswerQuestion.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Browsers\qt.browser" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
