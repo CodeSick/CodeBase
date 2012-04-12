@@ -46,6 +46,24 @@ namespace CodeBase.Controllers
             var feed = new SyndicationFeed("CodeBase", "Your source to knowledge", new Uri(Url.Action("Index", "Home", new { }, "http")).SetPort(80), articles);
 
             return new FeedResult(new Rss20FeedFormatter(feed));
+        
+        
+        }
+
+        [HttpPost]
+        public ActionResult AddComment(Comment c)
+        {
+            String currentUser = membership.LoggedInUser();
+            c.UserId = context.Users.Where(x => x.Username == currentUser).Single().UserId;
+            c.Date = DateTime.Now;
+            if (TryValidateModel(c))
+            {
+                context.Comments.Add(c);
+                context.SaveChanges();
+
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         //
@@ -81,7 +99,7 @@ namespace CodeBase.Controllers
 
         public ActionResult Details(int id, String title)
         {
-            Article article = context.Articles.Single(x => x.ArticleId == id);
+            Article article = context.Articles.Include(x => x.Comments).Single(x => x.ArticleId == id);
 
             string realTitle = UrlEncoder.ToFriendlyUrl(article.Title);
             string urlTitle = (title ?? "").Trim().ToLower();
@@ -91,6 +109,7 @@ namespace CodeBase.Controllers
                 return Redirect(url);
             }
             ViewBag.Rating = AverageRating(article.ArticleId);
+            
 
             return View(article);
         }
@@ -144,6 +163,20 @@ namespace CodeBase.Controllers
             {
                 ViewBag.PossibleCategories = context.Categories;
                 return View(article);
+            }
+            TempData["Message"] = "Not authorized";
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        [Authorize]
+        public ActionResult DeleteComment(int id)
+        {
+            Comment c = context.Comments.Find(id);
+            if (Roles.IsUserInRole("Admin") || membership.LoggedInUser() == c.Author.Username)
+            {
+                context.Comments.Remove(c);
+                context.SaveChanges();
+                return Redirect(Request.UrlReferrer.ToString());
             }
             TempData["Message"] = "Not authorized";
             return Redirect(Request.UrlReferrer.ToString());

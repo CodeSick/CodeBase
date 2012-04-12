@@ -1,75 +1,72 @@
 @model CodeBase.Models.Article
-
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.Title;
 }
 @using CodeBase.Models
-
-<h2>Details</h2>
-
+<h2>@Model.Title</h2>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateit.min.js")"></script>
-
-
 <fieldset>
     <legend>Article</legend>
-
-
     <div data-rateit-resetable="false" class="rateit" data-rateit-value="@ViewBag.Rating.ToString("F", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))" id="rateit5">
-</div>
-<div>
-    <span id="value5"></span>
-    <span id="hover5"></span>
-</div>
-<strong>Server response:</strong>
-<ul id="response">
-      
-</ul>
- 
-<script type="text/javascript">
-    $(function () { $('#rateit5').rateit({ max: 5, step: 1}); });
+    </div>
+    <div>
+        <span id="value5"></span><span id="hover5"></span>
+    </div>
+    <strong>Server response:</strong>
+    <ul id="response">
+    </ul>
+    <script type="text/javascript">
+    $(function () { $('#rateit5').rateit({ max: 5, step: 1 }); });
     $("#rateit5").bind('rated', function (event, value) {
         var rateIt = $(this);
         $.post("/Articles/Rate/", { id: "@Model.ArticleId", value: value },
         function (data) {
             $('#rateit5').rateit('value', data.data);
-            $('#response').append('<li>Uspeno ste oddali svoj glas.'+data.data+'</li>');
+            $('#response').append('<li>Uspeno ste oddali svoj glas.' + data.data + '</li>');
         }
 );
         rateIt.rateit('readonly', true);
-});
-</script>    
-
-
-
-
-
-    <div class="display-label">Title</div>
-    <div class="display-field">@Model.Title</div>
-
+    });
+    </script>
     <div class="display-label">Content</div>
     <div class="display-field">@Html.Raw(BBCodeHelper.Format(Model.Content))</div>
-
     <div class="display-label">Date</div>
     <div class="display-field">@String.Format("{0:d/M/yyyy}", Model.Date)</div>
-
     <div class="display-label">Author</div>
-    <div class="display-field">@Html.DisplayTextFor(_ => Model.Author.Username).ToString()</div>
-
+    <div class="display-field">@Html.DisplayTextFor(_ => Model.Author.Username).ToString()
+    </div>
     <div class="display-label">Category</div>
-    <div class="display-field">@(Model.Category == null ? "None" : Model.Category.Title)</div>
-
+    <div class="display-field">@(Model.Category == null ? "None" : Model.Category.Title)
+    </div>
     <div class="display-label">Ratings</div>
-    <div class="display-field">@(Model.Ratings == null ? "None" : Model.Ratings.Count.ToString())</div>
-
+    <div class="display-field">@(Model.Ratings == null ? "None" : Model.Ratings.Count.ToString())
+    </div>
     <div class="display-label">Comments</div>
-    <div class="display-field">@(Model.Comments == null ? "None" : Model.Comments.Count.ToString())</div>
-
+    <div class="display-field">@(Model.Comments == null ? "None" : Model.Comments.Count.ToString())
+    </div>
     <div class="display-label">Files</div>
-    <div class="display-field">@(Model.Files == null ? "None" : Model.Files.Count.ToString())</div>
+    <div class="display-field">@(Model.Files == null ? "None" : Model.Files.Count.ToString())
+    </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ArticleId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ArticleId }) |
+    @(Html.ActionLink<ArticlesController>(x => x.Delete(Model.ArticleId), "Delete"))
+    |
     @Html.ActionLink("Back to List", "Index")
 </p>
+@foreach (Comment c in Model.Comments)
+{
+    @Html.Partial("Comment", c)
 
-
+    
+}
+@using (Html.BeginForm(new { action = "AddComment" }))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+     @Html.Partial("_CommentCreate", new Comment { ArticleId = Model.ArticleId })
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
