@@ -8,8 +8,11 @@
     <Node Id="RhinoMocks 3.6.1" Label="RhinoMocks 3.6.1" Category="Package" />
     <Node Id="T4Scaffolding 1.0.5" Label="T4Scaffolding 1.0.5" Category="Package" />
     <Node Id="CodeBase" Label="CodeBase" Category="Project" />
+    <Node Id="AWSSDK 1.4.6.3" Label="AWSSDK 1.4.6.3" Category="Package" />
     <Node Id="EntityFramework 4.3.1" Label="EntityFramework 4.3.1" Category="Package" />
+    <Node Id="GravatarHelper 3.1.0" Label="GravatarHelper 3.1.0" Category="Package" />
     <Node Id="jQuery 1.7.1" Label="jQuery 1.7.1" Category="Package" />
+    <Node Id="jQuery.RateIt 1.0.4.1" Label="jQuery.RateIt 1.0.4.1" Category="Package" />
     <Node Id="jQuery.UI.Combined 1.8.18" Label="jQuery.UI.Combined 1.8.18" Category="Package" />
     <Node Id="jQuery.Validation 1.9" Label="jQuery.Validation 1.9" Category="Package" />
     <Node Id="jQuery.vsdoc 1.6" Label="jQuery.vsdoc 1.6" Category="Package" />
@@ -18,6 +21,7 @@
     <Node Id="MvcContrib.Mvc3.TestHelper-ci 3.0.100.0" Label="MvcContrib.Mvc3.TestHelper-ci 3.0.100.0" Category="Package" />
     <Node Id="MvcScaffolding 1.0.6" Label="MvcScaffolding 1.0.6" Category="Package" />
     <Node Id="RhinoMocks 3.6.1" Label="RhinoMocks 3.6.1" Category="Package" />
+    <Node Id="Rotativa 1.2.2" Label="Rotativa 1.2.2" Category="Package" />
     <Node Id="T4Scaffolding 1.0.5" Label="T4Scaffolding 1.0.5" Category="Package" />
   </Nodes>
   <Links>
@@ -26,12 +30,16 @@
     <Link Source="CodeBase.Tests" Target="Moq 4.0.10827" Category="Installed Package" />
     <Link Source="CodeBase.Tests" Target="MvcContrib.Mvc3.TestHelper-ci 3.0.100.0" Category="Installed Package" />
     <Link Source="CodeBase.Tests" Target="T4Scaffolding 1.0.5" Category="Installed Package" />
+    <Link Source="jQuery.RateIt 1.0.4.1" Target="jQuery 1.7.1" Category="Package Dependency" />
     <Link Source="jQuery.UI.Combined 1.8.18" Target="jQuery 1.7.1" Category="Package Dependency" />
     <Link Source="jQuery.Validation 1.9" Target="jQuery 1.7.1" Category="Package Dependency" />
     <Link Source="jQuery.vsdoc 1.6" Target="jQuery 1.7.1" Category="Package Dependency" />
     <Link Source="MvcContrib.Mvc3.TestHelper-ci 3.0.100.0" Target="RhinoMocks 3.6.1" Category="Package Dependency" />
     <Link Source="MvcScaffolding 1.0.6" Target="T4Scaffolding 1.0.5" Category="Package Dependency" />
     <Link Source="T4Scaffolding 1.0.5" Target="EntityFramework 4.3.1" Category="Package Dependency" />
+    <Link Source="CodeBase" Target="AWSSDK 1.4.6.3" Category="Installed Package" />
+    <Link Source="CodeBase" Target="GravatarHelper 3.1.0" Category="Installed Package" />
+    <Link Source="CodeBase" Target="jQuery.RateIt 1.0.4.1" Category="Installed Package" />
     <Link Source="CodeBase" Target="jQuery.UI.Combined 1.8.18" Category="Installed Package" />
     <Link Source="CodeBase" Target="jQuery.Validation 1.9" Category="Installed Package" />
     <Link Source="CodeBase" Target="jQuery.vsdoc 1.6" Category="Installed Package" />
@@ -39,6 +47,7 @@
     <Link Source="CodeBase" Target="Mvc3Futures 3.0.20105.0" Category="Installed Package" />
     <Link Source="CodeBase" Target="MvcContrib.Mvc3.TestHelper-ci 3.0.100.0" Category="Installed Package" />
     <Link Source="CodeBase" Target="MvcScaffolding 1.0.6" Category="Installed Package" />
+    <Link Source="CodeBase" Target="Rotativa 1.2.2" Category="Installed Package" />
   </Links>
   <Categories>
     <Category Id="Project" />

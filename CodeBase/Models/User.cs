@@ -30,6 +30,10 @@ namespace CodeBase.Models
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
+
+        //Optional Facebook user id
+        public int FbId { get; set; }
     }
+
 
 }

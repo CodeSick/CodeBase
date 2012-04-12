@@ -111,6 +111,10 @@
     <Compile Include="Migrations\201204111413411_QuestionTitle.Designer.cs">
       <DependentUpon>201204111413411_QuestionTitle.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201204121036015_AddFacebookId.cs" />
+    <Compile Include="Migrations\201204121036015_AddFacebookId.Designer.cs">
+      <DependentUpon>201204121036015_AddFacebookId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Answer.cs" />
