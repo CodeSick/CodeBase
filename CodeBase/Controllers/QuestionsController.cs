@@ -121,6 +121,12 @@ namespace CodeBase.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Question question = context.Questions.Single(x => x.QuestionId == id);
+
+            foreach (Answer answer in context.Answers.Where(x => x.QuestionId == question.QuestionId))
+            {
+                context.Answers.Remove(answer);
+            }
+
             context.Questions.Remove(question);
             context.SaveChanges();
             return RedirectToAction("Index");
