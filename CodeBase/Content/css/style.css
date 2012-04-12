@@ -465,7 +465,7 @@ a:hover {
 .login-box {
     margin: 0 auto 50px auto;
     width: 214px;
-    padding: 15px 25px;
+    padding: 20px 40px;
     background-color:#f2f8fa;
     border: 1px solid #c6cacc;
     border-top: none;
@@ -473,15 +473,15 @@ a:hover {
 }
 
 .login-box-title {
-    margin: 50px auto 0 auto;
+    margin: 25px auto 0 auto;
     border: 1px solid #367d99;
     border-radius: 5px 5px 0px 0px;
     width: 214px;
-    padding: 10px 25px;
+    padding: 10px 40px;
     font-size: 14px;
     font-weight: bold;
     color: #fff;
-    background-image: -webkit-linear-gradient(top, #47a6cc, #367d99);
+    background-image: -webkit-linear-gradient(top, #2db5ea, #2493bf);
 	background-image: -moz-linear-gradient(top, #fafafa, #f0f0f0);
 	background-image: -ms-linear-gradient(top, #fafafa, #f0f0f0);
 	background-image: -o-linear-gradient(top, #fafafa, #f0f0f0);
@@ -499,7 +499,7 @@ a:hover {
 }
 
 .message-error {
-    width: 400px;
+    width: 300px;
     margin: 0 auto 0 auto;
     background-color:#ffeeee; 
     padding: 10px;
@@ -518,6 +518,17 @@ a:hover {
     height: 50px;
 }
 
+.input-form {
+    background-color: #fafafa;
+}
+
+.input-form .label {
+    display: inline-block;
+}
+
+.input-form .label {
+    display: inline-block;
+}
 
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/

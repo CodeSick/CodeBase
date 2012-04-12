@@ -31,8 +31,6 @@
                 @Html.ActionLink("Create a new account", "Register")
             </div>
     </div>
-    <div class="message-error">
-        @Html.ValidationSummary(true, "Login was unsuccessful.")
-    </div>
+    @Html.ValidationSummary(true, "Login was unsuccessful.", new {@class="message-error" })
     <div class="push"></div>
 }
