@@ -145,6 +145,7 @@
     <Content Include="Content\img\header_logo.png" />
     <Content Include="Content\img\header_logo_hover.png" />
     <Content Include="Content\img\icon_search.png" />
+    <Content Include="Content\js\jquery.js" />
     <Content Include="Content\markitup\jquery.markitup.js" />
     <Content Include="Content\markitup\sets\bbcode\images\bold.png" />
     <Content Include="Content\markitup\sets\bbcode\images\clean.png" />
@@ -330,7 +331,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\js\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
