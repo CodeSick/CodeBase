@@ -5,11 +5,11 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm(new {action="AddComment"}) {
+@using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Article</legend>
-		@Html.Partial("_CommentCreate", new CodeBase.Models.Comment{ArticleId=Model.ArticleId})
+		@Html.Partial("_createOrEdit")
 
         <p>
             <input type="submit" value="Create" />
