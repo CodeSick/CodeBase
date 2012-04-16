@@ -16,6 +16,7 @@ namespace CodeBase.Models
         public String LoggedInUser()
         {
             MembershipUser mu = Membership.GetUser();
+            if (mu == null) { return null; }
             return mu.UserName;
         }
     }

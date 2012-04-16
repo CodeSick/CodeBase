@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CodeBase.Helper;
 using CodeBase.Models;
 using DropNet;
 
@@ -64,16 +65,13 @@ namespace CodeBase.Controllers
         {
             Models.File f = context.Files.Where(x=>x.FileId==id).FirstOrDefault();
             if(f!=null){
-                c.Delete(createFilePath(f));
+                c.Delete(ModelHelpers.createFilePath(f));
                 context.Files.Remove(f);
                 context.SaveChanges();
             }
         }
 
-        private String createFilePath(Models.File f)
-        {
-            return "article" + f.FileId + "_" + f.Filename;
-        }
+
 
         //DONT USE THIS IF YOU NEED TO ALLOW LARGE FILES UPLOADS
         [HttpGet]
@@ -84,13 +82,13 @@ namespace CodeBase.Controllers
             Models.File f = context.Files.Where(x => x.FileId == id).FirstOrDefault();
             if(f!=null){
             var filename = f.Filename;
-            var filePath = createFilePath(f);
+            var filePath = ModelHelpers.createFilePath(f);
             var file = c.GetFile("/" + filePath);
 
                 contextR.Response.AddHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
                 contextR.Response.ContentType = "application/octet-stream";
                 contextR.Response.ClearContent();
-                contextR.Response.Write(file);
+                contextR.Response.BinaryWrite(file);
             }
             else
                 contextR.Response.StatusCode = 404;
@@ -138,7 +136,7 @@ namespace CodeBase.Controllers
                 context.Files.Add(f);
                 context.SaveChanges();
 
-                var filePath = createFilePath(f);
+                var filePath = ModelHelpers.createFilePath(f);
 
                 c.UploadFile("/", filePath, buffer);
 

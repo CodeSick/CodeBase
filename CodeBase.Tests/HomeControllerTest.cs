@@ -17,7 +17,7 @@ namespace CodeBase.Tests
         [TestMethod]
         public void IndexTest()
         {
-            ICodeBaseRepository repo = new FakeCodeBaseContext();
+            CodeBaseContext repo = new FakeCodeBaseContext();
            
         	// Arrange
         	var controller = new HomeController();

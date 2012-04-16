@@ -1,0 +1,8 @@
+﻿@model IEnumerable<CodeBase.Models.File>
+     
+File uploaded with this project:   
+<ul>    
+@foreach (var i in Model){
+    <li>@(Html.ActionLink<FileController>(x=>x.Download(i.FileId), i.Filename))</li>
+}
+</ul>
