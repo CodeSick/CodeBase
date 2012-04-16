@@ -10,10 +10,10 @@ namespace CodeBase.Helper
     public class ModelHelpers
     {
         //Roles allowed to edit
-        static private String[] editor = new String[]{"admin","editor"};
+        static private String[] editor = new String[]{"Admin","Editor"};
 
         //Roles allowed to acces admin stuff
-        static private String[] admin = new String[]{"admin"};
+        static private String[] admin = new String[]{"Admin"};
 
 
 

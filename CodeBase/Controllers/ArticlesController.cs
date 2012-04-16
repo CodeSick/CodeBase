@@ -270,10 +270,10 @@ namespace CodeBase.Controllers
         private bool canApprove(User u)
         {
             //Editor status or higher
-            if(Roles.GetRolesForUser().Intersect(new String[]{"admin","editor"}).Count()>0){
+            if(Roles.GetRolesForUser().Intersect(new String[]{"Admin","Editor"}).Count()>0){
                 return true;
             }
-            if(u.Articles.Count()>=5){
+            else if(u.Articles.Count()>=5){
                 return true;
             }
             return false;

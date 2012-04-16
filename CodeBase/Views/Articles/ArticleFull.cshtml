@@ -46,7 +46,7 @@
 </fieldset>
 <p>
     @Html.ActionLink("Back to List", "Index")
-    @if(User.Identity.IsAuthenticated){
+    @if(ModelHelpers.canEdit(Model)){
         <text>|</text>
         @Html.ActionLink("Edit", "Edit", new { id = Model.ArticleId }) <text>|</text>
         @(Html.ActionLink<ArticlesController>(x => x.Delete(Model.ArticleId), "Delete"))

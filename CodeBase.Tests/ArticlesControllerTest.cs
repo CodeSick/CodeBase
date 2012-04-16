@@ -11,7 +11,7 @@ namespace CodeBase.Tests
     [TestClass]
     public class ArticlesControllerTest
     {
-        [TestMethod]
+        
         public void CreatingNewArticleShouldSetUsernameAndDate()
         {
             var repo = new FakeCodeBaseContext();
