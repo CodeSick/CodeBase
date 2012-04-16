@@ -14,7 +14,9 @@ namespace CodeBase.Models
         // Note: this will destroy and re-create your database with every model change.
         // 
         // System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<CodeBase.Models.CodeBaseContext>());
-        public virtual IDbSet<Article> Articles { get; set; }
+
+        public IQueryable<Article> Articles { get { return ArticlesAll.Where(x => x.Approved); } }
+        public virtual IDbSet<Article> ArticlesAll { get; set; }
 
         public virtual IDbSet<User> Users { get; set; }
 

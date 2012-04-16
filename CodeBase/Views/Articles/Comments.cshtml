@@ -1,0 +1,15 @@
+﻿@model IEnumerable<CodeBase.Models.Comment>
+@foreach (Comment c in Model)
+{
+    <div class="comment">
+        Author: @(Html.ActionLink<UsersController>(x => x.Details(c.UserId), c.Author.Username))
+        @if (ModelHelpers.canEdit(c))
+        {
+            @(Html.ActionLink<ArticlesController>(x => x.DeleteComment(c.CommentId), "Delete"))
+        }
+        <br>
+        Vsebina: @c.Content<br>
+        Date: @c.Date
+    </div>
+
+}

@@ -50,7 +50,7 @@ namespace CodeBase.Controllers
         
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         public ActionResult AddComment(Comment c)
         {
             String currentUser = membership.LoggedInUser();
@@ -72,6 +72,12 @@ namespace CodeBase.Controllers
         public ViewResult Index()
         {   
             return View(context.Articles.Include(article => article.Category).Include(article => article.Ratings).Include(article => article.Comments).Include(article => article.Files).ToList());
+        }
+
+
+        public ViewResult IndexAll()
+        {
+            return View("Index",context.ArticlesAll.Include(article => article.Category).Include(article => article.Ratings).Include(article => article.Comments).Include(article => article.Files).ToList());
         }
 
         [Authorize]
@@ -141,7 +147,7 @@ namespace CodeBase.Controllers
 
             if (ModelState.IsValid)
             {
-                context.Articles.Add(article);
+                context.ArticlesAll.Add(article);
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -159,7 +165,7 @@ namespace CodeBase.Controllers
         public ActionResult Edit(int id)
         {
             Article article = context.Articles.Single(x => x.ArticleId == id);
-            if (Roles.IsUserInRole("Admin") || membership.LoggedInUser() == article.Author.Username)
+            if (ModelHelpers.canEdit(article))
             {
                 ViewBag.PossibleCategories = context.Categories;
                 return View(article);
@@ -172,7 +178,7 @@ namespace CodeBase.Controllers
         public ActionResult DeleteComment(int id)
         {
             Comment c = context.Comments.Find(id);
-            if (Roles.IsUserInRole("Admin") || membership.LoggedInUser() == c.Author.Username)
+            if (ModelHelpers.canEdit(c))
             {
                 context.Comments.Remove(c);
                 context.SaveChanges();
@@ -192,8 +198,8 @@ namespace CodeBase.Controllers
         [Authorize]
         public ActionResult Edit(Article article)
         {
-            var a = context.Articles.Find(article.ArticleId);
-            if (Roles.IsUserInRole("Admin") || Membership.GetUser().UserName == a.Author.Username)
+            var a = context.ArticlesAll.Find(article.ArticleId);
+            if (ModelHelpers.canEdit(a))
             {
                 if (ModelState.IsValid)
                 {
@@ -223,7 +229,7 @@ namespace CodeBase.Controllers
         {
 
             Article article = context.Articles.Single(x => x.ArticleId == id);
-            if (Roles.IsUserInRole("Admin") || membership.LoggedInUser() == article.Author.Username)
+            if (ModelHelpers.canEdit(article))
             {
                 return View(article);
             }
@@ -241,7 +247,7 @@ namespace CodeBase.Controllers
         {
 
             Article article = context.Articles.Single(x => x.ArticleId == id);
-            if (Roles.IsUserInRole("Admin") || membership.LoggedInUser() == article.Author.Username)
+            if (ModelHelpers.canEdit(article))
             {
                 foreach(Rating r in context.Ratings.Where(x => x.ArticleId==article.ArticleId)){
                     context.Ratings.Remove(r);
@@ -252,12 +258,24 @@ namespace CodeBase.Controllers
                 foreach(Comment c in context.Comments.Where(x=> x.ArticleId==article.ArticleId)){
                     context.Comments.Remove(c);
                 }
-                context.Articles.Remove(article);
+                context.ArticlesAll.Remove(article);
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
             TempData["Message"] = "Not authorized";
             return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        private bool canApprove(User u)
+        {
+            //Editor status or higher
+            if(Roles.GetRolesForUser().Intersect(new String[]{"admin","editor"}).Count()>0){
+                return true;
+            }
+            if(u.Articles.Count()>=5){
+                return true;
+            }
+            return false;
         }
     }
 }

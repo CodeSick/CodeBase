@@ -13,7 +13,7 @@ namespace CodeBase.Tests.Models
     {
 
         public override System.Data.Entity.IDbSet<Answer> Answers { get; set; }
-        public override System.Data.Entity.IDbSet<Article> Articles { get; set; }
+        public override System.Data.Entity.IDbSet<Article> ArticlesAll { get; set; }
         public override System.Data.Entity.IDbSet<Category> Categories { get; set; }
         public override System.Data.Entity.IDbSet<Comment> Comments { get; set; }
         public override System.Data.Entity.IDbSet<File> Files { get; set; }
@@ -30,7 +30,7 @@ namespace CodeBase.Tests.Models
 
         public FakeCodeBaseContext()
         {
-            Articles = new FakeDbSet<Article>();
+            ArticlesAll = new FakeDbSet<Article>();
             Users = new FakeDbSet<User>();
             Categories = new FakeDbSet<Category>();
 
