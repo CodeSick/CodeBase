@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Details";
 }
+@using CodeBase.Models
 
 <h2>Details</h2>
 
@@ -13,13 +14,13 @@
     <div class="display-field">@Html.DisplayTextFor(_ => Model.Author.Username).ToString()</div>
 
     <div class="display-label">Content</div>
-    <div class="display-field">@Model.Content</div>
+    <div class="display-field">@Html.Raw(BBCodeHelper.Format(@Model.Content))</div>
 
     <div class="display-label">Date</div>
     <div class="display-field">@Model.Date</div>
 
     <div class="display-label">Question</div>
-    <div class="display-field">@Html.DisplayTextFor(_ => Model.Question.Content).ToString()</div>
+    <div class="display-field">@Html.Raw(BBCodeHelper.Format(Model.Question.Content))</div>
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.AnswerId }) |

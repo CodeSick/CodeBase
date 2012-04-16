@@ -4,6 +4,8 @@
     ViewBag.Title = "Index";
 }
 
+@using CodeBase.Models
+
 <h2>Index</h2>
 
 <p>
@@ -40,7 +42,7 @@
 			@item.Title
         </td>
         <td>
-			@item.Content
+            @Html.Raw(BBCodeHelper.Format(@item.Content))			
         </td>
         <td>
 			@String.Format("{0:d/M/yyyy}", item.Date)

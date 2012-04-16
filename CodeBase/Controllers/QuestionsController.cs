@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using CodeBase.Models;
 using CodeBase.ViewModel;
 
@@ -61,7 +62,7 @@ namespace CodeBase.Controllers
         public ActionResult Create(Question question)
         {
             question.Date = DateTime.Now;
-            String u = membership.LoggedInUser();
+            String u = Membership.GetUser().UserName;
             question.UserId = context.Users.Single(x => x.Username == u).UserId;
 
             if (ModelState.IsValid)

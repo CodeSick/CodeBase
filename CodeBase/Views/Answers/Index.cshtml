@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
+@using CodeBase.Models
 
 <h2>Index</h2>
 
@@ -37,13 +38,13 @@
 			@Html.DisplayTextFor(_ => item.Author.Username).ToString()
         </td>
         <td>
-			@item.Content
+			@Html.Raw(BBCodeHelper.Format(@item.Content))
         </td>
         <td>
 			@item.Date
         </td>
         <td>
-			@Html.DisplayTextFor(_ => item.Question.Content).ToString()
+			@Html.Raw(BBCodeHelper.Format(item.Question.Content))
         </td>
     </tr>
 }
