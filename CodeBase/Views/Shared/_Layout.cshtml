@@ -52,30 +52,14 @@
                             <li>My Articles</li>
                             <li>Settings</li>
                             @{string LogOffUrl=Html.BuildUrlFromExpression<AccountController>(c => c.LogOff());}
-                            <li class="last" onclick="location.href='@LogOffUrl'">Sign out</li>
+                            <li class="last" id="logout" onclick="location.href='@LogOffUrl'">Sign out</li>
                         </ul>
                     </div>
                 }
             </div>
         </div>
         <div id="content-container">
-            @{
-                if (Session["accessToken"] != null) {
-                    @Html.Raw(Session["accessToken"] as string)   
-                }
-            }
             <div id="content">
-
-                  <div id="auth-status" style="float:  right">
-                    <div id="auth-loggedout">
-                      <a href="#" id="auth-loginlink">Facebook login</a>
-                    </div>
-                    <div id="auth-loggedin" style="display:none">
-                      Hi, <span id="auth-displayname"></span>  
-                    (<a href="#" id="auth-logoutlink">Facebook logout</a>)
-                    </div>
-                </div>
-
                 <div id="message">
                     @TempData["Message"]
                 </div>
@@ -114,6 +98,15 @@
                 <dd><a href="#" id="connect-rss">RSS</a></dd>
             </dl>
             <div id="footer-copy"><span>&copy; 2012 code.base</span></div>
+                  <div id="auth-status" style="float:  right">
+                    <div id="auth-loggedout">
+                      <a href="#" id="auth-loginlink">Facebook login</a>
+                    </div>
+                    <div id="auth-loggedin" style="display:none">
+                      Hi, <span id="auth-displayname"></span>  
+                    (<a href="#" id="auth-logoutlink">Facebook logout</a>)
+                   </div>
+                </div>
         </div>
     </div>
     <script type="text/javascript">
@@ -142,6 +135,10 @@
 
         styleCode();
 
+    });
+
+    $("#logout").click(function () {
+        FB.logout();
     });
 
     $("#searchBox").autocomplete({
@@ -190,10 +187,7 @@
                 $.ajax({
                     url: '@Url.Action("Login","Facebook")',
                     type: "POST",
-                    data: { "accessToken": response.authResponse.accessToken },
-                    success: function (data) {
-                        alert(data);
-                    }
+                    data: { "accessToken": response.authResponse.accessToken }
                 });
 
                 FB.api('/me', function (me) {

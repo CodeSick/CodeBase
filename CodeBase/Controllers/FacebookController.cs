@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using CodeBase.Models;
 using Facebook;
 
@@ -20,31 +21,63 @@ namespace CodeBase.Controllers
         {
             if (Session["accessToken"] == null)
             {
+
                 Session["accessToken"] = form["accessToken"];
                 FacebookClient c = new FacebookClient(form["accessToken"].ToString());
-                dynamic fbuser = c.Get("me");
-                int fbuserid = Convert.ToInt32(fbuser.id);
+                dynamic fbuser;
+                User u = null;
+                String fbusername = null;
+                int fbuserid;
 
-                User u = context.Users.SingleOrDefault(x => x.FbId == fbuserid);
-
-                if (u == null)
+                try
                 {
-                    User newfbuser = new User()
+                    fbuser = c.Get("me");
+                    fbuserid = Convert.ToInt32(fbuser.id);
+                    fbusername = fbuser.name + " " + fbuser.surname;
+                    u = context.Users.SingleOrDefault(x => x.FbId == fbuserid);
+
+                    if (u == null && fbusername != null)
                     {
-                        Username = fbuser.name + " " + fbuser.surname,
-                        FbId = fbuserid,
-                        JoinDate = DateTime.Now
-                    };
-                    context.Users.Add(newfbuser);
-                    context.SaveChanges();
+                        MembershipCreateStatus createStatus;
+                        Membership.CreateUser(fbusername, form["accessToken"], null, null, null, true, null, out createStatus);
+
+                        if (createStatus == MembershipCreateStatus.Success)
+                        {
+                            User newfbuser = new User()
+                            {
+                                Username = fbuser.name + " " + fbuser.surname,
+                                FbId = fbuserid,
+                                JoinDate = DateTime.Now,
+                            };
+
+                            context.Users.Add(newfbuser);
+                            context.SaveChanges();
+                            Roles.AddUserToRole(newfbuser.Username, "Normal");
+                            FormsAuthentication.SetAuthCookie(newfbuser.Username, true);
+                        }
+                    }
+                    else if (u != null && fbusername != null)
+                    {
+                        FormsAuthentication.SetAuthCookie(u.Username, true);
+                    }
                 }
+                catch (Exception e)
+                { }
             }
+            else
+            {
+                //accessToken not null
+            }
+
+
+
         }
 
         [HttpPost]
         public void Logout(FormCollection form)
         {
             Session["accessToken"] = null;
+            FormsAuthentication.SignOut();
         }
 
     }
