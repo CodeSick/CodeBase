@@ -49,6 +49,9 @@
     <Reference Include="AWSSDK">
       <HintPath>..\packages\AWSSDK.1.4.6.3\lib\AWSSDK.dll</HintPath>
     </Reference>
+    <Reference Include="DropNet">
+      <HintPath>..\packages\DropNet.1.9.3\lib\net35\DropNet.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
@@ -61,6 +64,9 @@
     </Reference>
     <Reference Include="MvcContrib.TestHelper">
       <HintPath>..\packages\MvcContrib.Mvc3.TestHelper-ci.3.0.100.0\lib\MvcContrib.TestHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\DropNet.1.9.3\lib\net35\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="Rhino.Mocks">
       <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
@@ -98,6 +104,7 @@
     <Compile Include="Controllers\AnswersController.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -137,6 +144,21 @@
   <ItemGroup>
     <Content Include="Content\css\style.css" />
     <Content Include="Content\delete.gif" />
+    <Content Include="Content\FileUpload\cors\postmessage.html" />
+    <Content Include="Content\FileUpload\cors\result.html" />
+    <Content Include="Content\FileUpload\css\jquery.fileupload-ui.css" />
+    <Content Include="Content\FileUpload\css\style.css" />
+    <Content Include="Content\FileUpload\img\loading.gif" />
+    <Content Include="Content\FileUpload\img\progressbar.gif" />
+    <Content Include="Content\FileUpload\js\cors\jquery.postmessage-transport.js" />
+    <Content Include="Content\FileUpload\js\cors\jquery.xdr-transport.js" />
+    <Content Include="Content\FileUpload\js\jquery.fileupload-ip.js" />
+    <Content Include="Content\FileUpload\js\jquery.fileupload-ui.js" />
+    <Content Include="Content\FileUpload\js\jquery.fileupload.js" />
+    <Content Include="Content\FileUpload\js\jquery.iframe-transport.js" />
+    <Content Include="Content\FileUpload\js\locale.js" />
+    <Content Include="Content\FileUpload\js\main.js" />
+    <Content Include="Content\FileUpload\js\vendor\jquery.ui.widget.js" />
     <Content Include="Content\img\connect_facebook.png" />
     <Content Include="Content\img\connect_rss.png" />
     <Content Include="Content\img\connect_twitter.png" />
@@ -331,6 +353,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Files\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -447,6 +470,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Articles\Comment.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\File\Upload.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
