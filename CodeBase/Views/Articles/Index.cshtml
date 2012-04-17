@@ -1,10 +1,8 @@
 @model IEnumerable<CodeBase.Models.Article>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Articles";
 }
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<h1 class="border">Articles</h1>
 <table id="tabelica">
     <thead>
         <tr>
@@ -45,6 +43,7 @@
         </tr>
     }
 </table>
+<div class="table-actions">@Html.ActionLink("Create new", "Create")</div>
 <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {

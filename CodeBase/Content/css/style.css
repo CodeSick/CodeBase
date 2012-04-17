@@ -21,10 +21,16 @@ p {
 }
 h1 {
 	color:#3db8e8;
-	font-size: 20px;
-	font-weight: bold;
+	font-size: 25px;
+	font-weight: normal;
 	padding: 0;
-	margin: 0 0 10px 0;
+	margin: 0 0 25px 0;
+}
+
+h1.border {
+	padding: 0 0 15px 0;
+	margin: 0 0 19px 0;
+    border-bottom: 1px solid #e3e3e3;   
 }
 h1 a {
 	color:#3db8e8;
@@ -594,6 +600,10 @@ table th {
     padding:6px 10px;
     background-color: #f0f0f0;
     text-align: left;
+}
+
+.table-actions {
+    margin-left: 10px;
 }
 
 /* MISC  
