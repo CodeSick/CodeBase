@@ -15,8 +15,7 @@ namespace CodeBase.Models
         // 
         // System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<CodeBase.Models.CodeBaseContext>());
 
-        public IQueryable<Article> Articles { get { return ArticlesAll.Where(x => x.Approved); } }
-        public virtual IDbSet<Article> ArticlesAll { get; set; }
+        public virtual IDbSet<Article> Articles { get; set; }
 
         public virtual IDbSet<User> Users { get; set; }
 

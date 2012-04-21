@@ -1,15 +1,12 @@
-@model IEnumerable<CodeBase.Models.Article>
+﻿@model IEnumerable<CodeBase.Models.Article>
 @{
     ViewBag.Title = "Articles";
 }
 <h1 class="border">Articles</h1>
-@if (ModelHelpers.isEditor())
-{
-    @(Html.ActionLink<ArticlesController>(x => x.EditorMode(), "Editor mode"))
-}
 <table id="tabelica">
     <thead>
         <tr>
+            <th>Approved</th>
             <th>Title </th>
             <th>Date </th>
             <th>Author </th>
@@ -22,6 +19,9 @@
     @foreach (var item in Model)
     {
         <tr>
+            <td>
+                @item.Approved
+            </td>
             <td>
                 @(Html.ActionLink<CodeBase.Controllers.ArticlesController>(f => f.Details(item.ArticleId, Url.ToFriendlyUrl(item.Title)), item.Title))
             </td>

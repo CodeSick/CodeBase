@@ -51,4 +51,8 @@
         @Html.ActionLink("Edit", "Edit", new { id = Model.ArticleId }) <text>|</text>
         @(Html.ActionLink<ArticlesController>(x => x.Delete(Model.ArticleId), "Delete"))
     }
+    @if(ModelHelpers.isEditor()){
+    <text>|</text>
+    @(Html.ActionLink<ArticlesController>(x=>x.ConfirmArticle(Model.ArticleId), "Confirm"))
+    }
 </p>

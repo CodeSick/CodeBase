@@ -4,7 +4,7 @@ namespace CodeBase.Models
     public interface ICodeBaseRepository
     {
         System.Data.Entity.IDbSet<Answer> Answers { get; set; }
-        System.Data.Entity.IDbSet<Article> ArticlesAll { get; set; }
+        System.Data.Entity.IDbSet<Article> Articles { get; set; }
         System.Data.Entity.IDbSet<Category> Categories { get; set; }
         System.Data.Entity.IDbSet<Comment> Comments { get; set; }
         System.Data.Entity.IDbSet<File> Files { get; set; }
