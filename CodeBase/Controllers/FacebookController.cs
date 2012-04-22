@@ -17,66 +17,53 @@ namespace CodeBase.Controllers
         public CodeBaseMembership membership = new CodeBaseMembership();
 
         [HttpPost]
-        public void Login(FormCollection form)
+        public String Login(FormCollection form)
         {
+
+            dynamic fbuser;
             if (Session["accessToken"] == null)
             {
-
                 Session["accessToken"] = form["accessToken"];
                 FacebookClient c = new FacebookClient(form["accessToken"].ToString());
-                dynamic fbuser;
                 User u = null;
-                String fbusername = null;
-                int fbuserid;
+                int fbuserid = -1;
 
+                fbuser = c.Get("me");
                 try
                 {
-                    fbuser = c.Get("me");
                     fbuserid = Convert.ToInt32(fbuser.id);
-                    fbusername = fbuser.name + " " + fbuser.surname;
-                    u = context.Users.SingleOrDefault(x => x.FbId == fbuserid);
-
-                    if (u == null && fbusername != null)
-                    {
-                        MembershipCreateStatus createStatus;
-                        Membership.CreateUser(fbusername, form["accessToken"], null, null, null, true, null, out createStatus);
-
-                        if (createStatus == MembershipCreateStatus.Success)
-                        {
-                            User newfbuser = new User()
-                            {
-                                Username = fbuser.name + " " + fbuser.surname,
-                                FbId = fbuserid,
-                                JoinDate = DateTime.Now,
-                            };
-
-                            context.Users.Add(newfbuser);
-                            context.SaveChanges();
-                            Roles.AddUserToRole(newfbuser.Username, "Normal");
-                            FormsAuthentication.SetAuthCookie(newfbuser.Username, true);
-                        }
-                    }
-                    else if (u != null && fbusername != null)
-                    {
-                        FormsAuthentication.SetAuthCookie(u.Username, true);
-                    }
                 }
                 catch (Exception e)
-                { }
+                {}
+                    
+                u = context.Users.SingleOrDefault(x => x.FbId == fbuserid);
+
+                if (u == null)
+                {
+                    Session["fbid"] = fbuserid;
+                    return "null";
+                }
+                else if (u != null && fbuserid != -1)
+                {
+                    FormsAuthentication.SetAuthCookie(u.Username, true);
+                    Session["fbuserchosenname"] = u.Username;
+                    return u.Username;
+                }
             }
-            else
+            String localname = Session["fbuserchosenname"] as String;
+            if (localname != null)
             {
-                //accessToken not null
+                return localname;
             }
-
-
-
+            return "";
         }
 
         [HttpPost]
         public void Logout(FormCollection form)
         {
             Session["accessToken"] = null;
+            Session["fbid"] = null;
+            Session["fbuserchosenname"] = null;
             FormsAuthentication.SignOut();
         }
 

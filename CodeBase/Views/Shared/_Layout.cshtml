@@ -37,7 +37,10 @@
                         {
                             <li class="user-name">@User.Identity.Name</li>
                         }
-                        else
+                        else if (Session["accessToken"] != null && Session["fbid"] != null)
+                        {
+                            <li class="login">@Html.ActionLink("Choose your name", "ChangeDisplayName", "Account")</li>
+                        } else
                         {
                            <li class="login">@Html.ActionLink("Login", "LogOn", "Account")</li>
                         }
@@ -187,7 +190,12 @@
                 $.ajax({
                     url: '@Url.Action("Login","Facebook")',
                     type: "POST",
-                    data: { "accessToken": response.authResponse.accessToken }
+                    data: { "accessToken": response.authResponse.accessToken },
+                    success: function (data) {
+                        if (data == "null") {
+                            window.location = "/Account/ChangeDisplayName";
+                        }
+                    }
                 });
 
                 FB.api('/me', function (me) {
