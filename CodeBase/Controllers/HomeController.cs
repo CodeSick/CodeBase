@@ -17,7 +17,7 @@ namespace CodeBase.Controllers
         {
             IndexViewModel model = new IndexViewModel 
             { Message = "Hello to this beautiful site",
-                Articles = context.Articles.Take(5).ToList(),
+                Articles = context.Articles.Where(x => x.Approved==true).Take(5).ToList(),
                 Users= context.Users.OrderByDescending(x => x.Articles.Count).Take(5).Select(x => new UserWithCount{ User=x, Count=x.Articles.Count})
             };
 

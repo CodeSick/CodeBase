@@ -21,10 +21,16 @@ p {
 }
 h1 {
 	color:#3db8e8;
-	font-size: 20px;
-	font-weight: bold;
+	font-size: 25px;
+	font-weight: normal;
 	padding: 0;
-	margin: 0 0 10px 0;
+	margin: 0 0 25px 0;
+}
+
+h1.border {
+	padding: 0 0 15px 0;
+	margin: 0 0 19px 0;
+    border-bottom: 1px solid #e3e3e3;   
 }
 h1 a {
 	color:#3db8e8;
@@ -184,7 +190,7 @@ a:hover {
 	width:200px;
 	background-color:#fff;
 	border-radius:5px;
-	box-shadow:0 0 8px 0px rgba(0,0,0,0.21)
+	box-shadow:0 0 8px 0px rgba(0,0,0,0.21);
 }
 .user-menu li {
 	font-size:12px;
@@ -585,15 +591,19 @@ table {
 
 table td {
     padding:6px 10px;
-    border: 1px solid #f0f0f0;
+    border: 1px solid #e3e3e3;
 }
 
 table th {
-    border: 1px solid #f0f0f0;
+    border: 1px solid #e3e3e3;
     font-weight: bold;
     padding:6px 10px;
-    background-color: #fafafa;
+    background-color: #f0f0f0;
     text-align: left;
+}
+
+.table-actions {
+    margin-left: 10px;
 }
 
 /* MISC  

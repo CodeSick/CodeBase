@@ -41,13 +41,13 @@ namespace CodeBase.Controllers
 
         public ActionResult Feed()
         {
-            var articles = context.Articles.OrderBy(pub => pub.Date).Take(15).ToList().Select(p => new SyndicationItem(p.Title, BBCodeHelper.Format(p.Content), new Uri(Url.Action("Details","Articles", new { id = p.ArticleId }, "http")).SetPort(80)));
+            var articles = context.Articles.OrderBy(pub => pub.Date).Take(15).ToList().Select(p => new SyndicationItem(p.Title, BBCodeHelper.Format(p.Content), new Uri(Url.Action("Details", "Articles", new { id = p.ArticleId }, "http")).SetPort(80)));
 
             var feed = new SyndicationFeed("CodeBase", "Your source to knowledge", new Uri(Url.Action("Index", "Home", new { }, "http")).SetPort(80), articles);
 
             return new FeedResult(new Rss20FeedFormatter(feed));
-        
-        
+
+
         }
 
         [HttpPost, Authorize]
@@ -70,14 +70,22 @@ namespace CodeBase.Controllers
         // GET: /Articles/
 
         public ViewResult Index()
-        {   
-            return View(context.Articles.Include(article => article.Category).Include(article => article.Ratings).Include(article => article.Comments).Include(article => article.Files).ToList());
+        {
+            if (ModelHelpers.isEditor())
+            {
+                return View("EditorMode", context.Articles.Include(article => article.Category).Include(article => article.Ratings).Include(article => article.Comments).Include(article => article.Files).ToList());
+            }
+            else
+            {
+                return View(context.Articles.Where(x=>x.Approved==true).Include(article => article.Category).Include(article => article.Ratings).Include(article => article.Comments).Include(article => article.Files).ToList());
+            }
+
         }
 
 
-        public ViewResult IndexAll()
+        public ViewResult EditorMode()
         {
-            return View("Index",context.ArticlesAll.Include(article => article.Category).Include(article => article.Ratings).Include(article => article.Comments).Include(article => article.Files).ToList());
+            return View(context.Articles.Include(article => article.Category).Include(article => article.Ratings).Include(article => article.Comments).Include(article => article.Files).ToList());
         }
 
         [Authorize]
@@ -88,7 +96,7 @@ namespace CodeBase.Controllers
         }
 
         public ActionResult Pdf(int id)
-        {            
+        {
             return new ActionAsPdf("Details", new { id = id });
         }
 
@@ -106,7 +114,11 @@ namespace CodeBase.Controllers
         public ActionResult Details(int id, String title)
         {
             Article article = context.Articles.Include(x => x.Comments).Single(x => x.ArticleId == id);
-
+            if (ModelHelpers.canEdit(article) == false)
+            {
+                TempData["Error"] = "Access denied";
+                return RedirectToAction("Index");
+            }
             string realTitle = UrlEncoder.ToFriendlyUrl(article.Title);
             string urlTitle = (title ?? "").Trim().ToLower();
             if (realTitle != urlTitle)
@@ -115,7 +127,7 @@ namespace CodeBase.Controllers
                 return Redirect(url);
             }
             ViewBag.Rating = AverageRating(article.ArticleId);
-            
+
 
             return View(article);
         }
@@ -143,12 +155,12 @@ namespace CodeBase.Controllers
         {
             article.Date = DateTime.Now;
             String currentUser = membership.LoggedInUser();
-            article.Approved = canApprove(context.Users.Where(x => x.Username == currentUser).FirstOrDefault());
+            article.Approved = autoApprove(context.Users.Where(x => x.Username == currentUser).FirstOrDefault());
             article.UserId = context.Users.FirstOrDefault(x => x.Username == currentUser).UserId;
 
             if (ModelState.IsValid)
             {
-                context.ArticlesAll.Add(article);
+                context.Articles.Add(article);
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -199,7 +211,7 @@ namespace CodeBase.Controllers
         [Authorize]
         public ActionResult Edit(Article article)
         {
-            var a = context.ArticlesAll.Find(article.ArticleId);
+            var a = context.Articles.Find(article.ArticleId);
             if (ModelHelpers.canEdit(a))
             {
                 if (ModelState.IsValid)
@@ -250,16 +262,19 @@ namespace CodeBase.Controllers
             Article article = context.Articles.Single(x => x.ArticleId == id);
             if (ModelHelpers.canEdit(article))
             {
-                foreach(Rating r in context.Ratings.Where(x => x.ArticleId==article.ArticleId)){
+                foreach (Rating r in context.Ratings.Where(x => x.ArticleId == article.ArticleId))
+                {
                     context.Ratings.Remove(r);
                 }
-                foreach(File f in context.Files.Where(x => x.ArticleId==article.ArticleId)){
+                foreach (File f in context.Files.Where(x => x.ArticleId == article.ArticleId))
+                {
                     context.Files.Remove(f);
                 }
-                foreach(Comment c in context.Comments.Where(x=> x.ArticleId==article.ArticleId)){
+                foreach (Comment c in context.Comments.Where(x => x.ArticleId == article.ArticleId))
+                {
                     context.Comments.Remove(c);
                 }
-                context.ArticlesAll.Remove(article);
+                context.Articles.Remove(article);
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -267,16 +282,30 @@ namespace CodeBase.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
 
-        private bool canApprove(User u)
+        private bool autoApprove(User u)
         {
             //Editor status or higher
-            if(Roles.GetRolesForUser().Intersect(new String[]{"Admin","Editor"}).Count()>0){
+            if (Roles.GetRolesForUser().Intersect(new String[] { "Admin", "Editor" }).Count() > 0)
+            {
                 return true;
             }
-            else if(u.Articles.Count()>=5){
+            else if (u.Articles.Count() >= 5)
+            {
                 return true;
             }
             return false;
+        }
+
+        [Authorize(Roles = "Editor, Admin")]
+        public ActionResult ConfirmArticle(int articleId)
+        {
+            Article a = context.Articles.Find(articleId);
+            if (a != null)
+            {
+                a.Approved = true;
+                context.SaveChanges();
+            }
+            return RedirectToAction("EditorMode");
         }
     }
 }

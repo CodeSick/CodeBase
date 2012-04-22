@@ -15,7 +15,7 @@ namespace CodeBase.Controllers
 
         public ActionResult SearchArticlesJson(String data, String format="json", int max=5)
         {
-            var articles = context.Articles.Where(x => x.Title.ToLower().Contains(data)).Take(max);
+            var articles = context.Articles.Where(x => x.Approved==true && x.Title.ToLower().Contains(data)).Take(max);
             return Json(articles.Select(x => new { name = x.Title, id = x.ArticleId }), JsonRequestBehavior.AllowGet);
         }
 

@@ -20,6 +20,8 @@
     </fieldset>
 }
 
+@(Html.ActionLink<FileController>(x => x.Upload(Model.ArticleId), "Manage files"))
+
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

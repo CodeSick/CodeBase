@@ -10,10 +10,10 @@ namespace CodeBase.Helper
     public class ModelHelpers
     {
         //Roles allowed to edit
-        static private String[] editor = new String[]{"Admin","Editor"};
+        static private String[] editor = new String[] { "Admin", "Editor" };
 
         //Roles allowed to acces admin stuff
-        static private String[] admin = new String[]{"Admin"};
+        static private String[] admin = new String[] { "Admin" };
 
 
 
@@ -22,6 +22,16 @@ namespace CodeBase.Helper
         {
             var user = m.LoggedInUser();
             if (user != null && (user == c.Author.Username || Roles.GetRolesForUser().Intersect(editor).Count() > 0))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool isEditor()
+        {
+            var user = m.LoggedInUser();
+            if (user != null && (Roles.GetRolesForUser().Intersect(editor).Count() > 0))
             {
                 return true;
             }

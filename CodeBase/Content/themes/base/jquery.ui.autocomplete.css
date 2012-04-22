@@ -38,12 +38,12 @@
 	float: left;
 }
 .ui-menu .ui-menu {
+    font-size: 12px;
 	margin-top: -3px;
 }
 .ui-menu .ui-menu-item {
 	margin:0;
 	padding: 0;
-	zoom: 1;
 	float: left;
 	clear: left;
 	width: 100%;
@@ -53,10 +53,13 @@
 	display:block;
 	padding:.2em .4em;
 	line-height:1.5;
-	zoom:1;
+    -moz-transition: none;
+    -webkit-transition: none;
+    -o-transition: color 0 ease-in;
+    transition: none;
 }
 .ui-menu .ui-menu-item a.ui-state-hover,
 .ui-menu .ui-menu-item a.ui-state-active {
-	font-weight: normal;
-	margin: -1px;
+    color: #fff;
+    cursor: pointer;
 }
