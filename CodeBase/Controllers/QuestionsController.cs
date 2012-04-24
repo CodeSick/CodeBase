@@ -31,17 +31,6 @@ namespace CodeBase.Controllers
         {
             QAViewModel vm = new QAViewModel();
             Question question = context.Questions.Single(x => x.QuestionId == id);
-            ViewData["username"] = "-1";
-
-            try
-            {
-                ViewData["username"] = membership.LoggedInUser();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-
             vm.question = question;
             return View(vm);
         }
@@ -131,6 +120,39 @@ namespace CodeBase.Controllers
             context.Questions.Remove(question);
             context.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public String Subscribe(FormCollection form)
+        {
+            int qid = Convert.ToInt32(form["questionid"]);
+            Question q = context.Questions.SingleOrDefault(x => x.QuestionId == qid);
+            if (q == null)
+                return "";
+
+            String user = membership.LoggedInUser();
+            User uObj = context.Users.Single(x => x.Username == user);
+            bool found = false;
+            ICollection<Question> subscriptions = uObj.SubscritionQuestions.ToList();
+
+            foreach (Question qcurrent in subscriptions)
+            {
+                if (qcurrent.QuestionId == qid) // already subscribed, unsubscribe
+                {
+                    found = true;
+                    context.Users.Single(x => x.Username == user).SubscritionQuestions.Remove(qcurrent);
+                    context.SaveChanges();
+                    return "deleted";
+                }
+            }
+
+            if (!found)
+            {
+                context.Users.Single(x => x.Username == user).SubscritionQuestions.Add(q);
+                context.SaveChanges();
+            }
+            return "subscribed";
         }
     }
 }

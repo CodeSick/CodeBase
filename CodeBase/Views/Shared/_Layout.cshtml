@@ -141,6 +141,35 @@
         FB.logout();
     });
 
+    $("#dialog-confirm").css("display", "none");
+    $("#trigger").click(function () {
+        $("#dialog-confirm").dialog({
+            resizable: false,
+            height: 170,
+            modal: true,
+            buttons: {
+                "Subscribe/Unsubscribe": function () {
+                    $.ajax({
+                        url: '@Url.Action("Subscribe","Questions")',
+                        type: "POST",
+                        data: { "questionid": '@Model.question.QuestionId' },
+                        success: function (data) {
+                            if (data == "subscribed") {
+                                $("#dialog-confirm").html("<span style=\"color: red\">You are now subscribed to this question</span>");
+                            } else {
+                                $("#dialog-confirm").html("<span style=\"color: red\">Your subscription to this question has been cancelled</span>");
+                            }
+                        }
+                    });
+
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    });
+
     $("#searchBox").autocomplete({
         source: function (request, response) {
             $.ajax({

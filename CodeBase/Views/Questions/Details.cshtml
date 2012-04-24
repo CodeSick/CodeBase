@@ -28,5 +28,11 @@
     @Html.ActionLink("Back to List", "Index")
 </p>
 
+<span id="trigger">Un/Subscribe to this question</span>
+
+<div id="dialog-confirm" title="Un/Subscribe to this question ?">
+	Subscribe to this question. If you already have a subscription, you will be unsubscribed
+</div>
+<div id="callbackMessage"></div>
 
 @Html.Partial("_AnswerQuestion")

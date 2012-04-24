@@ -44,7 +44,7 @@
 </table>
 
 <br /><h2>Answer this question</h2> <br />
-@if (!ViewData["username"].Equals("-1"))
+@if (Request.IsAuthenticated)
 {
 
 using (Html.BeginForm("Create","Answers")) {
@@ -60,6 +60,8 @@ using (Html.BeginForm("Create","Answers")) {
 
 <input type="submit" value="Create" />
     }
+} else {
+ @Html.Raw("Log in to answer");   
 }
 <script type="text/javascript" >
     $(document).ready(function () {
