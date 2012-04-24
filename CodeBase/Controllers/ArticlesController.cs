@@ -219,6 +219,7 @@ namespace CodeBase.Controllers
 
                     article.UserId = a.UserId;
                     article.Date = a.Date;
+                    article.Approved = a.Approved;
                     context.Entry(a).State = EntityState.Detached;
 
                     context.Entry(article).State = EntityState.Modified;
