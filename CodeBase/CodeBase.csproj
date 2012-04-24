@@ -489,9 +489,6 @@
     <Content Include="Views\Articles\RenderFiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Account\ChangeDisplayName.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Articles\EditorMode.cshtml" />
   </ItemGroup>
   <PropertyGroup>

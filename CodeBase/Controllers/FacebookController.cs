@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -19,7 +20,6 @@ namespace CodeBase.Controllers
         [HttpPost]
         public String Login(FormCollection form)
         {
-
             dynamic fbuser;
             if (Session["accessToken"] == null)
             {
@@ -27,33 +27,53 @@ namespace CodeBase.Controllers
                 FacebookClient c = new FacebookClient(form["accessToken"].ToString());
                 User u = null;
                 int fbuserid = -1;
-
                 fbuser = c.Get("me");
+
                 try
                 {
                     fbuserid = Convert.ToInt32(fbuser.id);
                 }
                 catch (Exception e)
-                {}
+                {
+                    Console.WriteLine(e.ToString());
+                }
                     
                 u = context.Users.SingleOrDefault(x => x.FbId == fbuserid);
 
-                if (u == null)
+                if (u == null && fbuserid != -1)
                 {
-                    Session["fbid"] = fbuserid;
-                    return "null";
+                    //generate nick and add user to db&membership
+                    String name = fbuser.name + fbuserid;
+                    
+                    MembershipCreateStatus createStatus;
+                    Membership.CreateUser(name, Session["accessToken"] as String, null, null, null, true, null, out createStatus);
+
+                    if (createStatus == MembershipCreateStatus.Success)
+                    {
+                        User newfbuser = new User()
+                        {
+                            Username = name,
+                            FbId = fbuserid,
+                            JoinDate = DateTime.Now,
+                        };
+
+                        context.Users.Add(newfbuser);
+                        context.SaveChanges();
+                        Roles.AddUserToRole(newfbuser.Username, "Normal");
+                        FormsAuthentication.SetAuthCookie(newfbuser.Username, true);
+                        return newfbuser.Username;
+                    }
+                    else
+                    {
+                        return "error";
+                    }
                 }
                 else if (u != null && fbuserid != -1)
                 {
+                    //login user with fb account
                     FormsAuthentication.SetAuthCookie(u.Username, true);
-                    Session["fbuserchosenname"] = u.Username;
                     return u.Username;
                 }
-            }
-            String localname = Session["fbuserchosenname"] as String;
-            if (localname != null)
-            {
-                return localname;
             }
             return "";
         }
@@ -62,8 +82,6 @@ namespace CodeBase.Controllers
         public void Logout(FormCollection form)
         {
             Session["accessToken"] = null;
-            Session["fbid"] = null;
-            Session["fbuserchosenname"] = null;
             FormsAuthentication.SignOut();
         }
 

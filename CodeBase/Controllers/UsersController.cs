@@ -107,6 +107,7 @@ namespace CodeBase.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             User user = context.Users.Single(x => x.UserId == id);
+            Membership.DeleteUser(user.Username);
             context.Users.Remove(user);
             context.SaveChanges();
             return RedirectToAction("Index");

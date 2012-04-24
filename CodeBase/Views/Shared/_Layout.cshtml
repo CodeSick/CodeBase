@@ -35,13 +35,10 @@
                         <li>@Html.ActionLink("Q&A","Index","Questions")</li>
                         @if (Request.IsAuthenticated)
                         {
-                            <li class="user-name">@User.Identity.Name</li>
-                        }
-                        else if (Session["accessToken"] != null && Session["fbid"] != null)
-                        {
-                            <li class="login">@Html.ActionLink("Choose your name", "ChangeDisplayName", "Account")</li>
-                        } else
-                        {
+                            <li id="uname" class="user-name">@User.Identity.Name</li>
+                            } 
+                            else 
+                            {
                            <li class="login">@Html.ActionLink("Login", "LogOn", "Account")</li>
                         }
                     </ul>
@@ -192,9 +189,9 @@
                     type: "POST",
                     data: { "accessToken": response.authResponse.accessToken },
                     success: function (data) {
-                        if (data == "null") {
-                            window.location = "/Account/ChangeDisplayName";
-                        }
+                        if (data == "error") {
+                            alert("Something went wrong");
+                        } 
                     }
                 });
 

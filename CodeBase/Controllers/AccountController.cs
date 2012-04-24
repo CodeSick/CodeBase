@@ -57,6 +57,7 @@ namespace CodeBase.Controllers
 
         public ActionResult LogOff()
         {
+            Session["accessToken"] = null;
             FormsAuthentication.SignOut();
 
             return RedirectToAction("Index", "Home");
@@ -156,53 +157,6 @@ namespace CodeBase.Controllers
         public ActionResult ChangePasswordSuccess()
         {
             return View();
-        }
-
-        public ActionResult ChangeDisplayName()
-        {
-            if (Session["accessToken"] != null && Session["fbuserchosenname"] == null && Session["fbid"] != null)
-            {
-                return View();
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
-        [HttpPost]
-        public ActionResult ChangeDisplayName(String username)
-        {
-            
-            if (Session["accessToken"] != null && Session["fbuserchosenname"] == null && Session["fbid"] != null)
-            {
-                User u = context.Users.SingleOrDefault(x => x.Username == username);
-                if (u != null)
-                {
-                    ViewData["err"] = "Display name already exists";
-                    return View();
-                }
-
-                MembershipCreateStatus createStatus;
-                Membership.CreateUser(username, Session["accessToken"] as String, null, null, null, true, null, out createStatus);
-
-                if (createStatus == MembershipCreateStatus.Success)
-                {
-                    User newfbuser = new User()
-                    {
-                        Username = username,
-                        FbId = Convert.ToInt32(Session["fbid"]),
-                        JoinDate = DateTime.Now,
-                    };
-
-                    context.Users.Add(newfbuser);
-                    context.SaveChanges();
-                    Roles.AddUserToRole(newfbuser.Username, "Normal");
-                    FormsAuthentication.SetAuthCookie(newfbuser.Username, true);
-                    Session["fbid"] = null;
-                    Session["fbuserchosenname"] = newfbuser.Username;
-                }
-
-                return RedirectToAction("Index", "Home");
-            }
-            return RedirectToAction("Index", "Home");
         }
 
         #region Status Codes
