@@ -73,7 +73,7 @@ namespace CodeBase.Controllers
         {
             if (ModelHelpers.isEditor())
             {
-                return View("EditorMode", context.Articles.Include(article => article.Category).Include(article => article.Ratings).Include(article => article.Comments).Include(article => article.Files).ToList());
+                return View(context.Articles.Include(article => article.Category).Include(article => article.Ratings).Include(article => article.Comments).Include(article => article.Files).ToList());
             }
             else
             {

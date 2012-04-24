@@ -489,7 +489,7 @@
     <Content Include="Views\Articles\RenderFiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Articles\EditorMode.cshtml" />
+    <Content Include="Views\Articles\ArticleContent.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
