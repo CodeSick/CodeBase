@@ -22,5 +22,6 @@ namespace CodeBase.Models
         public int UserId { get; set; }
         public virtual User Author { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
+        public virtual ICollection<User> Subscribers { get; set; }
     }
 }

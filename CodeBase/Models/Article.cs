@@ -31,6 +31,6 @@ namespace CodeBase.Models
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<File> Files { get; set; }
-
+        public virtual ICollection<User> Subscribers { get; set; }
     }
 }
