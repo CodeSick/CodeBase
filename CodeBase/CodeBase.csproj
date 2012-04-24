@@ -131,6 +131,10 @@
     <Compile Include="Migrations\201204161741342_ArticlesAddApproved.Designer.cs">
       <DependentUpon>201204161741342_ArticlesAddApproved.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201204241251563_Subscribers.cs" />
+    <Compile Include="Migrations\201204241251563_Subscribers.Designer.cs">
+      <DependentUpon>201204241251563_Subscribers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Answer.cs" />

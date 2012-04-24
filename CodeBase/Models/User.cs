@@ -31,6 +31,11 @@ namespace CodeBase.Models
         public virtual ICollection<Answer> Answers { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
 
+        [InverseProperty("Subscribers")]
+        public virtual ICollection<Question> SubscritionQuestions { get; set; }
+        [InverseProperty("Subscribers")]
+        public virtual ICollection<Article> SubscriptionArticles { get; set; }
+
         //Optional Facebook user id
         public int FbId { get; set; }
     }
