@@ -73,7 +73,7 @@ namespace CodeBase.Controllers
         {
             if (ModelHelpers.isEditor())
             {
-                return View("EditorMode", context.Articles.Include(article => article.Category).Include(article => article.Ratings).Include(article => article.Comments).Include(article => article.Files).ToList());
+                return View(context.Articles.Include(article => article.Category).Include(article => article.Ratings).Include(article => article.Comments).Include(article => article.Files).ToList());
             }
             else
             {
@@ -219,6 +219,7 @@ namespace CodeBase.Controllers
 
                     article.UserId = a.UserId;
                     article.Date = a.Date;
+                    article.Approved = a.Approved;
                     context.Entry(a).State = EntityState.Detached;
 
                     context.Entry(article).State = EntityState.Modified;
