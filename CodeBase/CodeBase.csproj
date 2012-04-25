@@ -117,6 +117,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\FeedResult.cs" />
+    <Compile Include="Helper\MailHelper.cs" />
     <Compile Include="Helper\ModelHelpers.cs" />
     <Compile Include="Helper\MVCExtensions.cs" />
     <Compile Include="Migrations\201204111413411_QuestionTitle.cs" />

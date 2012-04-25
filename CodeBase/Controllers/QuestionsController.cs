@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -32,6 +34,21 @@ namespace CodeBase.Controllers
             QAViewModel vm = new QAViewModel();
             Question question = context.Questions.Single(x => x.QuestionId == id);
             vm.question = question;
+            if (Request.IsAuthenticated)
+            {
+                String username = membership.LoggedInUser();
+                User u = context.Users.Single(x => x.Username == username);
+                string subscribed = "no";
+                foreach (Question q in u.SubscritionQuestions)
+                {
+                    if (q.QuestionId == id)
+                    {
+                        subscribed = "yes";
+                        break;
+                    }
+                }
+                ViewData["subscribed"] = subscribed;
+            }
             return View(vm);
         }
 
