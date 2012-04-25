@@ -114,7 +114,7 @@ namespace CodeBase.Controllers
         public ActionResult Details(int id, String title)
         {
             Article article = context.Articles.Include(x => x.Comments).Single(x => x.ArticleId == id);
-            if (ModelHelpers.canEdit(article) == false)
+            if (article.Approved==false && ModelHelpers.canEdit(article) == false)
             {
                 TempData["Error"] = "Access denied";
                 return RedirectToAction("Index");
