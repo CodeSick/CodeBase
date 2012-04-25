@@ -15,7 +15,12 @@ namespace CodeBase.Helper
         //Roles allowed to acces admin stuff
         static private String[] admin = new String[] { "Admin" };
 
-
+        public static float AverageRating(Article a)
+        {
+            IEnumerable<Rating> ratings = a.Ratings;
+            float average = (float)ratings.Sum(x => x.Value) / ratings.Count();
+            return average;
+        }
 
         static CodeBaseMembership m = new CodeBaseMembership();
         public static Boolean canEdit(Comment c)

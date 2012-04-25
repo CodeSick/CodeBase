@@ -38,7 +38,7 @@ namespace CodeBase.Controllers
             }
             context.SaveChanges();
 
-            return Json(new { data = AverageRating(id) });
+            return Json(new { data = ModelHelpers.AverageRating(context.Articles.Find(id)) });
         }
 
         public ActionResult Feed()
@@ -103,20 +103,12 @@ namespace CodeBase.Controllers
             return new ActionAsPdf("Details", new { id = id });
         }
 
-
-        private float AverageRating(int id)
-        {
-            IEnumerable<Rating> ratings = context.Ratings.Where(x => x.ArticleId == id);
-            float average = (float)ratings.Sum(x => x.Value) / ratings.Count();
-            return average;
-        }
-
         //
         // GET: /Articles/Details/5
 
         public ActionResult Details(int id, String title)
         {
-            Article article = context.Articles.Include(x => x.Comments).Single(x => x.ArticleId == id);
+            Article article = context.Articles.Include(x=>x.Comments).Include(x => x.Comments).Single(x => x.ArticleId == id);
             if (article.Approved==false && ModelHelpers.canEdit(article) == false)
             {
                 TempData["Error"] = "Access denied";
@@ -129,7 +121,7 @@ namespace CodeBase.Controllers
                 string url = "/Articles/" + article.ArticleId + "/" + realTitle;
                 return Redirect(url);
             }
-            ViewBag.Rating = AverageRating(article.ArticleId);
+            ViewBag.Rating = ModelHelpers.AverageRating(article);
 
 
             return View(article);
