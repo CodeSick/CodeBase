@@ -23,7 +23,7 @@ namespace CodeBase.Tests
             membershipMock.Setup(x=>x.LoggedInUser()).Returns("snuderl");
 
             ArticlesController controller = new ArticlesController{ context=repo, membership=membershipMock.Object};
-            controller.Create(new Article{ CategoryId=1, Content="blabla", Title="mock"});
+            //controller.Create(new Article{ CategoryId=1, Content="blabla", Title="mock"});
 
             Assert.AreEqual(repo.Users.First().UserId, repo.Articles.First().UserId);
             var d = repo.Articles.First().Date;

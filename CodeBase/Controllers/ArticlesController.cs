@@ -13,6 +13,8 @@ using System.Globalization;
 using System.ServiceModel.Syndication;
 using CodeBase.Helper;
 using Rotativa;
+using CodeBase.ViewModel;
+using AutoMapper;
 
 namespace CodeBase.Controllers
 {
@@ -151,23 +153,25 @@ namespace CodeBase.Controllers
 
         [HttpPost, ValidateInput(false)]
         [Authorize]
-        public ActionResult Create(Article article)
+        public ActionResult Create(ArticleEditModel article)
         {
-            article.Date = DateTime.Now;
-            String currentUser = membership.LoggedInUser();
-            article.Approved = autoApprove(context.Users.Where(x => x.Username == currentUser).FirstOrDefault());
-            article.UserId = context.Users.FirstOrDefault(x => x.Username == currentUser).UserId;
 
+
+            Article a = Mapper.Map<ArticleEditModel, Article>(article);
             if (ModelState.IsValid)
             {
-                context.Articles.Add(article);
+                a.Date = DateTime.Now;
+                String currentUser = membership.LoggedInUser();
+                a.Approved = autoApprove(context.Users.Where(x => x.Username == currentUser).FirstOrDefault());
+                a.UserId = context.Users.FirstOrDefault(x => x.Username == currentUser).UserId;
+                context.Articles.Add(a);
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.PossibleUsers = context.Users;
             ViewBag.PossibleCategories = context.Categories;
-            return View(article);
+            return View(a);
         }
 
         //
@@ -209,19 +213,14 @@ namespace CodeBase.Controllers
 
         [HttpPost, ValidateInput(false)]
         [Authorize]
-        public ActionResult Edit(Article article)
+        public ActionResult Edit(ArticleEditModel editModel)
         {
-            var a = context.Articles.Find(article.ArticleId);
-            if (ModelHelpers.canEdit(a))
+            var article = context.Articles.Find(editModel.ArticleId);
+            article = Mapper.Map<ArticleEditModel, Article>(editModel, article);
+            if (ModelHelpers.canEdit(article))
             {
                 if (ModelState.IsValid)
                 {
-
-                    article.UserId = a.UserId;
-                    article.Date = a.Date;
-                    article.Approved = a.Approved;
-                    context.Entry(a).State = EntityState.Detached;
-
                     context.Entry(article).State = EntityState.Modified;
                     context.SaveChanges();
                     return RedirectToAction("Index");

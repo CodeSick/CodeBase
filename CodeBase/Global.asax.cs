@@ -6,7 +6,9 @@ using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using AutoMapper;
 using CodeBase.Models;
+using CodeBase.ViewModel;
 
 namespace CodeBase
 {
@@ -46,6 +48,8 @@ namespace CodeBase
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            Mapper.CreateMap<ArticleEditModel  , Article>();
            //System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<CodeBase.Models.CodeBaseContext>());
             // System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseAlways<CodeBase.Models.CodeBaseContext>());
             //System.Data.Entity.Database.SetInitializer(new System.Data.Entity.CreateDatabaseIfNotExists<CodeBase.Models.CodeBaseContext>());
