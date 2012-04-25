@@ -63,6 +63,7 @@ namespace CodeBase.Controllers
                 context.Comments.Add(c);
                 context.SaveChanges();
 
+                TempData["Message"] = "Comment created.";
                 return Redirect(Request.UrlReferrer.ToString());
             }
             return Redirect(Request.UrlReferrer.ToString());
@@ -166,7 +167,8 @@ namespace CodeBase.Controllers
                 a.UserId = context.Users.FirstOrDefault(x => x.Username == currentUser).UserId;
                 context.Articles.Add(a);
                 context.SaveChanges();
-                return RedirectToAction("Index");
+                TempData["Message"] = "Article created.";
+                return RedirectToAction("Details", new { id = a.ArticleId });
             }
 
             ViewBag.PossibleUsers = context.Users;
@@ -187,7 +189,7 @@ namespace CodeBase.Controllers
                 ViewBag.PossibleCategories = context.Categories;
                 return View(article);
             }
-            TempData["Message"] = "Not authorized";
+            TempData["Error"] = "Not authorized";
             return Redirect(Request.UrlReferrer.ToString());
         }
 
@@ -199,9 +201,10 @@ namespace CodeBase.Controllers
             {
                 context.Comments.Remove(c);
                 context.SaveChanges();
+                TempData["Message"] = "Comment deleted.";
                 return Redirect(Request.UrlReferrer.ToString());
             }
-            TempData["Message"] = "Not authorized";
+            TempData["Error"] = "Not authorized";
             return Redirect(Request.UrlReferrer.ToString());
         }
 
@@ -223,6 +226,8 @@ namespace CodeBase.Controllers
                 {
                     context.Entry(article).State = EntityState.Modified;
                     context.SaveChanges();
+
+                    TempData["Message"] = "Article edited.";
                     return RedirectToAction("Index");
                 }
                 ViewBag.PossibleUsers = context.Users;
@@ -230,7 +235,7 @@ namespace CodeBase.Controllers
                 return View(article);
             }
 
-            TempData["Message"] = "Not authorized";
+            TempData["Error"] = "Not authorized";
             return Redirect(Request.UrlReferrer.ToString());
         }
 
@@ -247,7 +252,7 @@ namespace CodeBase.Controllers
                 return View(article);
             }
 
-            TempData["Message"] = "Not authorized";
+            TempData["Error"] = "Not authorized";
             return Redirect(Request.UrlReferrer.ToString());
         }
 
@@ -276,9 +281,10 @@ namespace CodeBase.Controllers
                 }
                 context.Articles.Remove(article);
                 context.SaveChanges();
+                TempData["Message"] = "Article was successfully deleted.";
                 return RedirectToAction("Index");
             }
-            TempData["Message"] = "Not authorized";
+            TempData["Error"] = "Not authorized";
             return Redirect(Request.UrlReferrer.ToString());
         }
 
@@ -305,7 +311,8 @@ namespace CodeBase.Controllers
                 a.Approved = true;
                 context.SaveChanges();
             }
-            return RedirectToAction("EditorMode");
+            TempData["Message"] = "Article " + a.Title + " successfully approved.";
+            return RedirectToAction("Index");
         }
     }
 }
