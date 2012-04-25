@@ -372,6 +372,7 @@ a:hover {
 .buttons {
 	margin: 10px 0 0 0;
 }
+
 .textfield {
 	margin:5px 0;
 	background-color:#FFF;
@@ -525,17 +526,48 @@ a:hover {
 }
 
 .input-form {
-    background-color: #fafafa;
+    width: 360px;
+    padding: 20px 40px;
+    border: 1px solid #bfbfbf;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin: 0 auto;
+}
+
+.input-form-title {
+    margin: 10px auto 0 auto;
+    font-weight: bold;
+    width: 360px;
+    padding: 10px 40px;
+    background-image: -webkit-linear-gradient(top, #fcfcfc, #f2f2f2);
+	background-image: -moz-linear-gradient(top, #fcfcfc, #f2f2f2);
+	background-image: -ms-linear-gradient(top, #fcfcfc, #f2f2f2);
+	background-image: -o-linear-gradient(top, #fcfcfc, #f2f2f2);
+    border: 1px solid #bfbfbf;
+    border-bottom: none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .input-form .label {
     display: inline-block;
+    width: 125px;
+    text-align: right;
+    margin: 0 15px 0 0;
 }
 
-.input-form .label {
+.input-form .input {
     display: inline-block;
 }
 
+.input-form .validation {
+    margin: 0 0 10px 145px;
+}
+
+.input-form .buttons {
+    margin: 0 auto;
+    width: 87px;
+}
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
 
