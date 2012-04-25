@@ -24,8 +24,8 @@
         rateIt.rateit('readonly', true);
     });
     </script>
-
-    @Html.RenderPartial("ArticleContent")
+s
+    @Html.Partial("ArticleContent", Model)
 
 </fieldset>
 <p>
@@ -35,7 +35,7 @@
         @Html.ActionLink("Edit", "Edit", new { id = Model.ArticleId }) <text>|</text>
         @(Html.ActionLink<ArticlesController>(x => x.Delete(Model.ArticleId), "Delete"))
     }
-    @if(ModelHelpers.isEditor()){
+    @if(Model.Approved==false && ModelHelpers.isEditor()){
     <text>|</text>
     @(Html.ActionLink<ArticlesController>(x=>x.ConfirmArticle(Model.ArticleId), "Confirm"))
     }

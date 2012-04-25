@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.2.1.267\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="AWSSDK">
       <HintPath>..\packages\AWSSDK.1.4.6.3\lib\AWSSDK.dll</HintPath>
     </Reference>
@@ -151,6 +154,7 @@
     <Compile Include="Models\Rating.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\ArticleEditModel.cs" />
     <Compile Include="ViewModel\QAViewModel.cs" />
     <Compile Include="ViewModel\IndexViewModel.cs" />
   </ItemGroup>

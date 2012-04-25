@@ -9,45 +9,57 @@
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+    <div class="input-form-title">Create your account</div>
     <div class="input-form">
-        <div class="field">
-            <div class="label">
-                @Html.LabelFor(m => m.UserName)
+        <div class="body">
+            <div class="field">
+                <div class="label">
+                    @Html.LabelFor(m => m.UserName)
+                </div>
+                <div class="input">
+                    @Html.TextBoxFor(m => m.UserName, new {@class="textfield"})
+                </div>
+                <div class="validation">
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </div>
             </div>
-            <div class="input">
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
+            <div class="field">
+                <div class="label">
+                    @Html.LabelFor(m => m.Email)
+                </div>
+                <div class="input">
+                    @Html.TextBoxFor(m => m.Email, new {@class="textfield"})
+                </div>
+                <div class="validation">
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+            </div>
+            <div class="field">
+                <div class="label">
+                    @Html.LabelFor(m => m.Password)
+                </div>
+                <div class="input">
+                    @Html.PasswordFor(m => m.Password, new {@class="textfield"})
+                </div>
+                <div class="validation">
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+            </div>
+            <div class="field">
+                <div class="label">
+                    @Html.LabelFor(m => m.ConfirmPassword)
+                </div>
+                <div class="input">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new {@class="textfield"})
+                </div>
+                <div class="validation">
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                </div>
+            </div>
+            <div class="buttons">
+                <input type="submit" class="button" value="Register" />
             </div>
         </div>
-        <div class="field">
-            <div class="label">
-                @Html.LabelFor(m => m.Email)
-            </div>
-            <div class="input">
-                @Html.TextBoxFor(m => m.Email)
-                @Html.ValidationMessageFor(m => m.Email)
-            </div>
-        </div>
-        <div class="field">
-            <div class="label">
-                @Html.LabelFor(m => m.Password)
-            </div>
-            <div class="input">
-                @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
-            </div>
-        </div>
-        <div class="field">
-            <div class="label">
-                @Html.LabelFor(m => m.ConfirmPassword)
-            </div>
-            <div class="input">
-                @Html.PasswordFor(m => m.ConfirmPassword)
-                @Html.ValidationMessageFor(m => m.ConfirmPassword)
-            </div>
-        </div>
-        <p>
-            <input type="submit" value="Register" />
-        </p>
     </div>
+    <div class="push"></div>
 }

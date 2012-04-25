@@ -13,6 +13,8 @@ using System.Globalization;
 using System.ServiceModel.Syndication;
 using CodeBase.Helper;
 using Rotativa;
+using CodeBase.ViewModel;
+using AutoMapper;
 
 namespace CodeBase.Controllers
 {
@@ -36,7 +38,7 @@ namespace CodeBase.Controllers
             }
             context.SaveChanges();
 
-            return Json(new { data = AverageRating(id) });
+            return Json(new { data = ModelHelpers.AverageRating(context.Articles.Find(id)) });
         }
 
         public ActionResult Feed()
@@ -61,6 +63,7 @@ namespace CodeBase.Controllers
                 context.Comments.Add(c);
                 context.SaveChanges();
 
+                TempData["Message"] = "Comment created.";
                 return Redirect(Request.UrlReferrer.ToString());
             }
             return Redirect(Request.UrlReferrer.ToString());
@@ -100,21 +103,13 @@ namespace CodeBase.Controllers
             return new ActionAsPdf("Details", new { id = id });
         }
 
-
-        private float AverageRating(int id)
-        {
-            IEnumerable<Rating> ratings = context.Ratings.Where(x => x.ArticleId == id);
-            float average = (float)ratings.Sum(x => x.Value) / ratings.Count();
-            return average;
-        }
-
         //
         // GET: /Articles/Details/5
 
         public ActionResult Details(int id, String title)
         {
-            Article article = context.Articles.Include(x => x.Comments).Single(x => x.ArticleId == id);
-            if (ModelHelpers.canEdit(article) == false)
+            Article article = context.Articles.Include(x=>x.Comments).Include(x => x.Comments).Single(x => x.ArticleId == id);
+            if (article.Approved==false && ModelHelpers.canEdit(article) == false)
             {
                 TempData["Error"] = "Access denied";
                 return RedirectToAction("Index");
@@ -126,7 +121,7 @@ namespace CodeBase.Controllers
                 string url = "/Articles/" + article.ArticleId + "/" + realTitle;
                 return Redirect(url);
             }
-            ViewBag.Rating = AverageRating(article.ArticleId);
+            ViewBag.Rating = ModelHelpers.AverageRating(article);
 
 
             return View(article);
@@ -151,23 +146,26 @@ namespace CodeBase.Controllers
 
         [HttpPost, ValidateInput(false)]
         [Authorize]
-        public ActionResult Create(Article article)
+        public ActionResult Create(ArticleEditModel article)
         {
-            article.Date = DateTime.Now;
-            String currentUser = membership.LoggedInUser();
-            article.Approved = autoApprove(context.Users.Where(x => x.Username == currentUser).FirstOrDefault());
-            article.UserId = context.Users.FirstOrDefault(x => x.Username == currentUser).UserId;
 
+
+            Article a = Mapper.Map<ArticleEditModel, Article>(article);
             if (ModelState.IsValid)
             {
-                context.Articles.Add(article);
+                a.Date = DateTime.Now;
+                String currentUser = membership.LoggedInUser();
+                a.Approved = autoApprove(context.Users.Where(x => x.Username == currentUser).FirstOrDefault());
+                a.UserId = context.Users.FirstOrDefault(x => x.Username == currentUser).UserId;
+                context.Articles.Add(a);
                 context.SaveChanges();
-                return RedirectToAction("Index");
+                TempData["Message"] = "Article created.";
+                return RedirectToAction("Details", new { id = a.ArticleId });
             }
 
             ViewBag.PossibleUsers = context.Users;
             ViewBag.PossibleCategories = context.Categories;
-            return View(article);
+            return View(a);
         }
 
         //
@@ -183,7 +181,7 @@ namespace CodeBase.Controllers
                 ViewBag.PossibleCategories = context.Categories;
                 return View(article);
             }
-            TempData["Message"] = "Not authorized";
+            TempData["Error"] = "Not authorized";
             return Redirect(Request.UrlReferrer.ToString());
         }
 
@@ -195,9 +193,10 @@ namespace CodeBase.Controllers
             {
                 context.Comments.Remove(c);
                 context.SaveChanges();
+                TempData["Message"] = "Comment deleted.";
                 return Redirect(Request.UrlReferrer.ToString());
             }
-            TempData["Message"] = "Not authorized";
+            TempData["Error"] = "Not authorized";
             return Redirect(Request.UrlReferrer.ToString());
         }
 
@@ -209,21 +208,18 @@ namespace CodeBase.Controllers
 
         [HttpPost, ValidateInput(false)]
         [Authorize]
-        public ActionResult Edit(Article article)
+        public ActionResult Edit(ArticleEditModel editModel)
         {
-            var a = context.Articles.Find(article.ArticleId);
-            if (ModelHelpers.canEdit(a))
+            var article = context.Articles.Find(editModel.ArticleId);
+            article = Mapper.Map<ArticleEditModel, Article>(editModel, article);
+            if (ModelHelpers.canEdit(article))
             {
                 if (ModelState.IsValid)
                 {
-
-                    article.UserId = a.UserId;
-                    article.Date = a.Date;
-                    article.Approved = a.Approved;
-                    context.Entry(a).State = EntityState.Detached;
-
                     context.Entry(article).State = EntityState.Modified;
                     context.SaveChanges();
+
+                    TempData["Message"] = "Article edited.";
                     return RedirectToAction("Index");
                 }
                 ViewBag.PossibleUsers = context.Users;
@@ -231,7 +227,7 @@ namespace CodeBase.Controllers
                 return View(article);
             }
 
-            TempData["Message"] = "Not authorized";
+            TempData["Error"] = "Not authorized";
             return Redirect(Request.UrlReferrer.ToString());
         }
 
@@ -248,7 +244,7 @@ namespace CodeBase.Controllers
                 return View(article);
             }
 
-            TempData["Message"] = "Not authorized";
+            TempData["Error"] = "Not authorized";
             return Redirect(Request.UrlReferrer.ToString());
         }
 
@@ -277,9 +273,10 @@ namespace CodeBase.Controllers
                 }
                 context.Articles.Remove(article);
                 context.SaveChanges();
+                TempData["Message"] = "Article was successfully deleted.";
                 return RedirectToAction("Index");
             }
-            TempData["Message"] = "Not authorized";
+            TempData["Error"] = "Not authorized";
             return Redirect(Request.UrlReferrer.ToString());
         }
 
@@ -306,7 +303,8 @@ namespace CodeBase.Controllers
                 a.Approved = true;
                 context.SaveChanges();
             }
-            return RedirectToAction("EditorMode");
+            TempData["Message"] = "Article " + a.Title + " successfully approved.";
+            return RedirectToAction("Index");
         }
     }
 }

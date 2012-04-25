@@ -49,7 +49,7 @@
                 @(item.Questions == null ? "None" : item.Questions.Count.ToString())
             </td>
             <td>
-                
+                @Roles.GetRolesForUser(item.Username)[0]
             </td>
         </tr>
     }
