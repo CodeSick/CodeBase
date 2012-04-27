@@ -79,7 +79,7 @@ namespace CodeBase.Controllers
         }
 
         [HttpPost]
-        public void Logout(FormCollection form)
+        public void Logout()
         {
             Session["accessToken"] = null;
             FormsAuthentication.SignOut();

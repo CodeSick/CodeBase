@@ -162,6 +162,30 @@
         }
     });
 
+    $("#facebook_").click(function () {
+        FB.ui(
+  {
+      method: 'feed',
+      message: 'getting educated about Facebook Connect',
+      name: 'Connect',
+      caption: 'The Facebook Connect JavaScript SDK',
+      description: (
+      'A small JavaScript library that allows you to harness ' +
+      'the power of Facebook, bringing the user\'s identity, ' +
+      'social graph and distribution power to your site.'
+   ),
+      user_message_prompt: 'Share your thoughts about RELL'
+  },
+  function (response) {
+      if (response && response.post_id) {
+          alert('Post was published.');
+      } else {
+          alert('Post was not published.');
+      }
+  }
+);
+    });
+
     // Load the SDK Asynchronously
     (function (d) {
         var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
@@ -170,6 +194,7 @@
         js.src = "//connect.facebook.net/en_US/all.js";
         ref.parentNode.insertBefore(js, ref);
     }(document));
+
 
     // Init the SDK upon load
     window.fbAsyncInit = function () {
@@ -190,6 +215,7 @@
                 $.ajax({
                     url: '@Url.Action("Login","Facebook")',
                     type: "POST",
+                    async: false,
                     data: { "accessToken": response.authResponse.accessToken },
                     success: function (data) {
                         if (data == "error") {
@@ -219,7 +245,7 @@
             $.ajax({
                 url: '@Url.Action("Logout","Facebook")',
                 type: "POST",
-                data: { "accessToken": response.authResponse.accessToken }
+                async: false
             });
             FB.logout();
         });
