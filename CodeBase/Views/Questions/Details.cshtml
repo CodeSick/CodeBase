@@ -45,9 +45,9 @@
 	    Subscribe to this question. If you already have a subscription, you will be unsubscribed
     </div>
     <div id="callbackMessage"></div>
-    <div id="facebook_">Facebook connect</div>
 }
 
+<span onclick="postToFeed()">Share on Facebook</span>
 
 @Html.Partial("_AnswerQuestion")
 <script type="text/javascript">
@@ -80,5 +80,23 @@
         });
     });
 
-
+    function postToFeed() {
+        var url = '@Request.Url.AbsoluteUri'
+        FB.init({ appId: "307745619299083", status: true, cookie: true });
+        FB.ui(
+  {
+      method: 'feed',
+      message: 'write code, have fun',
+      name: '@Model.question.Title',
+      caption: 'CodeBase',
+      description: ('CodeBase description'
+   ),
+      link: url,
+      picture: 'http://codebase.apphb.com/Content/img/header_logo.png',
+      actions: [
+        { name: 'fbrell', link: url }
+      ],
+      user_message_prompt: 'Share your thoughts about CodeBase'
+  });
+    }
 </script>
