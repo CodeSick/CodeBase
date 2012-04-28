@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CodeBase.Helper;
 using CodeBase.Models;
 
 namespace CodeBase.Controllers
@@ -61,6 +62,12 @@ namespace CodeBase.Controllers
                 {
                     context.Answers.Add(answer);
                     context.SaveChanges();
+                    /*
+                    foreach (User userX in findQ.Subscribers.ToList())
+                    {
+                        // send notification to user
+                    }
+                    */
                     return RedirectToAction("Details/" + answer.QuestionId, "Questions");
                 }
             }

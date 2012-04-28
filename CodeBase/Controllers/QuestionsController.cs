@@ -171,10 +171,5 @@ namespace CodeBase.Controllers
             }
             return "subscribed";
         }
-
-        public ActionResult moj()
-        {
-            return View("moj");
-        }
     }
 }
