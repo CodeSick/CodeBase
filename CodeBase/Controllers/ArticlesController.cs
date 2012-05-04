@@ -114,6 +114,23 @@ namespace CodeBase.Controllers
                 TempData["Error"] = "Access denied";
                 return RedirectToAction("Index");
             }
+
+            if (Request.IsAuthenticated)
+            {
+                String username = membership.LoggedInUser();
+                User u = context.Users.Single(x => x.Username == username);
+                string subscribed = "no";
+                foreach (Article a in u.SubscriptionArticles)
+                {
+                    if (a.ArticleId == id)
+                    {
+                        subscribed = "yes";
+                        break;
+                    }
+                }
+                ViewData["subscribed"] = subscribed;
+            }
+
             string realTitle = UrlEncoder.ToFriendlyUrl(article.Title);
             string urlTitle = (title ?? "").Trim().ToLower();
             if (realTitle != urlTitle)
@@ -307,6 +324,39 @@ namespace CodeBase.Controllers
             }
             TempData["Message"] = "Article " + a.Title + " successfully approved.";
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public String Subscribe(FormCollection form)
+        {
+            int aid = Convert.ToInt32(form["articleid"]);
+            Article a = context.Articles.SingleOrDefault(x => x.ArticleId == aid);
+            if (a == null)
+                return "";
+
+            String user = membership.LoggedInUser();
+            User uObj = context.Users.Single(x => x.Username == user);
+            bool found = false;
+            ICollection<Article> subscriptions = uObj.SubscriptionArticles.ToList();
+
+            foreach (Article acurrent in subscriptions)
+            {
+                if (acurrent.ArticleId == aid) // already subscribed, unsubscribe
+                {
+                    found = true;
+                    context.Users.Single(x => x.Username == user).SubscriptionArticles.Remove(acurrent);
+                    context.SaveChanges();
+                    return "deleted";
+                }
+            }
+
+            if (!found)
+            {
+                context.Users.Single(x => x.Username == user).SubscriptionArticles.Add(a);
+                context.SaveChanges();
+            }
+            return "subscribed";
         }
     }
 }

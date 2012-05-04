@@ -5,7 +5,57 @@
 @using CodeBase.Models
 <h2>@Model.Title</h2>
 @Html.Partial("ArticleFull")
-@Html.Partial("RenderFiles", Model.Files)
+@Html.Partial("RenderFiles", Model.Files)<br />
+@if (Request.IsAuthenticated)
+{
+    String mes = null;
+    if (ViewData["subscribed"].Equals("yes"))
+    {
+        mes = "Unsubscribe";
+    }
+    else
+    {
+        mes = "Subscribe";
+    }
+    <span id="trigger">@Html.Raw(mes + " to this article") </span>
+    
+    <div id="dialog-confirm" title="Un/Subscribe to this question ?">
+	    Subscribe to this article. If you already have a subscription, you will be unsubscribed
+    </div>
+    <div id="callbackMessage"></div>
+    
+    <script type="text/javascript">
+    $("#dialog-confirm").css("display", "none");
+    $("#trigger").click(function () {
+        $("#dialog-confirm").dialog({
+            resizable: false,
+            height: 170,
+            modal: true,
+            buttons: {
+                "Subscribe/Unsubscribe": function () {
+                    $.ajax({
+                        url: '@Url.Action("Subscribe","Articles")',
+                        type: "POST",
+                        data: { "articleid": '@Model.ArticleId' },
+                        success: function (data) {
+                            if (data == "subscribed") {
+                                $("#dialog-confirm").html("<span style=\"color: red\">You are now subscribed</span>");
+                            } else {
+                                $("#dialog-confirm").html("<span style=\"color: red\">Your subscription has been cancelled</span>");
+                            }
+                        }
+                    });
+
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    });
+    </script>
+}
+
 @Html.Partial("Comments", Model.Comments)
 @if (User.Identity.IsAuthenticated)
 {
