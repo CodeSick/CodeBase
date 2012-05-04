@@ -146,6 +146,7 @@ namespace CodeBase.Controllers
 
         [HttpPost, ValidateInput(false)]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(ArticleEditModel article)
         {
 
@@ -208,6 +209,7 @@ namespace CodeBase.Controllers
 
         [HttpPost, ValidateInput(false)]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(ArticleEditModel editModel)
         {
             var article = context.Articles.Find(editModel.ArticleId);
