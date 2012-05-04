@@ -38,16 +38,7 @@ namespace CodeBase.Controllers
             {
                 String username = membership.LoggedInUser();
                 User u = context.Users.Single(x => x.Username == username);
-                string subscribed = "no";
-                foreach (Question q in u.SubscritionQuestions)
-                {
-                    if (q.QuestionId == id)
-                    {
-                        subscribed = "yes";
-                        break;
-                    }
-                }
-                ViewData["subscribed"] = subscribed;
+                ViewData["subscribed"] = u.SubscriptionArticles.Any(x => x.ArticleId == id) ? "yes" : "no";
             }
             return View(vm);
         }

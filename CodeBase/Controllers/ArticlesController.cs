@@ -119,16 +119,7 @@ namespace CodeBase.Controllers
             {
                 String username = membership.LoggedInUser();
                 User u = context.Users.Single(x => x.Username == username);
-                string subscribed = "no";
-                foreach (Article a in u.SubscriptionArticles)
-                {
-                    if (a.ArticleId == id)
-                    {
-                        subscribed = "yes";
-                        break;
-                    }
-                }
-                ViewData["subscribed"] = subscribed;
+                ViewData["subscribed"] = u.SubscriptionArticles.Any(x => x.ArticleId == id) ? "yes" : "no";
             }
 
             string realTitle = UrlEncoder.ToFriendlyUrl(article.Title);
