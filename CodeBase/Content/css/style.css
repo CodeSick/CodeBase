@@ -32,6 +32,9 @@ h1.border {
 	margin: 0 0 19px 0;
     border-bottom: 1px solid #e3e3e3;   
 }
+h1.article {
+    margin: 0 0 10px 0;
+}
 h1 a {
 	color:#3db8e8;
 }
@@ -568,6 +571,38 @@ a:hover {
     margin: 0 auto;
     width: 87px;
 }
+
+.article-author a.author {
+    font-weight: bold;
+}
+.article-author a:hover {
+    color: #3db8e8;
+}
+.article-author {
+    margin-bottom: 20px;
+    color: #999999;
+}
+.article-rating {
+    background-color: #f0f0f0;
+    width: 90px;
+    padding: 10px;
+    border-radius: 4px;
+    float: right;
+    position: relative;
+    top: -69px;
+    left: -50px;
+}
+.rateit {
+    cursor: pointer;
+}
+#response {
+    list-style: none;
+    font-size: 12px;
+    color: #999999;
+    margin-top: 5px;
+    padding: 0;
+}
+
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
 

@@ -3,7 +3,13 @@
     ViewBag.Title = Model.Title;
 }
 @using CodeBase.Models
-<h2>@Model.Title</h2>
+<h1 class="article">@Model.Title</h1>
+<div class="article-author">
+<a class="author"href="@{string UserUrl = Html.BuildUrlFromExpression<UsersController>(c => c.Details(Model.Author.UserId));}@UserUrl">@Html.DisplayTextFor(_ => Model.Author.Username).ToString()</a>
+@String.Format("{0:MMMM d, yyyy}", Model.Date)
+in
+<a href="@{string CategoryUrl = Html.BuildUrlFromExpression<CategoriesController>(c => c.Details(Model.Category.CategoryId));}@CategoryUrl"">@(Model.Category == null ? "None" : Model.Category.Title)</a>
+</div>
 @Html.Partial("ArticleFull")
 @Html.Partial("RenderFiles", Model.Files)<br />
 @if (Request.IsAuthenticated)
