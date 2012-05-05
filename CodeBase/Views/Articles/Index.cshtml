@@ -1,71 +1,54 @@
-@model IEnumerable<CodeBase.Models.Article>
+@model IEnumerable<CodeBase.Models.Answer>
+
 @{
-    ViewBag.Title = "Articles";
+    ViewBag.Title = "Index";
 }
-<h1 class="border">Articles</h1>
-@if (ModelHelpers.isEditor())
-{
-    <a href="javascript:void(0);" onclick="fnShowHide(5);fnShowHide(6);fnShowHide(7);">Toggle article status<br></a>
-}
-<table id="tabelica">
-    <thead>
-        <tr>
+@using CodeBase.Models
 
-            <th>Ratings </th>
-            <th>Title </th>
-            <th>Date </th>
-            <th>Author </th>
-            <th>Category </th>
-            <th>Comments </th>
-            <th>Files </th>
-            <th>Confirmed</th>
-        </tr>
-    </thead>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @(item.Ratings.Count == 0 ? "None" : ModelHelpers.AverageRating(item).ToString())
-            </td>
-            <td>
-                @(Html.ActionLink<CodeBase.Controllers.ArticlesController>(f => f.Details(item.ArticleId, Url.ToFriendlyUrl(item.Title)), item.Title))
-            </td>
-            <td>
-                @item.Date
-            </td>
-            <td>
-                @Html.RouteLink(item.Author.Username, new { controller = "Users", action = "Details", id = item.Author.UserId })
-            </td>
-            <td>
-                @(Html.ActionLink<CategoriesController>(x=>x.Details(item.CategoryId), item.Category.Title))
-            </td>
-            <td>
-                @(item.Comments == null ? "None" : item.Comments.Count.ToString())
-            </td>
-            <td>
-                @(item.Files == null ? "None" : item.Files.Count.ToString())
-            </td>
-            <td>
-                @item.Approved
-            </td>
-        </tr>
-    }
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            Author
+        </th>
+        <th>
+            Content
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Question
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AnswerId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AnswerId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AnswerId })
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.Author.Username).ToString()
+        </td>
+        <td>
+			@Html.Raw(BBCodeHelper.Format(@item.Content))
+        </td>
+        <td>
+			@item.Date
+        </td>
+        <td>
+			@Html.Raw(BBCodeHelper.Format(item.Question.Content))
+        </td>
+    </tr>
+}
+
 </table>
-<div class="table-actions">@Html.ActionLink("Create new", "Create")</div>
-<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.js"></script>
-<script type="text/javascript">
 
-    function fnShowHide(iCol) {
-        /* Get the DataTables object again - this is not a recreation, just a get of the object */
-        var oTable = $('#tabelica').dataTable();
 
-        var bVis = oTable.fnSettings().aoColumns[iCol].bVisible;
-        oTable.fnSetColumnVis(iCol, bVis ? false : true);
-    }
-    $(document).ready(function () {
-        $("#tabelica").dataTable();
-        fnShowHide(7);
-        fnShowHide(6);
-        fnShowHide(5);
-    });
-</script>

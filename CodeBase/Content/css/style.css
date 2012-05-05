@@ -638,6 +638,53 @@ table th {
     margin-left: 10px;
 }
 
+.dataTables_length {
+    display: inline;
+    font-size: 12px;
+    color: #999999;
+}
+
+.dataTables_length select {
+    font-size: 12px;
+    color: #999999;
+}
+
+.dataTables_filter {
+    display: inline;
+    font-size: 12px;
+    margin-left: 10px;
+    color: #999999;
+}
+
+.dataTables_filter input {
+	padding: 1px;
+}
+
+.dataTables_info {
+    margin-left: 10px;
+	color: #999999;
+}
+
+.paginate_disabled_previous {
+    cursor: pointer;
+    margin-left: 10px;
+}
+.paginate_disabled_previous:after {
+    content: "|";
+    margin-left: 5px;
+	color: #999999;
+}
+
+.paginate_disabled_next {
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+#tabelica th {
+    cursor: pointer;
+}
+
+
 /* MISC  
 ----------------------------------------------------------*/
 .clear {
