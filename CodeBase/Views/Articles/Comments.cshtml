@@ -1,15 +1,24 @@
 ﻿@model IEnumerable<CodeBase.Models.Comment>
+<div class="comments">
+<h1>Comments</h1>
 @foreach (Comment c in Model)
 {
     <div class="comment">
-        Author: @(Html.ActionLink<UsersController>(x => x.Details(c.UserId), c.Author.Username))
-        @if (ModelHelpers.canEdit(c))
-        {
-            @(Html.ActionLink<ArticlesController>(x => x.DeleteComment(c.CommentId), "Delete"))
-        }
-        <br>
-        Vsebina: @c.Content<br>
-        Date: @c.Date
+        <div class="comment-avatar">
+            <a href="@{string UserUrl=Html.BuildUrlFromExpression<UsersController>(x=>x.Details(c.Author.UserId));}@UserUrl">
+                @Html.Gravatar(c.Author.MembershipUser.Email, 80, new { Title = "My Gravatar", Alt = "Gravatar" })
+            </a>
+        </div>
+        <div class="comment-content">
+            <a href="@UserUrl" class="comment-author">@c.Author.Username</a>
+            <span class="comment-date">on @{string DateString=((DateTime)c.Date).ToString("MMMM dd");}@DateString</span>
+            @if (ModelHelpers.canEdit(c))
+            {
+                @(Html.ActionLink<ArticlesController>(x => x.DeleteComment(c.CommentId), "Delete", new { @class = "comment-delete" }))
+            }
+            <p>@c.Content</p>
+        </div>
     </div>
 
 }
+</div>

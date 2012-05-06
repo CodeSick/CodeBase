@@ -11,6 +11,7 @@ namespace CodeBase.Models
         [Key]
         public int CommentId { get; set; }
         [Required]
+        [DataType(DataType.MultilineText)]
         public string Content { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true,
        DataFormatString = "{0:d/M/yyyy}")]

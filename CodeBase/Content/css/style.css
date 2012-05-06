@@ -21,7 +21,7 @@ p {
 }
 h1 {
 	color:#3db8e8;
-	font-size: 25px;
+	font-size: 30px;
 	font-weight: normal;
 	padding: 0;
 	margin: 0 0 25px 0;
@@ -73,6 +73,7 @@ a:hover {
 	background-image: -moz-linear-gradient(top, #fafafa, #f0f0f0);
 	background-image: -ms-linear-gradient(top, #fafafa, #f0f0f0);
 	background-image: -o-linear-gradient(top, #fafafa, #f0f0f0);
+    box-shadow:0 0 8px 0px rgba(0,0,0,0.15);
 }
 #header {
 	height: 100%;
@@ -252,7 +253,7 @@ a:hover {
 #content {
 	width: 900px;
 	margin: 0 auto;
-	padding: 30px 0;
+	padding: 40px 0;
 }
 #footer-container {
 	clear: both;
@@ -415,6 +416,8 @@ a:hover {
 	margin:15px 0;
 }
 .comments h1 {
+    font-size: 20px;
+    font-weight: bold;
 	color:#333333;
 	margin:0;
 }
@@ -449,6 +452,10 @@ a:hover {
 .comment-author:hover {
 	color:#35a1cc;
 }
+.comment-delete {
+    font-size: 12px;
+    margin-left: 5px;
+}
 .comment-date {
 	font-size:12px;
 	margin: 0 0 0 5px;
@@ -459,7 +466,9 @@ a:hover {
 }
 .comment-post h1 {
 	font-size:16px;
+    color: #333333;
 	margin:0 0 10px 0;
+    font-weight: bold;
 }
 .comment-post textarea {
 	background-color:#f2f8fa;
@@ -589,8 +598,10 @@ a:hover {
     border-radius: 4px;
     float: right;
     position: relative;
-    top: -69px;
+    top: -78px;
     left: -50px;
+    border: 1px solid #d9d9d9;
+    box-shadow:0 0 8px 0px rgba(0,0,0,0.10);
 }
 .rateit {
     cursor: pointer;
@@ -601,6 +612,17 @@ a:hover {
     color: #999999;
     margin-top: 5px;
     padding: 0;
+}
+
+.files {
+    list-style: square inside;
+    margin-left: 5px;
+}
+.files a {
+    color: #333333;
+}
+.files a:hover {
+    color: #999999;
 }
 
 /* FORM LAYOUT ELEMENTS   

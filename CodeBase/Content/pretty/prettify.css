@@ -104,3 +104,12 @@ li.L0, li.L1, li.L2, li.L3, li.L5, li.L6, li.L7, li.L8 {
 li.L1, li.L3, li.L5, li.L7, li.L9 {
     background: #eee;
 }
+
+code {
+    display: block;
+    background-color: #f0f0f0;
+    padding: 20px 25px 20px 25px;
+    margin: 10px 0px;
+    width: 650px;
+    border-radius: 4px;
+}

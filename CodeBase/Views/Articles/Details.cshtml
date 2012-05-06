@@ -67,10 +67,16 @@ in
 {
     using (Html.BeginForm(new { action = "AddComment" }))
     {
-    @Html.ValidationSummary(true)
-    @Html.Partial("_CommentCreate", new Comment { ArticleId = Model.ArticleId })
-    <p>
-        <input type="submit" value="Create" />
-    </p>
+        <div class="comment-post">
+            <h1>Leave a comment</h1>
+            <div class="comment-post-textarea-container">
+                @Html.ValidationSummary(true)
+                @Html.Partial("_CommentCreate", new Comment { ArticleId = Model.ArticleId })
+            </div>
+            <div class="buttons">
+                <input type="submit" class="button" value="Post comment"/>
+            </div>
+        </div>
     }
 }
+@Html.ActionLink("Back to List", "Index")

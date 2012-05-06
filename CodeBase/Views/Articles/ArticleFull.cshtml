@@ -2,11 +2,10 @@
            
 <script defer="defer" src="@Url.Content("~/Scripts/jquery.rateit.min.js")"></script>
 <div class="article-rating">
-<div class="title">Rating</div>
 <div data-rateit-resetable="false" class="rateit" data-rateit-value="@ViewBag.Rating.ToString("F", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))" id="rateit5">
 </div>
-<ul id="response">
-</ul>
+<!--<ul id="response">
+</ul>-->
 </div>
 <div>
 <span id="value5"></span><span id="hover5"></span>
@@ -26,15 +25,12 @@ $("#rateit5").bind('rated', function (event, value) {
 </script>
 @Html.Partial("ArticleContent", Model)
 
-<p>
-    @Html.ActionLink("Back to List", "Index")
-    @if(ModelHelpers.canEdit(Model)){
-        <text>|</text>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ArticleId }) <text>|</text>
-        @(Html.ActionLink<ArticlesController>(x => x.Delete(Model.ArticleId), "Delete"))
-    }
-    @if(Model.Approved==false && ModelHelpers.isEditor()){
+@if(ModelHelpers.canEdit(Model)){
     <text>|</text>
-    @(Html.ActionLink<ArticlesController>(x=>x.ConfirmArticle(Model.ArticleId), "Confirm"))
-    }
-</p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ArticleId }) <text>|</text>
+    @(Html.ActionLink<ArticlesController>(x => x.Delete(Model.ArticleId), "Delete"))
+}
+@if(Model.Approved==false && ModelHelpers.isEditor()){
+<text>|</text>
+@(Html.ActionLink<ArticlesController>(x=>x.ConfirmArticle(Model.ArticleId), "Confirm"))
+}
