@@ -3,6 +3,14 @@
     ViewBag.Title = Model.Title;
 }
 @using CodeBase.Models
+@{
+    String urlTw = "http://codebase.apphb.com/Articles/"+Model.ArticleId;
+    String twText = "CodeBase Articles - " +  Model.Title;
+}
+<script>
+    var object = document.getElementById("twbutton")
+    object.setAttribute("data-url", 'http://www.google.com');
+</script>
 <h1 class="article">@Model.Title</h1>
 <div class="article-author">
 <a class="author"href="@{string UserUrl = Html.BuildUrlFromExpression<UsersController>(c => c.Details(Model.Author.UserId));}@UserUrl">@Html.DisplayTextFor(_ => Model.Author.Username).ToString()</a>
@@ -61,6 +69,32 @@ in
     });
     </script>
 }
+
+<span onclick="postToFeed()"><img src="http://static.ivona.com/www/static/images/icons/share_facebook.png" /></span>&nbsp;
+<a href="https://twitter.com/share" class="twitter-share-button" data-text="@Html.Encode(twText)" data-url="@Html.Encode(urlTw)" data-hashtags="codebase">Tweet</a>
+<script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+
+<script type="text/javascript">
+    function postToFeed() {
+        var url = '@Request.Url.AbsoluteUri'
+        FB.init({ appId: "307745619299083", status: true, cookie: true });
+        FB.ui(
+  {
+      method: 'feed',
+      message: 'write code, have fun',
+      name: '@Model.Title',
+      caption: 'CodeBase',
+      description: ('CodeBase description'
+   ),
+      link: url,
+      picture: 'http://codebase.apphb.com/Content/img/header_logo.png',
+      actions: [
+        { name: 'fbrell', link: url }
+      ],
+      user_message_prompt: 'Share your thoughts about CodeBase'
+  });
+    }
+</script>
 
 @Html.Partial("Comments", Model.Comments)
 @if (User.Identity.IsAuthenticated)
