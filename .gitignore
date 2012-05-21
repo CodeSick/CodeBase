@@ -5,7 +5,9 @@ _UpgradeReport_Files/
 _Backup/
 App_Data/
 TestResults/
+obj/
 
+*.ncrunchsolution
 *.user
 *.cache
 *.suo
@@ -13,6 +15,7 @@ TestResults/
 *.lib
 *.mdf
 *.ldf
+*.appharbor
 
 //Exclude
 !lebeay32.dll
