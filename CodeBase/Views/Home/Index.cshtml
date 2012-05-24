@@ -4,10 +4,10 @@
     ViewBag.Title = "code.base";
 }
 <h1 class="border">The place for code</h1>
-<h2>@Model.Message</h2>
-<p>
-    To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-</p>
 
+<div style="display: inline">
 @Html.Partial("~/Views/Articles/ArticleShort.cshtml", Model.Articles)
 @Html.Partial("ActiveUsers", Model.Users)
+@Html.Partial("Questions", Model.Questions)
+@Html.Partial("ArticleRating", Model.ArticlesRating)
+</div>

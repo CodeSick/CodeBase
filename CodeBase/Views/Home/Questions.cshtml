@@ -1,0 +1,27 @@
+﻿@model IEnumerable<CodeBase.ViewModel.QuestionsWithCount>
+<p>
+Most popular questions
+</p>
+<table>
+    <tr>
+        <th>
+            Question
+        </th>
+        <th>
+            Answers
+        </th>
+    </tr>
+
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @(Html.ActionLink<QuestionsController>(x => x.Details(item.Question.QuestionId),item.Question.Title)) 
+        </td>
+        <td>
+            @item.Count
+        </td>
+    </tr>
+}
+
+</table>

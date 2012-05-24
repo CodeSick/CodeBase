@@ -1,0 +1,31 @@
+﻿@model IEnumerable<CodeBase.ViewModel.ArticleRating>
+<p>
+Highest rated articles
+</p>
+<table>
+    <tr>
+        <th>
+            Article
+        </th>
+        <th>
+            Average rating
+        </th>
+    </tr>
+
+@{
+
+    
+}
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @(Html.ActionLink(item.Article.Title,"Details/"+item.Article.ArticleId+"/","Articles"))
+        </td>
+        <td>
+            @CodeBase.Helper.ModelHelpers.AverageRating(item.Article)
+        </td>
+    </tr>
+}
+
+</table>
