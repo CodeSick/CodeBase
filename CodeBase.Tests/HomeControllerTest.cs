@@ -11,10 +11,8 @@ using CodeBase.ViewModel;
 
 namespace CodeBase.Tests
 {
-	[TestClass]
     public class HomeControllerTest
     {
-        [TestMethod]
         public void IndexTest()
         {
             CodeBaseContext repo = new FakeCodeBaseContext();
@@ -31,7 +29,6 @@ namespace CodeBase.Tests
             Assert.AreEqual("Index", actionResult.ViewName);
         }
 
-        [TestMethod]
         public void ContrololerAddTest()
         {
             CodeBaseContext repo = new FakeCodeBaseContext();
@@ -42,7 +39,6 @@ namespace CodeBase.Tests
             Assert.AreEqual("C#", repo.Categories.First().Title);
         }
 
-        [TestMethod]
         public void ContrololerAddShouRedispayIfCategoryInvalid()
         {
             CodeBaseContext repo = new FakeCodeBaseContext();
