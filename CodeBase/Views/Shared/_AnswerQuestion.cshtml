@@ -1,67 +1,44 @@
 ﻿@model CodeBase.ViewModel.QAViewModel
 @using CodeBase.Models
-
-<table>
-    <tr>
-        <th></th>
-        <th>
-            Author
-        </th>
-        <th>
-            Content
-        </th>
-        <th>
-            Date
-        </th>
-        <th>
-            Question
-        </th>
-    </tr>
-
-@foreach (var item in Model.question.Answers) {
-    <tr>
-        <td>
-            
-            @Html.ActionLink("Edit", "Edit/" + item.AnswerId, "Answers") |
-            @Html.ActionLink("Details", "Details/" + item.AnswerId, "Answers") |
-            @Html.ActionLink("Delete", "Delete/" + item.AnswerId, "Answers")
-        </td>
-        <td>
-			@Html.DisplayTextFor(_ => item.Author.Username).ToString()
-        </td>
-        <td>
-			@Html.Raw(BBCodeHelper.Format(@item.Content))
-        </td>
-        <td>
-			@String.Format("{0:g}", item.Date)
-        </td>
-        <td>
-			@Html.Raw(BBCodeHelper.Format(item.Question.Content))
-        </td>
-    </tr>
+<div class="comments">
+<h1>@Model.question.Answers.ToList().Count() Answers</h1>
+@foreach (var item in Model.question.Answers)
+{
+<div class="comment">
+    <div class="comment-avatar">
+        <a href="@{string UserUrl = Html.BuildUrlFromExpression<UsersController>(x => x.Details(item.Author.UserId));}@UserUrl">
+            @Html.Gravatar(item.Author.MembershipUser.Email, 80, new { Title = "My Gravatar", Alt = "Gravatar" })
+        </a>
+    </div>
+    <div class="comment-content">
+        <a href="@UserUrl" class="comment-author">@item.Author.Username</a>
+        <span class="comment-date">on @{string DateString = ((DateTime)item.Date).ToString("MMMM dd");}@DateString</span>
+        @Html.ActionLink("Edit", "Edit/" + item.AnswerId, "Answers", new { @class = "comment-delete" })
+        @Html.ActionLink("Details", "Details/" + item.AnswerId, "Answers", new { @class = "comment-delete" })
+        @Html.ActionLink("Delete", "Delete/" + item.AnswerId, "Answers", new { @class = "comment-delete" })
+        <p>@Html.Raw(BBCodeHelper.Format(@item.Content))</p>
+    </div>
+</div>
 }
-
-</table>
-
-<br /><h2>Answer this question</h2> <br />
+<h1 style="margin-top: 50px;">Write an answer</h1>
 @if (Request.IsAuthenticated)
 {
 
-using (Html.BeginForm("Create","Answers")) {
+    using (Html.BeginForm("Create", "Answers"))
+    {
     @Html.ValidationSummary(true)
-<div class="editor-label">
-    @Html.LabelFor(model => model.answer.Content)
-</div>
 <div class="editor-field">
     @Html.TextAreaFor(model => model.answer.Content)
     @Html.ValidationMessageFor(model => model.answer.Content)
     @Html.Hidden("answer_QuestionId", Model.question.QuestionId)
 </div>
 
-<input type="submit" value="Create" />
+<input type="submit" class="button" value="Post answer" />
     }
-} else {
- @Html.Raw("Log in to answer");   
+}
+else
+{
+ @Html.Raw("Log in to answer");
 }
 <script type="text/javascript" >
     $(document).ready(function () {

@@ -37,7 +37,7 @@
         <td>
 			@item.Title
         </td>
-        <td>
+        <td style="width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display: block;">
             @Html.Raw(BBCodeHelper.Format(@item.Content))			
         </td>
         <td>

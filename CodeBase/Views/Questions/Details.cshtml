@@ -4,30 +4,16 @@
 }
 @using CodeBase.Models
 
-<h2>Details</h2>
-<fieldset>
-    <legend>Question</legend>
-
-    <div class="display-label">Title</div>
-    <div class="display-field">@Model.question.Title</div>
-
-    <div class="display-label">Content</div>
-    <div class="display-field">@Html.Raw(BBCodeHelper.Format(@Model.question.Content))</div>
-
-    <div class="display-label">Date</div>
-    <div class="display-field">@String.Format("{0:g}", Model.question.Date)</div>
-
-    <div class="display-label">Author</div>
-    <div class="display-field">@Model.question.Author.Username.ToString()</div>
-
-    <div class="display-label">Answers</div>
-    <div class="display-field">@(Model.question.Answers == null ? "None" : Model.question.Answers.Count.ToString())</div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.question.QuestionId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-
+<h1 class="question">@Model.question.Title</h1>
+<div class="question-author">
+<a class="author"href="@{string UserUrl = Html.BuildUrlFromExpression<UsersController>(c => c.Details(Model.question.Author.UserId));}@UserUrl">@Html.DisplayTextFor(_ => Model.question.Author.Username).ToString()</a>
+@String.Format("{0:MMMM d, yyyy}", Model.question.Date)
+</div>
+<div class="question-content">
+@Html.Raw(BBCodeHelper.Format(@Model.question.Content))
+</div>
+@Html.ActionLink("Edit", "Edit", new { id=Model.question.QuestionId })
+<span style="color:#999999;">|</span>
 @if (Request.IsAuthenticated)
 {
     String mes = null;
@@ -39,7 +25,7 @@
     {
         mes = "Subscribe";
     }
-    <span id="trigger">@Html.Raw(mes + " to this question") </span>
+    <span id="trigger">@Html.Raw(mes) </span>
     
     <div id="dialog-confirm" title="Un/Subscribe to this question ?">
 	    Subscribe to this question. If you already have a subscription, you will be unsubscribed
@@ -52,6 +38,7 @@
 <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
 
 @Html.Partial("_AnswerQuestion")
+@Html.ActionLink("Back to List", "Index")
 <script type="text/javascript">
     $("#dialog-confirm").css("display", "none");
     $("#trigger").click(function () {

@@ -32,7 +32,7 @@ h1.border {
 	margin: 0 0 19px 0;
     border-bottom: 1px solid #e3e3e3;   
 }
-h1.article {
+h1.article, h1.question {
     margin: 0 0 10px 0;
 }
 h1 a {
@@ -158,6 +158,12 @@ a:hover {
 	-webkit-user-select:none;
 	-moz-user.select:none;
 	-o-user-select: none;
+}
+#nav-top ul li.user-name img {
+    display: inline;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
 }
 #nav-top ul li.user-name:hover {
 	border: 1px solid #bfbfbf;
@@ -581,13 +587,13 @@ a:hover {
     width: 87px;
 }
 
-.article-author a.author {
+.article-author a.author, .question-author a.author {
     font-weight: bold;
 }
-.article-author a:hover {
+.article-author a:hover, .question-author a:hover {
     color: #3db8e8;
 }
-.article-author {
+.article-author, .question-author {
     margin-bottom: 20px;
     color: #999999;
 }
@@ -623,6 +629,28 @@ a:hover {
 }
 .files a:hover {
     color: #999999;
+}
+
+.question-content {
+    display: block;
+    background-color: #f0f0f0;
+    padding: 20px 25px 20px 25px;
+    margin: 10px 0px;
+    width: 100%;
+    border-radius: 4px;
+}
+
+#trigger {
+    color: #999999;
+    cursor: pointer;
+    transition: color 0.2s ease-out 0s;
+	-webkit-transition: color 0.2s ease-out 0s;
+	-moz-transition: color 0.2s ease-out 0s;
+	-o-transition: color 0.2s ease-out 0s;
+}
+
+#trigger:hover {
+    color: #333333;
 }
 
 /* FORM LAYOUT ELEMENTS   

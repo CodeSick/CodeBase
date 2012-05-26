@@ -8,7 +8,7 @@ $(document).click(function(e) {
 			menu=false;
 		}
 	} else {
-		if($target.is(".user-name")) {
+		if($target.is(".user-name")||$target.is(".user-name img")||$target.is(".user-name span")) {
 			$(".user-menu").css("visibility","visible");
 			$(".user-name").addClass("user-name-active");
 			menu=true;

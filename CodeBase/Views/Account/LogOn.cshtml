@@ -31,6 +31,20 @@
                 @Html.ActionLink("Create a new account", "Register")
             </div>
     </div>
+    if (!Request.IsAuthenticated) {
+                <div id="auth-status" style="margin: 0 auto;width: 154px;">
+                    <div id="auth-loggedout">
+                      <a href="#" id="auth-loginlink"><img src="http://www.empireavenue.com/public/images/fb_connect.png" alt="Login with Facebook" /></a>
+                    </div>
+                    <div id="auth-loggedin" style="display:none">
+                      Hi, <span id="auth-displayname"></span>  
+                    (<a href="#" id="auth-logoutlink">Facebook logout</a>)
+                   </div>
+                </div>
+    }
     @Html.ValidationSummary(true, "Login was unsuccessful.", new {@class="message-error" })
     <div class="push"></div>
+}
+@{
+    
 }
