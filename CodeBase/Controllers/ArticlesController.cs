@@ -348,5 +348,16 @@ namespace CodeBase.Controllers
             }
             return "subscribed";
         }
+        
+        //
+        // GET: /Articles/ByUser/5
+
+        [Authorize]
+        public ActionResult ByUser(int id)
+        {
+            ViewData["UserName"] = context.Users.Single(x => x.UserId == id).Username;
+            return View("ArticlesByUser",context.Users.Single(x=>x.UserId==id).Articles);
+        }
     }
+
 }

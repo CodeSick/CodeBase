@@ -23,7 +23,7 @@
     <div id="main-container">
         <div id="header-container">
             <div id="header">
-                <a href="#" id="logo"></a>
+                <a href="/" id="logo"></a>
                 <div id="search">
                     <input id="searchBox" type="text" />
                 </div>
@@ -52,10 +52,12 @@
                     <div class="user-menu">
                         <ul>
                             <li class="first">User options</li>
-                            <li>My Profile</li>
-                            <li>My Articles</li>
+                            @{string UserProfileUrl=Html.BuildUrlFromExpression<UsersController>(x=>x.Details(8));}
+                            <li onclick="location.href='@UserProfileUrl'">My Profile</li>
+                            @{string MyArticlesUrl = Html.BuildUrlFromExpression<ArticlesController>(x => x.ByUser(8));}
+                            <li onclick="location.href='@MyArticlesUrl'">My Articles</li>
                             <li>Settings</li>
-                            @{string LogOffUrl=Html.BuildUrlFromExpression<AccountController>(c => c.LogOff());}
+                            @{string LogOffUrl = Html.BuildUrlFromExpression<AccountController>(c => c.LogOff());}
                             <li class="last" id="logout" onclick="location.href='@LogOffUrl'">Sign out</li>
                         </ul>
                     </div>

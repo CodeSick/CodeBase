@@ -7,7 +7,7 @@
     <thead>
         <tr>
             <th>Title </th>
-            <th>Short content</th>
+            <th>Content</th>
             <th>Author </th>
             <th>Date </th>
             <th>Answers </th>
@@ -19,10 +19,9 @@
             <td>
                 @(Html.ActionLink<QuestionsController>(x => x.Details(item.QuestionId), item.Title))
             </td>
-            <td style="width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-                display: block;">
+            <td style="width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">
                 <!-- Neda se mi delat da še lepo prikaže, lahko to kdo drugi èe èe:D -->
-                @Html.Raw(BBCodeHelper.Format(@item.Content.Substring(0,Math.Min(50, item.Content.Length))))
+                @Html.Raw(BBCodeHelper.Format(@item.Content)))
             </td>
             <td>
                 @Html.DisplayTextFor(_ => item.Author.Username).ToString()

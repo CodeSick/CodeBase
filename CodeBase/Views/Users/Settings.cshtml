@@ -1,0 +1,23 @@
+﻿@model CodeBase.Models.User
+@{
+    ViewBag.Title = "Settings";
+}
+
+<h1>My Profile</h1>
+<div class="profile">
+    <div class="profile-avatar">
+    @Html.Gravatar(Membership.GetUser().Email, 120, new { Title = "My Gravatar", Alt = "Gravatar" })
+    </div>
+    <div class="profile-info">
+        <div class="profile-info-label">Username</div>
+        <div class="profile-info-text">@Membership.GetUser().UserName</div>
+        <div class="profile-info-label">Emai<la/div>
+        <div class="profile-info-text">@Membership.GetUser().UserName</div>
+        <div class="profile-info-label">Username</div>
+        <div class="profile-info-text">@Membership.GetUser().UserName</div>
+        <div class="profile-info-label">Username</div>
+        <div class="profile-info-text">@Membership.GetUser().UserName</div>
+        <div class="profile-info-label">Username</div>
+        <div class="profile-info-text">@Membership.GetUser().UserName</div>
+    </div>
+</div>

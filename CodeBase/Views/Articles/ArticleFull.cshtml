@@ -26,7 +26,7 @@ $("#rateit5").bind('rated', function (event, value) {
 @Html.Partial("ArticleContent", Model)
 
 @if(ModelHelpers.canEdit(Model)){
-    <text>|</text>
+    <br /><br />
     @Html.ActionLink("Edit", "Edit", new { id = Model.ArticleId }) <text>|</text>
     @(Html.ActionLink<ArticlesController>(x => x.Delete(Model.ArticleId), "Delete"))
 }
@@ -34,3 +34,4 @@ $("#rateit5").bind('rated', function (event, value) {
 <text>|</text>
 @(Html.ActionLink<ArticlesController>(x=>x.ConfirmArticle(Model.ArticleId), "Confirm"))
 }
+<br /><br />

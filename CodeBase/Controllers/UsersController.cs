@@ -116,5 +116,13 @@ namespace CodeBase.Controllers
             context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        //
+        // GET: /Users/Settings
+
+        public ViewResult Settings()
+        {
+            return View();
+        }
     }
 }
