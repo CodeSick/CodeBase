@@ -11,21 +11,13 @@
 </div>
 
 <div class="editor-label">
-    @Html.LabelFor(model => model.Gravatar)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(model => model.Gravatar)
-    @Html.ValidationMessageFor(model => model.Gravatar)
-</div>
-
-<div class="editor-label">
     @Html.LabelFor(model => model.JoinDate)
 </div>
 <div class="editor-field">
-    @Html.EditorFor(model => model.JoinDate)
-    @Html.ValidationMessageFor(model => model.JoinDate)
+    @Model.JoinDate
 </div>
 <div>
+
 
 @Html.DropDownList("role", Roles.GetAllRoles().Where(x => x!=Roles.GetRolesForUser().FirstOrDefault()).ToSelectList(x=>x,x=>x,Roles.GetRolesForUser().FirstOrDefault()))
 </div>

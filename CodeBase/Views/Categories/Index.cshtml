@@ -1,36 +1,39 @@
 @model IEnumerable<CodeBase.Models.Category>
-
 @{
     ViewBag.Title = "Index";
 }
-
 <h1 class="border">Categories</h1>
 <table>
     <tr>
-        <th></th>
-        <th>
-            Title
-        </th>
-        <th>
-            Articles
-        </th>
+        @if (ModelHelpers.isEditor())
+        {
+            <th></th>
+        }
+        <th>Title </th>
+        <th>Articles </th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CategoryId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CategoryId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CategoryId })
-        </td>
-        <td>
-			@item.Title
-        </td>
-        <td>
-			@(item.Articles == null ? "None" : item.Articles.Count.ToString())
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            @if (ModelHelpers.isEditor())
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId })
+                    <text>|</text>
+                    @Html.ActionLink("Details", "Details", new { id = item.CategoryId })
+                    <text>|</text>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId })
+                </td> }
+            <td>
+                @item.Title
+            </td>
+            <td>
+                @(item.Articles == null ? "None" : item.Articles.Count.ToString())
+            </td>
+        </tr>
+    }
 </table>
-<div class="table-actions">@Html.ActionLink("Create new", "Create")</div>
+@if (ModelHelpers.isEditor())
+{
+    <div class="table-actions">@Html.ActionLink("Create new", "Create")</div>
+}

@@ -20,6 +20,14 @@ namespace CodeBase.Helper
             IEnumerable<Rating> ratings = a.Ratings;
             float average = (float)ratings.Sum(x => x.Value) / ratings.Count();
             return average;
+
+
+        }
+
+        public static Boolean isAdmin()
+        {
+            if (Roles.GetRolesForUser().Intersect(admin).Count() > 0) return true;
+            return false;
         }
 
         static CodeBaseMembership m = new CodeBaseMembership();
@@ -27,6 +35,26 @@ namespace CodeBase.Helper
         {
             var user = m.LoggedInUser();
             if (user != null && (user == c.Author.Username || Roles.GetRolesForUser().Intersect(editor).Count() > 0))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static Boolean canEdit(Question c)
+        {
+            var user = m.LoggedInUser();
+            if (user != null && (user == c.Author.Username || Roles.GetRolesForUser().Intersect(editor).Count() > 0))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static Boolean canEdit(User u)
+        {
+            var user = m.LoggedInUser();
+            if (user != null && (user == u.Username || Roles.GetRolesForUser().Intersect(admin).Count() > 0))
             {
                 return true;
             }

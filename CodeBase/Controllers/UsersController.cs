@@ -61,6 +61,7 @@ namespace CodeBase.Controllers
         //
         // GET: /Users/Edit/5
 
+        [Authorize(Roles="admin")]
         public ActionResult Edit(int id)
         {
             User user = context.Users.Single(x => x.UserId == id);
@@ -70,6 +71,8 @@ namespace CodeBase.Controllers
         //
         // POST: /Users/Edit/5
 
+
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public ActionResult Edit(User user, String role)
         {
@@ -93,7 +96,7 @@ namespace CodeBase.Controllers
 
         //
         // GET: /Users/Delete/5
-
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(int id)
         {
             User user = context.Users.Single(x => x.UserId == id);
@@ -104,6 +107,7 @@ namespace CodeBase.Controllers
         // POST: /Users/Delete/5
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             User user = context.Users.Single(x => x.UserId == id);

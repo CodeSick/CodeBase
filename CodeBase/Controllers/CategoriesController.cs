@@ -42,6 +42,7 @@ namespace CodeBase.Controllers
         // POST: /Categories/Create
 
         [HttpPost]
+        [Authorize(Roles = "admin, editor")]
         public ActionResult Create(Category category)
         {
 
@@ -57,7 +58,8 @@ namespace CodeBase.Controllers
         
         //
         // GET: /Categories/Edit/5
- 
+
+        [Authorize(Roles = "admin, editor")]
         public ActionResult Edit(int id)
         {
             Category category = context.Categories.Single(x => x.CategoryId == id);
@@ -68,6 +70,7 @@ namespace CodeBase.Controllers
         // POST: /Categories/Edit/5
 
         [HttpPost]
+        [Authorize(Roles = "admin, editor")]
         public ActionResult Edit(Category category)
         {
             if (ModelState.IsValid)
@@ -81,7 +84,8 @@ namespace CodeBase.Controllers
 
         //
         // GET: /Categories/Delete/5
- 
+
+        [Authorize(Roles = "admin, editor")]
         public ActionResult Delete(int id)
         {
             Category category = context.Categories.Single(x => x.CategoryId == id);
@@ -91,6 +95,7 @@ namespace CodeBase.Controllers
         //
         // POST: /Categories/Delete/5
 
+        [Authorize(Roles = "admin, editor")]
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {

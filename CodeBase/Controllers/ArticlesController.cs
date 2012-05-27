@@ -11,7 +11,6 @@ using CodeBase.Helper;
 using System.Net;
 using System.Globalization;
 using System.ServiceModel.Syndication;
-using CodeBase.Helper;
 using Rotativa;
 using CodeBase.ViewModel;
 using AutoMapper;

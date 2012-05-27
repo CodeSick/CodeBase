@@ -8,11 +8,12 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using CodeBase.Helper;
 using CodeBase.Models;
 using CodeBase.ViewModel;
 
 namespace CodeBase.Controllers
-{   
+{
     public class QuestionsController : Controller
     {
         private CodeBaseContext context = new CodeBaseContext();
@@ -49,7 +50,7 @@ namespace CodeBase.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
+        }
 
         //
         // POST: /Questions/Create
@@ -66,19 +67,28 @@ namespace CodeBase.Controllers
             {
                 context.Questions.Add(question);
                 context.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index");
             }
 
             return View(question);
         }
-        
+
         //
         // GET: /Questions/Edit/5
         [Authorize]
         public ActionResult Edit(int id)
         {
+
             Question question = context.Questions.Single(x => x.QuestionId == id);
-            return View(question);
+            if (ModelHelpers.canEdit(question))
+            {
+                ViewBag.PossibleCategories = context.Categories;
+                return View(question);
+            }
+
+            TempData["Error"] = "Not authorized";
+            return Redirect(Request.UrlReferrer.ToString());
+
         }
 
         //
@@ -92,14 +102,20 @@ namespace CodeBase.Controllers
             question.UserId = q.UserId;
             question.Date = q.Date;
 
-            if (ModelState.IsValid)
+
+            if (ModelHelpers.canEdit(question))
             {
-                context.Entry(q).CurrentValues.SetValues(question);
-                context.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    context.Entry(q).CurrentValues.SetValues(question);
+                    context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.PossibleUsers = context.Users;
+                return View(question);
             }
-            ViewBag.PossibleUsers = context.Users;
-            return View(question);
+            TempData["Error"] = "Not authorized";
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         //
@@ -108,7 +124,14 @@ namespace CodeBase.Controllers
         public ActionResult Delete(int id)
         {
             Question question = context.Questions.Single(x => x.QuestionId == id);
-            return View(question);
+            if (ModelHelpers.canEdit(question))
+            {
+                ViewBag.PossibleCategories = context.Categories;
+                return View(question);
+            }
+
+            TempData["Error"] = "Not authorized";
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         //
@@ -119,15 +142,20 @@ namespace CodeBase.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Question question = context.Questions.Single(x => x.QuestionId == id);
-
-            foreach (Answer answer in context.Answers.Where(x => x.QuestionId == question.QuestionId))
+            if (ModelHelpers.canEdit(question))
             {
-                context.Answers.Remove(answer);
+                foreach (Answer answer in context.Answers.Where(x => x.QuestionId == question.QuestionId))
+                {
+                    context.Answers.Remove(answer);
+                }
+
+                context.Questions.Remove(question);
+                context.SaveChanges();
+                return RedirectToAction("Index");
             }
 
-            context.Questions.Remove(question);
-            context.SaveChanges();
-            return RedirectToAction("Index");
+            TempData["Error"] = "Not authorized";
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         [HttpPost]

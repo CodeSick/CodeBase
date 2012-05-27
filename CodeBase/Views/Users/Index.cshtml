@@ -5,7 +5,6 @@
 <h1 class="border">Users</h1>
 <table>
     <tr>
-        <th></th>
         <th>Username </th>
         <th>Gravatar </th>
         <th>JoinDate </th>
@@ -20,12 +19,7 @@
     {
         <tr>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
-            </td>
-            <td>
-                @item.Username
+                @(Html.ActionLink<UsersController>(x=>x.Details(item.UserId), item.Username))
             </td>
             <td>
                 @item.Gravatar
