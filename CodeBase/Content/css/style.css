@@ -653,6 +653,25 @@ a:hover {
     color: #333333;
 }
 
+.profile {
+    margin-bottom: 50px;
+}
+.profile .profile-avatar {
+    float: left;
+}
+.profile .profile-info {
+    margin-left: 150px;  
+}
+.profile .profile-info .profile-info-label {
+    width: 72px;
+    display: inline-block;
+    font-weight: bold;
+}
+.profile .profile-info .profile-info-text {
+    margin-left: 15px;
+    display: inline-block;
+}
+
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
 

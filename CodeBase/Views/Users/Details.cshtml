@@ -1,9 +1,54 @@
 @model CodeBase.Models.User
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Profile";
 }
-<h2>Details</h2>
-<fieldset>
+<h1>@Model.Username's Profile</h1>
+<div class="profile">
+    <div class="profile-avatar">
+    @Html.Gravatar(Model.MembershipUser.Email, 120, new { Title = "My Gravatar", Alt = "Gravatar" })
+    </div>
+    <div class="profile-info">
+        <div class="profile-info-item">
+            <div class="profile-info-label">Username</div>
+            <div class="profile-info-text">@Model.Username</div>
+        </div>
+        <div class="profile-info-item">
+            <div class="profile-info-label">Email</div>
+            <div class="profile-info-text">@Model.MembershipUser.Email</div>
+        </div>
+        <div class="profile-info-item">
+            <div class="profile-info-label">Joined</div>
+            <div class="profile-info-text">@Model.JoinDate</div>
+        </div>
+        <div class="profile-info-item">
+            <div class="profile-info-label">Articles</div>
+            <div class="profile-info-text">@Model.Articles.Count</div>
+        </div>
+        <div class="profile-info-item">
+            <div class="profile-info-label">Ratings</div>
+            <div class="profile-info-text">@Model.Ratings.Count</div>
+        </div>
+        <div class="profile-info-item">
+            <div class="profile-info-label">Comments</div>
+            <div class="profile-info-text">@Model.Comments.Count</div>
+        </div>
+        <div class="profile-info-item">
+            <div class="profile-info-label">Answers</div>
+            <div class="profile-info-text">@Model.Answers.Count</div>
+        </div>
+        <div class="profile-info-item">
+            <div class="profile-info-label">Questions</div>
+            <div class="profile-info-text">@Model.Questions.Count</div>
+        </div>
+    </div>
+</div>
+@if (ModelHelpers.isAdmin())
+{
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId })
+    <text>|</text>
+}
+@Html.ActionLink("Back to List", "Index")
+<!--<fieldset>
     <legend>User</legend>
     @Html.Gravatar(Model.MembershipUser.Email, 80, new { Title = "My Gravatar", Alt = "Gravatar" })
     <div class="display-label">Username</div>
@@ -35,4 +80,4 @@
         <text>|</text>
     }
     @Html.ActionLink("Back to List", "Index")
-</p>
+</p>-->
