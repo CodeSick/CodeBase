@@ -370,7 +370,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Files\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -528,7 +527,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>34717</DevelopmentServerPort>
+          <DevelopmentServerPort>27989</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

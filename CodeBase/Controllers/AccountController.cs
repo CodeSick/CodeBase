@@ -31,6 +31,7 @@ namespace CodeBase.Controllers
             {
                 if (Membership.ValidateUser(model.UserName, model.Password))
                 {
+                    Session["user"] = context.Users.Where(x => x.Username == model.UserName).ToList().FirstOrDefault();
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
@@ -58,6 +59,7 @@ namespace CodeBase.Controllers
         public ActionResult LogOff()
         {
             Session["accessToken"] = null;
+            Session["user"] = null;
             FormsAuthentication.SignOut();
 
             return RedirectToAction("Index", "Home");

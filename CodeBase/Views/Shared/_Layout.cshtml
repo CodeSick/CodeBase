@@ -47,12 +47,12 @@
                         }
                     </ul>
                 </div>
-                @if (Request.IsAuthenticated)
+                @if (Request.IsAuthenticated && Session["user"] != null)
                 {
                     <div class="user-menu">
                         <ul>
                             <li class="first">User options</li>
-                            <li>My Profile</li>
+                            <li>@(Html.ActionLink<UsersController>(x=>x.Details(((User)Session["user"]).UserId), "My Profile"))</li>
                             <li>My Articles</li>
                             <li>Settings</li>
                             @{string LogOffUrl=Html.BuildUrlFromExpression<AccountController>(c => c.LogOff());}
