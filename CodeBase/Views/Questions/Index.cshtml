@@ -1,56 +1,56 @@
 @model IEnumerable<CodeBase.Models.Question>
-
 @{
     ViewBag.Title = "Index";
 }
-
-@using CodeBase.Models
-
 <h1 class="border">Questions and answers</h1>
-<table>
-    <tr>
-        <th></th>
-        <th>
-            Title
-        </th>
-        <th>
-            Content
-        </th>
-        <th>
-            Date
-        </th>
-        <th>
-            Author
-        </th>
-        <th>
-            Answers
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.QuestionId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.QuestionId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.QuestionId })
-        </td>
-        <td>
-			@item.Title
-        </td>
-        <td style="width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display: block;">
-            @Html.Raw(BBCodeHelper.Format(@item.Content))			
-        </td>
-        <td>
-			@String.Format("{0:d/M/yyyy}", item.Date)
-        </td>
-        <td>
-			@Html.DisplayTextFor(_ => item.Author.Username).ToString()
-        </td>
-        <td>
-			@(item.Answers == null ? "None" : item.Answers.Count.ToString())
-        </td>
-    </tr>
-}
-
+<table id="tabelica">
+    <thead>
+        <tr>
+            <th>Title </th>
+            <th>Short content</th>
+            <th>Author </th>
+            <th>Date </th>
+            <th>Answers </th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @(Html.ActionLink<QuestionsController>(x => x.Details(item.QuestionId), item.Title))
+            </td>
+            <td style="width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+                display: block;">
+                <!-- Neda se mi delat da še lepo prikaže, lahko to kdo drugi èe èe:D -->
+                @Html.Raw(BBCodeHelper.Format(@item.Content.Substring(0,Math.Min(50, item.Content.Length))))
+            </td>
+            <td>
+                @Html.DisplayTextFor(_ => item.Author.Username).ToString()
+            </td>
+            <td>
+                @String.Format("{0:d/M/yyyy}", item.Date)
+            </td>
+            <td>
+                @(item.Answers == null ? "None" : item.Answers.Count.ToString())
+            </td>
+        </tr>
+    }
 </table>
 <div class="table-actions">@Html.ActionLink("Create new", "Create")</div>
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.js"></script>
+<script type="text/javascript">
+
+    function fnShowHide(iCol) {
+        /* Get the DataTables object again - this is not a recreation, just a get of the object */
+        var oTable = $('#tabelica').dataTable();
+
+        var bVis = oTable.fnSettings().aoColumns[iCol].bVisible;
+        oTable.fnSetColumnVis(iCol, bVis ? false : true);
+    }
+    $(document).ready(function () {
+        $("#tabelica").dataTable();
+        fnShowHide(7);
+        fnShowHide(6);
+        fnShowHide(5);
+    });
+</script>

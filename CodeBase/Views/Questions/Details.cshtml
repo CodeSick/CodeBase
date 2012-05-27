@@ -12,7 +12,8 @@
 <div class="question-content">
 @Html.Raw(BBCodeHelper.Format(@Model.question.Content))
 </div>
-@Html.ActionLink("Edit", "Edit", new { id=Model.question.QuestionId })
+@Html.ActionLink("Edit", "Edit", new { id=Model.question.QuestionId })  | 
+@(Html.ActionLink<QuestionsController>(x=> x.Delete(Model.question.QuestionId), "Delete"))
 <span style="color:#999999;">|</span>
 @if (Request.IsAuthenticated)
 {
