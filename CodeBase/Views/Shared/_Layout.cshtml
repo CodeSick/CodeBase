@@ -67,7 +67,7 @@
         </div>
         <div id="content-container">
             <div id="content">
-                <div id="message">
+                <div id="@*message*@">
                     @TempData["Message"]
                 </div>
                 <div id="message">
@@ -103,9 +103,12 @@
             </dl>
             <dl id="connect">
                 <dt>Connect</dt>
-                <dd><a href="#" id="connect-twitter">Twitter</a></dd>
+                <dd>
+                    <a href="#" id="connect-twitter">Twitter</a>
+                </dd>
                 <dd><a href="#" id="connect-facebook">Facebook</a></dd>
-                <dd><a href="#" id="connect-rss">RSS</a></dd>
+                <dd>@(Html.ActionLink<ArticlesController>(x => x.Feed(), "RSS", new { id = "connect-rss" }))
+                </dd>
             </dl>
             <div id="footer-copy"><span>&copy; 2012 code.base</span></div>
         </div>

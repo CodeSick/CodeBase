@@ -51,6 +51,13 @@ namespace CodeBase.Controllers
 
         }
 
+        public ViewResult PdfView(int id)
+        {
+            Article a = context.Articles.Where(x => x.ArticleId == id).FirstOrDefault();
+            ViewBag.Rating = ModelHelpers.AverageRating(a);
+            return View(a);
+        }
+
         [HttpPost, Authorize]
         public ActionResult AddComment(Comment c)
         {
@@ -99,7 +106,7 @@ namespace CodeBase.Controllers
 
         public ActionResult Pdf(int id)
         {
-            return new ActionAsPdf("Details", new { id = id });
+            return new ActionAsPdf("PdfView", new { id = id });
         }
 
         //
