@@ -131,15 +131,69 @@ namespace CodeBase.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult EditSettings(User user)
+        public ActionResult EditSettings()
         {
-            if (ModelState.IsValid)
+            User user = context.Users.Single(x => x.Username == HttpContext.User.Identity.Name);
+            string email = Request["email"];
+            if (email == "" || email == null)
             {
-                context.Entry(user).State = EntityState.Modified;
-                context.SaveChanges();
-                return RedirectToAction("Details/" + user.UserId);
+                ModelState.AddModelError("email", "Email cannot be empty");
             }
-            return View(user);
+            else
+            {
+                user.MembershipUser.Email=email;
+                Membership.UpdateUser(user.MembershipUser);
+            }
+            return View("Settings",user);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult ChangePassword()
+        {
+            User user = context.Users.Single(x => x.Username == HttpContext.User.Identity.Name);
+            string oldpass = Request["oldpass"];
+            string newpass = Request["newpass"];
+            string newpass_confirm = Request["newpass_confirm"];
+            if (oldpass == "")
+            {
+                ModelState.AddModelError("oldpass", "This field cannot be empty.");
+            }
+            if (newpass == "")
+            {
+                ModelState.AddModelError("newpass", "This field cannot be empty.");
+            }
+            if (newpass_confirm == "")
+            {
+                ModelState.AddModelError("newpass_confirm", "This field cannot be empty.");
+            }
+            if (oldpass != "" && newpass != "" && newpass_confirm != "")
+            {
+                if (newpass != newpass_confirm)
+                {
+                    ModelState.AddModelError("newpass_Confirm", "Passwords do not match.");
+                }
+                else
+                {
+                    if (newpass.Length >= 6)
+                    {
+                        if (user.MembershipUser.ChangePassword(oldpass, newpass))
+                        {
+                            Membership.UpdateUser(user.MembershipUser);
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("oldpass", "Incorrect password.");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("newpass", "Password to short, needs to have at least 6 characters");
+                        ModelState.AddModelError("newpass_confirm", "Needs to have at least 6 characters");
+                    }
+                }
+            }
+            return View("Settings", user);
         }
     }
 }

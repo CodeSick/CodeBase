@@ -4,7 +4,6 @@
 }
 @using (Html.BeginForm("EditSettings","Users"))
 {
-    @Html.HiddenFor(m => m.UserId)
     <div class="input-form-title">My Settings</div>
     <div class="input-form">
         <div class="body">
@@ -27,16 +26,30 @@
                     @Html.TextBox("email", Model.MembershipUser.Email, new { @class = "textfield" })
                 </div>
                 <div class="validation">
+                    @Html.ValidationMessage("email")
                 </div>
             </div>
+        </div>
+        <div class="buttons">
+            <input type="submit" class="button " value="Submit" />
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("ChangePassword","Users"))
+{
+    <div class="input-form-title">Change password</div>
+    <div class="input-form">
+        <div class="body">
             <div class="field">
                 <div class="label">
                     @Html.Label("oldpass", "Old password")
                 </div>
                 <div class="input">
-                    @Html.TextBox("oldpass", null, new { @class = "textfield" })
+                    @Html.Password("oldpass", null, new { @class = "textfield" })
                 </div>
                 <div class="validation">
+                    @Html.ValidationMessage("oldpass")
                 </div>
             </div>
             <div class="field">
@@ -44,9 +57,10 @@
                     @Html.Label("newpass", "New password")
                 </div>
                 <div class="input">
-                    @Html.TextBox("newpass", null, new { @class = "textfield" })
+                    @Html.Password("newpass", null, new { @class = "textfield" })
                 </div>
                 <div class="validation">
+                    @Html.ValidationMessage("newpass")
                 </div>
             </div>
             <div class="field">
@@ -54,9 +68,10 @@
                     @Html.Label("newpass_confirm", "Confirm password")
                 </div>
                 <div class="input">
-                    @Html.TextBox("newpass_confirm", null, new { @class = "textfield" })
+                    @Html.Password("newpass_confirm", null, new { @class = "textfield" })
                 </div>
                 <div class="validation">
+                    @Html.ValidationMessage("newpass_confirm")
                 </div>
             </div>
         </div>
