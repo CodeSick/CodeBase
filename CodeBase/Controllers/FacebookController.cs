@@ -61,6 +61,8 @@ namespace CodeBase.Controllers
                         context.SaveChanges();
                         Roles.AddUserToRole(newfbuser.Username, "Normal");
                         FormsAuthentication.SetAuthCookie(newfbuser.Username, true);
+
+                        Session["user"] = newfbuser;
                         return newfbuser.Username;
                     }
                     else

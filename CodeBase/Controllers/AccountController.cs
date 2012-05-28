@@ -87,7 +87,8 @@ namespace CodeBase.Controllers
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    
+
+                    Session["user"] = context.Users.Where(x => x.Username == model.UserName).ToList().FirstOrDefault();   
                     User user = context.Users.Create();
                     user.JoinDate = DateTime.Now;
                     user.Username = model.UserName;
