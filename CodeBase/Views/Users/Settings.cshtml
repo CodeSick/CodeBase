@@ -10,24 +10,53 @@
         <div class="body">
             <div class="field">
                 <div class="label">
-                    @Html.LabelFor(m => m.Username)
+                    Username
                 </div>
-                <div class="input">
-                    @Html.TextBoxFor(m => m.Username, new { @class = "textfield" })
+                <div class="text">
+                    @Model.Username
                 </div>
                 <div class="validation">
-                    @Html.ValidationMessageFor(m => m.Username)
+                    
                 </div>
             </div>
             <div class="field">
                 <div class="label">
-                    @Html.LabelFor(m => m.MembershipUser.Email)
+                    @Html.Label("email", "Email")
                 </div>
                 <div class="input">
-                    @Html.TextBoxFor(m => m.MembershipUser.Email, new {@class="textfield"})
+                    @Html.TextBox("email", Model.MembershipUser.Email, new { @class = "textfield" })
                 </div>
                 <div class="validation">
-                    @Html.ValidationMessageFor(m => m.MembershipUser.Email)
+                </div>
+            </div>
+            <div class="field">
+                <div class="label">
+                    @Html.Label("oldpass", "Old password")
+                </div>
+                <div class="input">
+                    @Html.TextBox("oldpass", null, new { @class = "textfield" })
+                </div>
+                <div class="validation">
+                </div>
+            </div>
+            <div class="field">
+                <div class="label">
+                    @Html.Label("newpass", "New password")
+                </div>
+                <div class="input">
+                    @Html.TextBox("newpass", null, new { @class = "textfield" })
+                </div>
+                <div class="validation">
+                </div>
+            </div>
+            <div class="field">
+                <div class="label">
+                    @Html.Label("newpass_confirm", "Confirm password")
+                </div>
+                <div class="input">
+                    @Html.TextBox("newpass_confirm", null, new { @class = "textfield" })
+                </div>
+                <div class="validation">
                 </div>
             </div>
         </div>

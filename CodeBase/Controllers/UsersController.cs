@@ -131,7 +131,7 @@ namespace CodeBase.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult EditSettings()
+        public ActionResult EditSettings(User user)
         {
             if (ModelState.IsValid)
             {
