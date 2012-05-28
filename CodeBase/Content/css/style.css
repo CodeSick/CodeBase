@@ -686,6 +686,8 @@ a:hover {
     text-align: center;
     font-size: 50px;
     height: 150px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
 }
 .home-banner-1 {
     width: 33%;
@@ -694,6 +696,11 @@ a:hover {
     line-height: 150px;
     background-color: #f0f0f0;
     border-radius: 5px;
+    cursor: pointer;
+}
+.home-banner-1:hover {
+    background-color: #3db8e8;
+	color:#fff;
 }
 .home-banner-2 {
     width: 34%;
@@ -701,6 +708,12 @@ a:hover {
     height: 150px;
     line-height: 150px;
     background-color: #f0f0f0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.home-banner-2:hover {
+    background-color: #3db8e8;
+	color:#fff;
 }
 .home-banner-3 {
     width: 33%;
@@ -709,6 +722,11 @@ a:hover {
     line-height: 150px;
     background-color: #f0f0f0;
     border-radius: 5px;
+    cursor: pointer;
+}
+.home-banner-3:hover {
+    background-color: #3db8e8;
+	color:#fff;
 }
 .home-layout {
     width: 100%;

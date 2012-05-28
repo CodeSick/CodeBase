@@ -3,9 +3,9 @@
     ViewBag.Title = "code.base";
 }
 <div class="home-banner">
-    <div class="home-banner-1">learn<span style="color:#3db8e8">.</span></div>
-    <div class="home-banner-2">innovate<span style="color:#3db8e8">.</span></div>
-    <div class="home-banner-3">share<span style="color:#3db8e8">.</span></div>
+    <div class="home-banner-1" onclick="location.href='@{string s1=Html.BuildUrlFromExpression<ArticlesController>(x=>x.Index());}@s1'">learn<span style="color:#3db8e8">.</span></div>
+    <div class="home-banner-2" onclick="location.href='@{string s2=Html.BuildUrlFromExpression<ArticlesController>(x => x.Create());}@s2'">innovate<span style="color:#3db8e8">.</span></div>
+    <div class="home-banner-3" onclick="location.href='@{string s3=Html.BuildUrlFromExpression<QuestionsController>(x => x.Index());}@s3'">share<span style="color:#3db8e8">.</span></div>
 </div>
 <div class="home-layout">
     <div class="home-row">
