@@ -4,19 +4,17 @@
 }
 @using CodeBase.Models
 @{
-    String urlTw = "http://codebase.apphb.com/Articles/"+Model.ArticleId;
-    String twText = "CodeBase Articles - " +  Model.Title;
+    String urlTw = "http://codebase.apphb.com/Articles/" + Model.ArticleId;
+    String twText = "CodeBase Articles - " + Model.Title;
 }
-<script>
-    var object = document.getElementById("twbutton")
-    object.setAttribute("data-url", 'http://www.google.com');
-</script>
+
 <h1 class="article">@Model.Title</h1>
 <div class="article-author">
-<a class="author"href="@{string UserUrl = Html.BuildUrlFromExpression<UsersController>(c => c.Details(Model.Author.UserId));}@UserUrl">@Html.DisplayTextFor(_ => Model.Author.Username).ToString()</a>
-@String.Format("{0:MMMM d, yyyy}", Model.Date)
-in
-<a href="@{string CategoryUrl = Html.BuildUrlFromExpression<CategoriesController>(c => c.Details(Model.Category.CategoryId));}@CategoryUrl"">@(Model.Category == null ? "None" : Model.Category.Title)</a>
+    <a class="author"href="@{string UserUrl = Html.BuildUrlFromExpression<UsersController>(c => c.Details(Model.Author.UserId));}@UserUrl">@Html.DisplayTextFor(_ => Model.Author.Username).ToString()
+    </a>
+    @String.Format("{0:MMMM d, yyyy}", Model.Date)
+    in <a href="@{string CategoryUrl = Html.BuildUrlFromExpression<CategoriesController>(c => c.Details(Model.Category.CategoryId));}@CategoryUrl"">@(Model.Category == null ? "None" : Model.Category.Title)
+    </a>
 </div>
 @Html.Partial("ArticleFull")
 @Html.Partial("RenderFiles", Model.Files)<br />
@@ -34,7 +32,7 @@ in
     <span id="trigger">@Html.Raw(mes + " to this article") </span>
     
     <div id="dialog-confirm" title="Un/Subscribe to this question ?">
-	    Subscribe to this article. If you already have a subscription, you will be unsubscribed
+        Subscribe to this article. If you already have a subscription, you will be unsubscribed
     </div>
     <div id="callbackMessage"></div>
     
@@ -69,11 +67,11 @@ in
     });
     </script>
 }
-
-<span onclick="postToFeed()"><img src="http://static.ivona.com/www/static/images/icons/share_facebook.png" /></span>&nbsp;
-<a href="https://twitter.com/share" class="twitter-share-button" data-text="@Html.Encode(twText)" data-url="@Html.Encode(urlTw)" data-hashtags="codebase">Tweet</a>
+<span onclick="postToFeed()">
+    <img src="http://static.ivona.com/www/static/images/icons/share_facebook.png" />
+</span>&nbsp; <a href="https://twitter.com/share" class="twitter-share-button" id="twbutton" data-text="@Html.Encode(twText)" data-url="@Html.Encode(urlTw)" data-hashtags="codebase">
+    Tweet</a>
 <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
-
 <script type="text/javascript">
     function postToFeed() {
         var url = '@Request.Url.AbsoluteUri'
@@ -95,23 +93,24 @@ in
   });
     }
 </script>
-
 @Html.Partial("Comments", Model.Comments)
 @if (User.Identity.IsAuthenticated)
 {
     using (Html.BeginForm(new { action = "AddComment" }))
     {
-        <div class="comment-post">
-            <h1>Leave a comment</h1>
-            <div class="comment-post-textarea-container">
-                @Html.ValidationSummary(true)
-                @Html.Partial("_CommentCreate", new Comment { ArticleId = Model.ArticleId })
-            </div>
-            <div class="buttons">
-                <input type="submit" class="button" value="Post comment"/>
-            </div>
+    <div class="comment-post">
+        <h1>Leave a comment</h1>
+        <div class="comment-post-textarea-container">
+            @Html.ValidationSummary(true)
+            @Html.Partial("_CommentCreate", new Comment { ArticleId = Model.ArticleId })
         </div>
+        <div class="buttons">
+            <input type="submit" class="button" value="Post comment" />
+        </div>
+    </div>
     }
 }
 @Html.ActionLink("Back to List", "Index")
-<a href="@(Url.Action("Pdf", new {id=Model.ArticleId}))"><img src="http://www.ibo.org/img/imagebank/pdf-download.gif" width="20" height="20"></a>
+<a href="@(Url.Action("Pdf", new { id = Model.ArticleId }))">
+    <img src="http://www.ibo.org/img/imagebank/pdf-download.gif" width="20" height="20">
+</a>
