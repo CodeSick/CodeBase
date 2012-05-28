@@ -120,9 +120,26 @@ namespace CodeBase.Controllers
         //
         // GET: /Users/Settings
 
+        [Authorize]
         public ViewResult Settings()
         {
-            return View();
+            return View(context.Users.Single(x => x.Username == HttpContext.User.Identity.Name));
+        }
+
+        //
+        // POST: /Users/EditSettings
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditSettings()
+        {
+            if (ModelState.IsValid)
+            {
+                context.Entry(user).State = EntityState.Modified;
+                context.SaveChanges();
+                return RedirectToAction("Details/" + user.UserId);
+            }
+            return View(user);
         }
     }
 }

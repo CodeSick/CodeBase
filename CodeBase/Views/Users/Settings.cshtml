@@ -1,23 +1,38 @@
 ﻿@model CodeBase.Models.User
 @{
-    ViewBag.Title = "Settings";
+    ViewBag.Title = "My Settings";
 }
-
-<h1>My Profile</h1>
-<div class="profile">
-    <div class="profile-avatar">
-    @Html.Gravatar(Membership.GetUser().Email, 120, new { Title = "My Gravatar", Alt = "Gravatar" })
+@using (Html.BeginForm("EditSettings","Users"))
+{
+    @Html.HiddenFor(m => m.UserId)
+    <div class="input-form-title">My Settings</div>
+    <div class="input-form">
+        <div class="body">
+            <div class="field">
+                <div class="label">
+                    @Html.LabelFor(m => m.Username)
+                </div>
+                <div class="input">
+                    @Html.TextBoxFor(m => m.Username, new { @class = "textfield" })
+                </div>
+                <div class="validation">
+                    @Html.ValidationMessageFor(m => m.Username)
+                </div>
+            </div>
+            <div class="field">
+                <div class="label">
+                    @Html.LabelFor(m => m.MembershipUser.Email)
+                </div>
+                <div class="input">
+                    @Html.TextBoxFor(m => m.MembershipUser.Email, new {@class="textfield"})
+                </div>
+                <div class="validation">
+                    @Html.ValidationMessageFor(m => m.MembershipUser.Email)
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            <input type="submit" class="button " value="Submit" />
+        </div>
     </div>
-    <div class="profile-info">
-        <div class="profile-info-label">Username</div>
-        <div class="profile-info-text">@Membership.GetUser().UserName</div>
-        <div class="profile-info-label">Emai<la/div>
-        <div class="profile-info-text">@Membership.GetUser().UserName</div>
-        <div class="profile-info-label">Username</div>
-        <div class="profile-info-text">@Membership.GetUser().UserName</div>
-        <div class="profile-info-label">Username</div>
-        <div class="profile-info-text">@Membership.GetUser().UserName</div>
-        <div class="profile-info-label">Username</div>
-        <div class="profile-info-text">@Membership.GetUser().UserName</div>
-    </div>
-</div>
+}

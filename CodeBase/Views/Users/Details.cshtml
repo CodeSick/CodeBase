@@ -48,36 +48,3 @@
     <text>|</text>
 }
 @Html.ActionLink("Back to List", "Index")
-<!--<fieldset>
-    <legend>User</legend>
-    @Html.Gravatar(Model.MembershipUser.Email, 80, new { Title = "My Gravatar", Alt = "Gravatar" })
-    <div class="display-label">Username</div>
-    <div class="display-field">@Model.Username</div>
-    <div class="display-label">Gravatar</div>
-    <div class="display-field">@Model.Gravatar</div>
-    <div class="display-label">JoinDate</div>
-    <div class="display-field">@String.Format("{0:d/M/yyyy}", Model.JoinDate)</div>
-    <div class="display-label">Articles</div>
-    <div class="display-field">@(Model.Articles == null ? "None" : Model.Articles.Count.ToString())
-    </div>
-    <div class="display-label">Ratings</div>
-    <div class="display-field">@(Model.Ratings == null ? "None" : Model.Ratings.Count.ToString())
-    </div>
-    <div class="display-label">Comments</div>
-    <div class="display-field">@(Model.Comments == null ? "None" : Model.Comments.Count.ToString())
-    </div>
-    <div class="display-label">Answers</div>
-    <div class="display-field">@(Model.Answers == null ? "None" : Model.Answers.Count.ToString())
-    </div>
-    <div class="display-label">Questions</div>
-    <div class="display-field">@(Model.Questions == null ? "None" : Model.Questions.Count.ToString())
-    </div>
-</fieldset>
-<p>
-    @if (ModelHelpers.isAdmin())
-    {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.UserId })
-        <text>|</text>
-    }
-    @Html.ActionLink("Back to List", "Index")
-</p>-->

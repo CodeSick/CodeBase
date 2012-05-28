@@ -56,7 +56,8 @@
                             <li onclick="location.href='@UserProfileUrl'">My Profile</li>
                             @{string MyArticlesUrl = Html.BuildUrlFromExpression<ArticlesController>(x => x.ByUser(((User)Session["user"]).UserId));}
                             <li onclick="location.href='@MyArticlesUrl'">My Articles</li>
-                            <li>Settings</li>
+                            @{string MySettingsUrl = Html.BuildUrlFromExpression<UsersController>(x => x.Settings());}
+                            <li onclick="location.href='@MySettingsUrl'">My Settings</li>
                             @{string LogOffUrl = Html.BuildUrlFromExpression<AccountController>(c => c.LogOff());}
                             <li class="last" id="logout" onclick="location.href='@LogOffUrl'">Sign out</li>
                         </ul>
