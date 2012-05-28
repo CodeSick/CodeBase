@@ -68,6 +68,9 @@
     <Reference Include="MvcContrib.TestHelper">
       <HintPath>..\packages\MvcContrib.Mvc3.TestHelper-ci.3.0.100.0\lib\MvcContrib.TestHelper.dll</HintPath>
     </Reference>
+    <Reference Include="Premotion.AspNet.AppHarbor.Integration">
+      <HintPath>..\packages\Premotion.AspNet.AppHarbor.Integration.0.4.0\lib\net40\Premotion.AspNet.AppHarbor.Integration.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp">
       <HintPath>..\packages\DropNet.1.9.3\lib\net35\RestSharp.dll</HintPath>
     </Reference>
