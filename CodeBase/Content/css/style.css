@@ -681,7 +681,75 @@ a:hover {
     margin-left: 15px;
     display: inline-block;
 }
-
+.home-banner {
+    width: 100%;
+    text-align: center;
+    font-size: 50px;
+    height: 150px;
+}
+.home-banner-1 {
+    width: 33%;
+    float: left;
+    height: 150px;
+    line-height: 150px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+.home-banner-2 {
+    width: 34%;
+    float: left;
+    height: 150px;
+    line-height: 150px;
+    background-color: #f0f0f0;
+}
+.home-banner-3 {
+    width: 33%;
+    float: left;
+    height: 150px;
+    line-height: 150px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+.home-layout {
+    width: 100%;
+    margin: 20px 0 0 0;
+}
+.home-row {
+    height: 200px;
+}
+.home-section-1 {
+    background-color:#f0f0f0;
+    width: 440px;
+    float: left;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.home-section-2 {
+    background-color:#f0f0f0;
+    width: 440px;
+    margin-left: 20px;
+    float: left;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.home-layout table {
+    width: 410px;
+    margin: 15px;  
+}
+.home-layout a {
+    color: #333333;
+}
+.home-layout table td {
+    border: none;
+}
+.home-layout table td:hover {
+    background-color: #3db8e8;
+}
+.home-layout table th {
+        color: #3db8e8;
+    border: none; 
+    background-color: transparent;
+}
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
 

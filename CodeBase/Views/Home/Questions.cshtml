@@ -1,18 +1,13 @@
 ﻿@model IEnumerable<CodeBase.ViewModel.QuestionsWithCount>
-<p>
-Most popular questions
-</p>
 <table>
     <tr>
         <th>
-            Question
+            Popular Questions
         </th>
         <th>
             Answers
         </th>
     </tr>
-
-
 @foreach (var item in Model) {
     <tr>
         <td>

@@ -1,10 +1,8 @@
 ﻿@model IEnumerable<CodeBase.Models.Article>
-
-Latest articles
 <table>
     <tr>
         <th>
-            Title
+            Latest articles
         </th>
         <th>
             Date
@@ -13,8 +11,7 @@ Latest articles
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            
+        <td> 
             @(Html.ActionLink<ArticlesController>(x => x.Details(item.ArticleId, Url.ToFriendlyUrl(item.Title)), item.Title))
         </td>
         <td>

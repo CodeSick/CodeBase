@@ -2,7 +2,33 @@
 @{
     ViewBag.Title = "code.base";
 }
-<h1 class="border">The place for code</h1>
+<div class="home-banner">
+    <div class="home-banner-1">learn<span style="color:#3db8e8">.</span></div>
+    <div class="home-banner-2">innovate<span style="color:#3db8e8">.</span></div>
+    <div class="home-banner-3">share<span style="color:#3db8e8">.</span></div>
+</div>
+<div class="home-layout">
+    <div class="home-row">
+        <div class="home-section-1">
+            @Html.Partial("~/Views/Articles/ArticleShort.cshtml", Model.Articles)
+        </div>
+        <div class="home-section-2">
+            @Html.Partial("Questions", Model.Questions)
+        </div>
+    </div>
+</div>
+<div class="home-layout">
+    <div class="home-row">
+        <div class="home-section-1">
+            @Html.Partial("ActiveUsers", Model.Users)
+        </div>
+        <div class="home-section-2">
+            @Html.Partial("ArticleRating", Model.ArticlesRating)
+        </div>
+    </div>
+</div>
+<div class="push"></div>
+<!--
 <div class="latest">
     <h3>Latest question:</h3>
     <div class="question-author">
@@ -21,4 +47,4 @@
     @Html.Partial("ActiveUsers", Model.Users)
     @Html.Partial("Questions", Model.Questions)
     @Html.Partial("ArticleRating", Model.ArticlesRating)
-</div>
+</div>-->
