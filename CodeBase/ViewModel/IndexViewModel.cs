@@ -13,6 +13,7 @@ namespace CodeBase.ViewModel
         public IEnumerable<UserWithCount> Users { get; set; }
         public IEnumerable<QuestionsWithCount> Questions { get; set; }
         public IEnumerable<ArticleRating> ArticlesRating { get; set; }
+        public Question question { get; set; }
     }
 
     public class UserWithCount

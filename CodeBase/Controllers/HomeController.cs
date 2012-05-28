@@ -21,7 +21,8 @@ namespace CodeBase.Controllers
                 Articles = context.Articles.Where(x => x.Approved==true).Take(5).ToList().OrderByDescending(x => x.Date),
                 Users= context.Users.OrderByDescending(x => x.Articles.Count).Take(5).Select(x => new UserWithCount{ User=x, Count=x.Articles.Count}).ToList(),
                 Questions = context.Questions.OrderByDescending(x => x.Answers.Count).Take(5).Select(x => new QuestionsWithCount{ Question = x, Count = x.Answers.Count }).ToList(),
-                ArticlesRating = context.Articles.OrderByDescending(x => x.Ratings.Sum( r => r.Value)/ x.Ratings.Count).Select(x => new ArticleRating { Article = x }).Take(5).ToList()
+                ArticlesRating = context.Articles.OrderByDescending(x => x.Ratings.Sum( r => r.Value)/ x.Ratings.Count).Select(x => new ArticleRating { Article = x }).Take(5).ToList(),
+                question=context.Questions.OrderByDescending(x => x.Date).First()
             };
             
             return View("Index",model);

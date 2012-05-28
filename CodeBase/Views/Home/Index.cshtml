@@ -1,13 +1,24 @@
 ﻿@model CodeBase.ViewModel.IndexViewModel
-
 @{
     ViewBag.Title = "code.base";
 }
 <h1 class="border">The place for code</h1>
-
+<div class="latest">
+    <h3>Latest question:</h3>
+    <div class="question-author">
+        <a class="author"href="@{string UserUrl = Html.BuildUrlFromExpression<UsersController>(c => c.Details(Model.question.Author.UserId));}@UserUrl">@Html.DisplayTextFor(_ => Model.question.Author.Username).ToString()
+        </a>
+        @String.Format("{0:MMMM d, yyyy}", Model.question.Date)
+    </div>
+    <div class="question-content">
+        @Html.Raw(BBCodeHelper.Format(@Model.question.Content))
+    </div>
+@(Html.ActionLink<QuestionsController>(x => x.Details(Model.question.QuestionId), "Answer"))
+</div>
+<br>
 <div style="display: inline">
-@Html.Partial("~/Views/Articles/ArticleShort.cshtml", Model.Articles)
-@Html.Partial("ActiveUsers", Model.Users)
-@Html.Partial("Questions", Model.Questions)
-@Html.Partial("ArticleRating", Model.ArticlesRating)
+    @Html.Partial("~/Views/Articles/ArticleShort.cshtml", Model.Articles)
+    @Html.Partial("ActiveUsers", Model.Users)
+    @Html.Partial("Questions", Model.Questions)
+    @Html.Partial("ArticleRating", Model.ArticlesRating)
 </div>

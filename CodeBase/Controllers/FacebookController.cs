@@ -72,7 +72,7 @@ namespace CodeBase.Controllers
                 {
                     //login user with fb account
                     FormsAuthentication.SetAuthCookie(u.Username, true);
-                    Session["user"] = context.Users.Where(x => x.Username == model.UserName).ToList().FirstOrDefault();
+                    Session["user"] = context.Users.Where(x => x.Username == u.Username).ToList().FirstOrDefault();
                     
                     return u.Username;
                 }
