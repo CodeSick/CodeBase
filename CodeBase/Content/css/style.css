@@ -508,9 +508,9 @@ a:hover {
     font-weight: bold;
     color: #fff;
     background-image: -webkit-linear-gradient(top, #2db5ea, #2493bf);
-	background-image: -moz-linear-gradient(top, #fafafa, #f0f0f0);
-	background-image: -ms-linear-gradient(top, #fafafa, #f0f0f0);
-	background-image: -o-linear-gradient(top, #fafafa, #f0f0f0);
+	background-image: -moz-linear-gradient(top, #2db5ea, #2493bf);
+	background-image: -ms-linear-gradient(top, #2db5ea, #2493bf);
+	background-image: -o-linear-gradient(top, #2db5ea, #2493bf);
 }
 
 .login-box .label-remember {
